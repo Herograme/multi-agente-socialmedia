@@ -1,6 +1,8 @@
 /**
  * Pipeline API Routes
  * REST endpoints for pipeline orchestration
+ *
+ * Extended for Story 4.7 - Full Pipeline End-to-End
  */
 
 import { FastifyInstance, FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
@@ -15,7 +17,18 @@ import {
   type VisualPipelineRunResponse,
   type VisualPipelineStatusResponse,
 } from '../services/visual-pipeline.service';
-import { PipelineStatus, type VisualPipelineOptions } from '@social-content/agents';
+import {
+  getFullPipelineService,
+  type FullPipelineRunResponse,
+  type FullPipelineStatusResponse,
+} from '../services/full-pipeline.service';
+import {
+  PipelineStatus,
+  type VisualPipelineOptions,
+  type FullPipelineInput,
+  type FullPipelineOptions,
+  type ExecutionStatus,
+} from '@social-content/agents';
 
 /**
  * Request body for POST /api/pipeline/research-curate
@@ -466,6 +479,239 @@ export const pipelineRoutes: FastifyPluginAsync = async (fastify: FastifyInstanc
       });
     }
   });
+
+  // ============================================
+  // Full Pipeline Routes (Story 4.7)
+  // ============================================
+
+  const fullPipelineService = getFullPipelineService();
+
+  /**
+   * POST /api/pipeline/run
+   * Start the full content generation pipeline
+   */
+  fastify.post<{
+    Body: FullPipelineBody;
+    Reply: FullPipelineRunResponse | ErrorResponse;
+  }>('/api/pipeline/run', async (
+    request: FastifyRequest<{ Body: FullPipelineBody }>,
+    reply: FastifyReply
+  ) => {
+    const { sources, filters, options } = request.body || {};
+
+    request.log.info({ options }, 'Starting full pipeline execution');
+
+    // Validate numPosts
+    if (options?.numPosts !== undefined) {
+      if (options.numPosts < 1 || options.numPosts > 10) {
+        return reply.status(400).send({
+          error: {
+            code: 'INVALID_NUM_POSTS',
+            message: 'numPosts must be between 1 and 10',
+            timestamp: new Date().toISOString(),
+          },
+        });
+      }
+    }
+
+    // Validate qualityThreshold
+    if (options?.qualityThreshold !== undefined) {
+      if (options.qualityThreshold < 0 || options.qualityThreshold > 10) {
+        return reply.status(400).send({
+          error: {
+            code: 'INVALID_QUALITY_THRESHOLD',
+            message: 'qualityThreshold must be between 0 and 10',
+            timestamp: new Date().toISOString(),
+          },
+        });
+      }
+    }
+
+    // Validate carouselSlides
+    if (options?.carouselSlides !== undefined) {
+      if (options.carouselSlides < 1 || options.carouselSlides > 10) {
+        return reply.status(400).send({
+          error: {
+            code: 'INVALID_CAROUSEL_SLIDES',
+            message: 'carouselSlides must be between 1 and 10',
+            timestamp: new Date().toISOString(),
+          },
+        });
+      }
+    }
+
+    try {
+      const input: FullPipelineInput = { sources, filters };
+      const pipelineOptions: FullPipelineOptions = options || {};
+
+      const result = await fullPipelineService.startFullPipeline(input, pipelineOptions);
+
+      request.log.info({ executionId: result.executionId }, 'Full pipeline started');
+
+      return reply.status(202).send(result);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      request.log.error({ error: errorMessage }, 'Failed to start full pipeline');
+
+      return reply.status(500).send({
+        error: {
+          code: 'PIPELINE_START_ERROR',
+          message: `Failed to start full pipeline: ${errorMessage}`,
+          timestamp: new Date().toISOString(),
+        },
+      });
+    }
+  });
+
+  /**
+   * GET /api/pipeline/status/:executionId
+   * Get the status of a full pipeline execution
+   */
+  fastify.get<{
+    Params: ExecutionIdParams;
+    Reply: FullPipelineStatusResponse | ErrorResponse;
+  }>('/api/pipeline/status/:executionId', async (
+    request: FastifyRequest<{ Params: ExecutionIdParams }>,
+    reply: FastifyReply
+  ) => {
+    const { executionId } = request.params;
+
+    request.log.debug({ executionId }, 'Fetching full pipeline status');
+
+    const status = await fullPipelineService.getStatus(executionId);
+
+    if (!status) {
+      return reply.status(404).send({
+        error: {
+          code: 'EXECUTION_NOT_FOUND',
+          message: `Execution not found: ${executionId}`,
+          timestamp: new Date().toISOString(),
+        },
+      });
+    }
+
+    return reply.status(200).send(status);
+  });
+
+  /**
+   * POST /api/pipeline/executions/:executionId/cancel
+   * Cancel a running full pipeline execution
+   */
+  fastify.post<{
+    Params: ExecutionIdParams;
+    Reply: { executionId: string; status: string; message: string } | ErrorResponse;
+  }>('/api/pipeline/executions/:executionId/cancel', async (
+    request: FastifyRequest<{ Params: ExecutionIdParams }>,
+    reply: FastifyReply
+  ) => {
+    const { executionId } = request.params;
+
+    request.log.info({ executionId }, 'Cancelling full pipeline');
+
+    const result = await fullPipelineService.cancel(executionId);
+
+    if (!result.success) {
+      if (result.error === 'not_found') {
+        return reply.status(404).send({
+          error: {
+            code: 'EXECUTION_NOT_FOUND',
+            message: `Execution not found: ${executionId}`,
+            timestamp: new Date().toISOString(),
+          },
+        });
+      }
+
+      if (result.error === 'not_running') {
+        return reply.status(400).send({
+          error: {
+            code: 'EXECUTION_NOT_RUNNING',
+            message: `Execution is not running: ${executionId}`,
+            timestamp: new Date().toISOString(),
+          },
+        });
+      }
+    }
+
+    return reply.status(200).send({
+      executionId,
+      status: 'cancelled',
+      message: 'Execution cancelled successfully',
+    });
+  });
+
+  /**
+   * GET /api/pipeline/executions
+   * Get all executions with optional filters
+   */
+  fastify.get<{
+    Querystring: {
+      status?: ExecutionStatus;
+      limit?: number;
+      offset?: number;
+    };
+    Reply: FullPipelineStatusResponse[] | ErrorResponse;
+  }>('/api/pipeline/executions', async (
+    request: FastifyRequest<{
+      Querystring: {
+        status?: ExecutionStatus;
+        limit?: number;
+        offset?: number;
+      };
+    }>,
+    reply: FastifyReply
+  ) => {
+    const { status, limit, offset } = request.query;
+
+    request.log.debug({ status, limit, offset }, 'Fetching executions');
+
+    try {
+      const executions = await fullPipelineService.getAllExecutions({
+        status,
+        limit,
+        offset,
+      });
+
+      return reply.status(200).send(executions);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      request.log.error({ error: errorMessage }, 'Failed to fetch executions');
+
+      return reply.status(500).send({
+        error: {
+          code: 'FETCH_ERROR',
+          message: `Failed to fetch executions: ${errorMessage}`,
+          timestamp: new Date().toISOString(),
+        },
+      });
+    }
+  });
+
+  /**
+   * GET /api/pipeline/executions/stats
+   * Get execution statistics
+   */
+  fastify.get<{
+    Reply: { stats: Record<string, unknown> } | ErrorResponse;
+  }>('/api/pipeline/executions/stats', async (
+    _request: FastifyRequest,
+    reply: FastifyReply
+  ) => {
+    try {
+      const stats = await fullPipelineService.getStats();
+
+      return reply.status(200).send({ stats });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+      return reply.status(500).send({
+        error: {
+          code: 'STATS_ERROR',
+          message: `Failed to fetch stats: ${errorMessage}`,
+          timestamp: new Date().toISOString(),
+        },
+      });
+    }
+  });
 };
 
 /**
@@ -482,3 +728,33 @@ interface VisualPipelineBody {
   options?: VisualPipelineOptions;
 }
 
+/**
+ * Request body for POST /api/pipeline/run
+ */
+interface FullPipelineBody {
+  sources?: {
+    devto?: boolean;
+    hackernews?: boolean;
+    reddit?: boolean;
+  };
+  filters?: {
+    minEngagement?: number;
+    maxAge?: number;
+    keywords?: string[];
+  };
+  options?: {
+    numPosts?: number;
+    platforms?: 'instagram' | 'linkedin' | 'both';
+    includeVisual?: boolean;
+    qualityThreshold?: number;
+    carouselSlides?: number;
+    backgroundStyle?: 'abstract' | 'gradient' | 'tech' | 'minimal';
+  };
+}
+
+/**
+ * Route params for execution endpoints
+ */
+interface ExecutionIdParams {
+  executionId: string;
+}
