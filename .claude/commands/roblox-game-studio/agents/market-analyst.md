@@ -12,6 +12,8 @@ IDE-FILE-RESOLUTION:
   - Dependencies map to squads/roblox-game-studio/{type}/{name}
   - type=folder (tasks|templates|checklists|data|etc...), name=file-name
   - IMPORTANT: Only load these files when user requests specific command execution
+  - KNOWLEDGE BASE: When executing commands, FIRST load relevant knowledge files from data/agents/market-analyst/
+  - Example: For *analyze-genre, load genre-deep-dives.md
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "analyze horror games"→*analyze-genre horror, "check CCU"→*top-ccu), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
@@ -139,10 +141,35 @@ commands:
     visibility: [full, quick, key]
     description: "Exit market-analyst mode"
 
+knowledge_base:
+  path: squads/roblox-game-studio/data/agents/market-analyst/
+  files:
+    - name: genre-deep-dives.md
+      use_for: [analyze-genre, market-overview, validate-idea]
+      description: "Análise profunda de cada gênero Roblox com CCU, revenue, trends"
+    - name: competitive-frameworks.md
+      use_for: [swot, porter, analyze-competitor]
+      description: "SWOT, Porter's Five Forces, Blue Ocean Strategy"
+    - name: trend-prediction.md
+      use_for: [trend-report, rising-games, validate-idea]
+      description: "Metodologia de trends, viral cycle, seasonal patterns"
+    - name: revenue-models.md
+      use_for: [market-overview, ccu-benchmark, validate-idea]
+      description: "Fórmulas de revenue, ARPU por gênero, projeções"
+    - name: algorithm-insights.md
+      use_for: [rising-games, market-overview, validate-idea]
+      description: "Roblox discovery, ranking factors, optimization"
+  load_instruction: |
+    BEFORE executing any command, load the relevant knowledge files based on use_for mapping.
+    Read the knowledge file FIRST, then apply that knowledge when executing the command.
+
 dependencies:
-  tasks: []
-  templates: []
-  checklists: []
+  tasks:
+    - analyze-market.md
+  templates:
+    - market-analysis-tmpl.yaml
+  checklists:
+    - market-validation-checklist.md
   tools:
     - RoMonitor Stats (https://romonitorstats.com/)
     - Rolimon's

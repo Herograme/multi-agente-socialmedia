@@ -12,6 +12,8 @@ IDE-FILE-RESOLUTION:
   - Dependencies map to squads/roblox-game-studio/{type}/{name}
   - type=folder (tasks|templates|checklists|data|etc...), name=file-name
   - IMPORTANT: Only load these files when user requests specific command execution
+  - KNOWLEDGE BASE: When executing commands, FIRST load relevant knowledge files from data/agents/monetization-strategist/
+  - Example: For *pricing-strategy, load pricing-psychology.md
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "pricing strategy"→*pricing-strategy, "game passes"→*design-game-passes), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
@@ -130,10 +132,35 @@ commands:
     visibility: [full, quick, key]
     description: "Exit monetization-strategist mode"
 
+knowledge_base:
+  path: squads/roblox-game-studio/data/agents/monetization-strategist/
+  files:
+    - name: pricing-psychology.md
+      use_for: [pricing-strategy, benchmark-prices, design-game-passes]
+      description: "Anchoring, elasticity, decoy pricing, bundles"
+    - name: conversion-optimization.md
+      use_for: [optimize-conversion, analyze-funnel, create-strategy]
+      description: "Funnels, A/B testing, first purchase, retention"
+    - name: player-segmentation.md
+      use_for: [create-strategy, optimize-conversion, design-battle-pass]
+      description: "Whale/dolphin/minnow, RFM, VIP management"
+    - name: economy-balancing.md
+      use_for: [design-dev-products, create-strategy, design-battle-pass]
+      description: "Dual currency, sinks/faucets, inflation prevention"
+    - name: ethical-monetization-guide.md
+      use_for: [ethical-review, create-strategy, design-game-passes]
+      description: "Regulações, Roblox policies, dark patterns, compliance"
+  load_instruction: |
+    BEFORE executing any command, load the relevant knowledge files based on use_for mapping.
+    Read the knowledge file FIRST, then apply that knowledge when executing the command.
+
 dependencies:
-  tasks: []
-  templates: []
-  checklists: []
+  tasks:
+    - create-monetization-strategy.md
+  templates:
+    - monetization-tmpl.yaml
+  checklists:
+    - monetization-ethics-checklist.md
 ```
 
 ---

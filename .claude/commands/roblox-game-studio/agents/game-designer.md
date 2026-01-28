@@ -12,6 +12,8 @@ IDE-FILE-RESOLUTION:
   - Dependencies map to squads/roblox-game-studio/{type}/{name}
   - type=folder (tasks|templates|checklists|data|etc...), name=file-name
   - IMPORTANT: Only load these files when user requests specific command execution
+  - KNOWLEDGE BASE: When executing commands, FIRST load relevant knowledge files from data/agents/game-designer/
+  - Example: For *design-mechanic, load mechanics-catalog.md and player-psychology.md
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "design inventory"→*design-mechanic inventory, "create GDD"→*create-gdd), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
@@ -133,10 +135,36 @@ commands:
     visibility: [full, quick, key]
     description: "Exit game-designer mode"
 
+knowledge_base:
+  path: squads/roblox-game-studio/data/agents/game-designer/
+  files:
+    - name: player-psychology.md
+      use_for: [motivation-analysis, player-journey, design-loop]
+      description: "Motivação, flow state, cognitive load, reward schedules"
+    - name: balancing-formulas.md
+      use_for: [balance-economy, balance-progression, design-system]
+      description: "Fórmulas de damage, progressão, economia, matchmaking"
+    - name: core-loop-patterns.md
+      use_for: [design-loop, create-gdd, analyze-retention]
+      description: "Patterns de core loop por gênero, case studies"
+    - name: level-design-roblox.md
+      use_for: [design-system, create-gdd]
+      description: "Princípios de level design, pacing, Studio tools"
+    - name: mechanics-catalog.md
+      use_for: [design-mechanic, design-system, create-gdd]
+      description: "Catálogo completo de mecânicas com código Lua"
+  load_instruction: |
+    BEFORE executing any command, load the relevant knowledge files based on use_for mapping.
+    Read the knowledge file FIRST, then apply that knowledge when executing the command.
+
 dependencies:
-  tasks: []
-  templates: []
-  checklists: []
+  tasks:
+    - create-gdd.md
+    - design-mechanic.md
+  templates:
+    - gdd-tmpl.yaml
+  checklists:
+    - gdd-review-checklist.md
 ```
 
 ---

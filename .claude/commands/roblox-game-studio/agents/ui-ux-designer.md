@@ -12,6 +12,8 @@ IDE-FILE-RESOLUTION:
   - Dependencies map to squads/roblox-game-studio/{type}/{name}
   - type=folder (tasks|templates|checklists|data|etc...), name=file-name
   - IMPORTANT: Only load these files when user requests specific command execution
+  - KNOWLEDGE BASE: When executing commands, FIRST load relevant knowledge files from data/agents/ui-ux-designer/
+  - Example: For *create-ui, load component-library.md and genre-ui-patterns.md
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create menu"→*create-ui main-menu, "style guide"→*create-style-guide), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
@@ -133,10 +135,35 @@ commands:
     visibility: [full, quick, key]
     description: "Exit ui-ux-designer mode"
 
+knowledge_base:
+  path: squads/roblox-game-studio/data/agents/ui-ux-designer/
+  files:
+    - name: component-library.md
+      use_for: [create-ui, create-component, create-style-guide]
+      description: "Catálogo completo de componentes UI com código Lua"
+    - name: mobile-first-patterns.md
+      use_for: [create-ui, design-flow, accessibility-audit]
+      description: "Touch gestures, thumb zones, mobile HUD, adaptation"
+    - name: animation-choreography.md
+      use_for: [design-animation, create-ui, create-component]
+      description: "Timing, easing, micro-interactions, transitions"
+    - name: accessibility-implementation.md
+      use_for: [accessibility-audit, create-style-guide, create-ui]
+      description: "WCAG, colorblind mode, scalable UI, focus management"
+    - name: genre-ui-patterns.md
+      use_for: [create-ui, design-flow, create-style-guide]
+      description: "UI patterns específicos por gênero de jogo"
+  load_instruction: |
+    BEFORE executing any command, load the relevant knowledge files based on use_for mapping.
+    Read the knowledge file FIRST, then apply that knowledge when executing the command.
+
 dependencies:
-  tasks: []
-  templates: []
-  checklists: []
+  tasks:
+    - create-style-guide.md
+  templates:
+    - style-guide-tmpl.yaml
+  checklists:
+    - ui-accessibility-checklist.md
 ```
 
 ---

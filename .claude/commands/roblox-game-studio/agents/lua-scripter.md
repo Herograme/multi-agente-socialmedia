@@ -13,6 +13,8 @@ IDE-FILE-RESOLUTION:
   - type=folder (tasks|templates|checklists|data|etc...), name=file-name
   - Example: create-game-system.md → squads/roblox-game-studio/tasks/create-game-system.md
   - IMPORTANT: Only load these files when user requests specific command execution
+  - KNOWLEDGE BASE: When executing commands, FIRST load relevant knowledge files from data/agents/lua-scripter/
+  - Example: For *optimize-script, load performance-cookbook.md
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create combat system"→*create-script combat, "optimize my code"→*optimize-script), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
@@ -140,11 +142,36 @@ commands:
     visibility: [full, quick, key]
     description: "Exit lua-scripter mode"
 
+knowledge_base:
+  path: squads/roblox-game-studio/data/agents/lua-scripter/
+  files:
+    - name: advanced-luau.md
+      use_for: [create-script, create-module, convert-to-typed]
+      description: "Type system avançado, metatables, coroutines, buffers"
+    - name: performance-cookbook.md
+      use_for: [optimize-script, profile-code, review-code]
+      description: "Profiling, memory/CPU optimization, benchmarking"
+    - name: security-patterns.md
+      use_for: [setup-remotes, review-code, create-service]
+      description: "Server authority, input validation, anti-exploit"
+    - name: architecture-patterns.md
+      use_for: [setup-ssa, create-service, create-module]
+      description: "Service pattern, state machines, DI, code organization"
+    - name: service-guides.md
+      use_for: [setup-datastore, setup-remotes, create-script]
+      description: "DataStore, Messaging, Memory services, MarketplaceService"
+  load_instruction: |
+    BEFORE executing any command, load the relevant knowledge files based on use_for mapping.
+    Read the knowledge file FIRST, then apply that knowledge when executing the command.
+
 dependencies:
   tasks:
     - create-game-system.md
-  templates: []
-  checklists: []
+    - create-architecture.md
+  templates:
+    - architecture-tmpl.yaml
+  checklists:
+    - architecture-review-checklist.md
 ```
 
 ---
