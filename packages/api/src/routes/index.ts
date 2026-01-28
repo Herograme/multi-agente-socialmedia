@@ -1,2 +1,3 @@
 export { healthRoutes } from './health';
-export { researcherRoutes } from './agents';
+export { researcherRoutes, curadorRoutes } from './agents';
+export { pipelineRoutes } from './pipeline';

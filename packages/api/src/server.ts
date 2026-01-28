@@ -1,7 +1,8 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
 import { healthRoutes } from './routes/health';
-import { researcherRoutes } from './routes/agents';
+import { researcherRoutes, curadorRoutes } from './routes/agents';
+import { pipelineRoutes } from './routes/pipeline';
 import { errorHandler } from './middleware/error-handler';
 
 export interface ServerOptions {
@@ -39,6 +40,8 @@ export async function createServer(options: ServerOptions = {}): Promise<Fastify
   // Register routes
   await fastify.register(healthRoutes);
   await fastify.register(researcherRoutes);
+  await fastify.register(curadorRoutes);
+  await fastify.register(pipelineRoutes);
 
   return fastify;
 }

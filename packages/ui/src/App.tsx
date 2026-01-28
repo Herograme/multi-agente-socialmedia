@@ -7,6 +7,8 @@ import { Posts } from './routes/Posts';
 import { History } from './routes/History';
 import { Settings } from './routes/Settings';
 import { Trends } from './routes/Trends';
+import { Curated } from './routes/Curated';
+import { Pipeline } from './routes/Pipeline';
 
 // Create a client with default options
 const queryClient = new QueryClient({
@@ -30,6 +32,8 @@ export function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="trends" element={<Trends />} />
+            <Route path="curated" element={<Curated />} />
+            <Route path="pipeline" element={<Pipeline />} />
             <Route path="execution" element={<Execution />} />
             <Route path="posts" element={<Posts />} />
             <Route path="history" element={<History />} />
