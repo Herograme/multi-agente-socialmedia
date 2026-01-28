@@ -1,4 +1,12 @@
-import type { Trend, CuratedContent, CuratedContentType } from '@social-content/shared';
+import type {
+  Trend,
+  CuratedContent,
+  CuratedContentType,
+  ExecutionWithDuration,
+  ExecutionWithPosts,
+  ExecutionStats,
+  ExecutionFilters,
+} from '@social-content/shared';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
@@ -168,4 +176,53 @@ export const api = {
     request<PipelineRunResponse>(`/api/pipeline/${pipelineId}/retry`, {
       method: 'POST',
     }),
+
+  // Executions (History) - Story 4.8
+  getExecutions: (filters: ExecutionFilters) => {
+    const params = new URLSearchParams();
+    params.set('period', filters.period);
+    if (filters.status !== 'all') {
+      params.set('status', filters.status);
+    }
+    if (filters.startDate) {
+      params.set('startDate', filters.startDate);
+    }
+    if (filters.endDate) {
+      params.set('endDate', filters.endDate);
+    }
+    return request<{ executions: ExecutionWithDuration[] }>(
+      `/api/executions?${params.toString()}`
+    ).then((res) => res.executions);
+  },
+
+  getExecution: (executionId: string) =>
+    request<ExecutionWithPosts>(`/api/executions/${executionId}`),
+
+  getExecutionStats: (filters: ExecutionFilters) => {
+    const params = new URLSearchParams();
+    params.set('period', filters.period);
+    if (filters.startDate) {
+      params.set('startDate', filters.startDate);
+    }
+    if (filters.endDate) {
+      params.set('endDate', filters.endDate);
+    }
+    return request<ExecutionStats>(`/api/executions/stats?${params.toString()}`);
+  },
+
+  exportExecutions: (filters: ExecutionFilters) => {
+    const params = new URLSearchParams();
+    params.set('period', filters.period);
+    if (filters.status !== 'all') {
+      params.set('status', filters.status);
+    }
+    if (filters.startDate) {
+      params.set('startDate', filters.startDate);
+    }
+    if (filters.endDate) {
+      params.set('endDate', filters.endDate);
+    }
+    // For CSV export, we return the URL so it can be opened in a new tab or downloaded
+    return `${API_BASE}/api/executions/export?${params.toString()}`;
+  },
 };
