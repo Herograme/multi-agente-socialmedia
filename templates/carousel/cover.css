@@ -1,0 +1,51 @@
+/**
+ * Cover Slide Styles
+ * Story 3.3 - Templates HTML/CSS para Slides
+ *
+ * The cover slide is the first slide of a carousel,
+ * featuring a large centered title and optional subtitle.
+ */
+
+.slide-cover .slide-content {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.cover-title-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl);
+}
+
+.cover-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  max-width: 90%;
+  word-wrap: break-word;
+}
+
+.cover-subtitle {
+  font-size: var(--font-size-lg);
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: var(--spacing-md);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  max-width: 85%;
+}
+
+.cover-footer {
+  padding: var(--spacing-md);
+}
+
+.cover-handle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--accent-primary);
+}

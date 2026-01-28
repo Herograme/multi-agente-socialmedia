@@ -53,5 +53,32 @@ export {
   runResearchCuratePipeline,
   getResearchCurateConfig,
   RESEARCH_CURATE_CONFIG,
+  // Visual Pipeline (Story 3.7)
+  createVisualPipeline,
+  runVisualPipeline,
+  createVisualPipelineConfig,
+  getVisualPipelineConfig,
+  VISUAL_PIPELINE_CONFIG,
+  imageDesignerToCarouselAdapter,
+  carouselToPDFAdapter,
+  extractAssetsFromResult,
+  DEFAULT_VISUAL_PIPELINE_CONFIG,
 } from './pipelines';
-export type { ResearchCurateInput, ResearchCurateOutput } from './pipelines';
+export type {
+  ResearchCurateInput,
+  ResearchCurateOutput,
+  // Visual Pipeline types (Story 3.7)
+  VisualPipelineInput,
+  VisualPipelineContent,
+  VisualPipelineOptions,
+  VisualPipelineOutput,
+  VisualPipelineMetadata,
+  VisualPipelineStatus,
+  VisualPipelineConfig,
+  GeneratedAsset,
+  AssetType,
+  AssetRecord,
+  CleanupResult,
+  CleanupFailure,
+  CodeBlock,
+} from './pipelines';

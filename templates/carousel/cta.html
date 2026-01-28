@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1080">
+  <link rel="stylesheet" href="./styles/base.css">
+  <link rel="stylesheet" href="./cta.css">
+  <title>{{cta}}</title>
+</head>
+<body>
+  <div class="slide slide-cta">
+    <div
+      class="slide-background"
+      style="background-image: url('{{backgroundImage}}')"
+    ></div>
+    <div
+      class="slide-overlay"
+      style="opacity: {{overlayOpacity}}; background: {{overlayColor}}"
+    ></div>
+    <div class="slide-content">
+      <div class="cta-wrapper">
+        <p class="cta-text">{{cta}}</p>
+        <div class="cta-handle-wrapper">
+          <span class="cta-handle">{{handle}}</span>
+        </div>
+        {{#socialIcons}}
+        <div class="cta-social">
+          <span class="cta-social-text">Siga para mais conteudo</span>
+        </div>
+        {{/socialIcons}}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

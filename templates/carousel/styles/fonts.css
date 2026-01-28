@@ -1,0 +1,42 @@
+/**
+ * Typography definitions for Carousel Templates
+ * Story 3.3 - Templates HTML/CSS para Slides
+ *
+ * Uses Google Fonts: Inter for sans-serif, JetBrains Mono for code
+ */
+
+/* Inter - Sans-serif font for headings and body text */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* JetBrains Mono - Monospace font for code blocks */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Font weight utilities */
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-extrabold {
+  font-weight: 800;
+}
+
+/* Font family utilities */
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}

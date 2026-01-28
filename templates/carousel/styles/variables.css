@@ -1,0 +1,56 @@
+/**
+ * CSS Custom Properties for Carousel Templates
+ * Story 3.3 - Templates HTML/CSS para Slides
+ */
+
+:root {
+  /* Dimensoes Instagram */
+  --slide-width: 1080px;
+  --slide-height: 1080px;
+
+  /* Cores - Dark Theme */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+
+  --accent-primary: #58a6ff;
+  --accent-secondary: #7ee787;
+  --accent-warning: #d29922;
+  --accent-error: #f85149;
+
+  /* Overlay */
+  --overlay-color: rgba(0, 0, 0, 0.6);
+  --overlay-opacity: 0.6;
+
+  /* Tipografia */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --font-size-xs: 24px;
+  --font-size-sm: 32px;
+  --font-size-base: 40px;
+  --font-size-lg: 56px;
+  --font-size-xl: 72px;
+  --font-size-2xl: 96px;
+  --font-size-3xl: 120px;
+
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+
+  /* Espacamento */
+  --spacing-xs: 16px;
+  --spacing-sm: 24px;
+  --spacing-md: 40px;
+  --spacing-lg: 64px;
+  --spacing-xl: 96px;
+
+  /* Bordas */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
