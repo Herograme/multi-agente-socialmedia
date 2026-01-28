@@ -1,0 +1,29 @@
+[2026-01-28T04:36:32.598Z] [INFO] Starting MCP installation...
+[2026-01-28T04:36:32.598Z] [INFO] Platform: linux
+[2026-01-28T04:36:32.598Z] [INFO] Selected MCPs: browser, context7, desktop-commander
+[2026-01-28T04:36:32.599Z] [INFO] Installing Browser (Puppeteer)...
+[2026-01-28T04:36:32.599Z] [INFO] Installing Context7...
+[2026-01-28T04:36:32.599Z] [INFO] Installing Desktop Commander...
+[2026-01-28T04:36:32.599Z] [INFO] Validating package: @modelcontextprotocol/server-puppeteer
+[2026-01-28T04:36:32.600Z] [INFO] Validating package: @upstash/context7-mcp
+[2026-01-28T04:36:32.600Z] [INFO] Validating package: @wonderwhy-er/desktop-commander
+[2026-01-28T04:36:34.519Z] [INFO] Package @upstash/context7-mcp validation skipped (Command failed: npx -y @upstash/context7-mcp --version
+WARNING: Using default CLIENT_IP_ENCRYPTION_KEY.
+error: too many arguments. Expected 0 arguments but got 1.
+) - will be installed on first use
+[2026-01-28T04:36:34.530Z] [SUCCESS] Context7 installed successfully
+[2026-01-28T04:36:42.606Z] [INFO] Package @modelcontextprotocol/server-puppeteer validation skipped (Command failed: npx -y @modelcontextprotocol/server-puppeteer --version
+) - will be installed on first use
+[2026-01-28T04:36:42.613Z] [INFO] Package @wonderwhy-er/desktop-commander validation skipped (Command failed: npx -y @wonderwhy-er/desktop-commander --version
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated lodash.isequal@4.5.0: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+npm warn deprecated fstream@1.0.12: This package is no longer supported.
+) - will be installed on first use
+[2026-01-28T04:36:42.614Z] [SUCCESS] Browser (Puppeteer) installed successfully
+[2026-01-28T04:36:42.616Z] [SUCCESS] Desktop Commander installed successfully
+[2026-01-28T04:36:42.616Z] [INFO] Health checks deferred to Story 1.8
+[2026-01-28T04:36:42.617Z] [INFO] MCP installation complete
+[2026-01-28T04:36:42.618Z] [INFO] Success: 3
+[2026-01-28T04:36:42.619Z] [INFO] Warnings: 0
+[2026-01-28T04:36:42.619Z] [INFO] Failed: 0
