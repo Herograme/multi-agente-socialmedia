@@ -19,11 +19,37 @@ outputs:
   - architecture.md
   - ui-style-guide.md
 estimated_phases: 6
+knowledge_base:
+  required: true
+  path: squads/roblox-game-studio/data/
+  instruction: "Each agent MUST load their knowledge files before executing their phase"
+  agent_knowledge:
+    market-analyst: data/agents/market-analyst/
+    monetization-strategist: data/agents/monetization-strategist/
+    game-designer: data/agents/game-designer/
+    lua-scripter: data/agents/lua-scripter/
+    ui-ux-designer: data/agents/ui-ux-designer/
 ---
 
 # *idea-to-concept
 
 Workflow completo para transformar uma ideia bruta em um conceito de game documentado, utilizando todos os agentes do squad em sequência.
+
+## ⚠️ CRITICAL: Knowledge Base Loading
+
+**ANTES de executar cada fase, o agente DEVE carregar os arquivos de conhecimento especificados.**
+
+```yaml
+knowledge_base_path: squads/roblox-game-studio/data/
+instruction: |
+  Para cada fase do workflow:
+  1. LEIA os arquivos listados em "load_files" da fase
+  2. LEIA os arquivos listados em "also_load" se relevantes ao contexto
+  3. USE esse conhecimento profundo para gerar outputs de alta qualidade
+  4. NÃO execute a fase sem antes carregar o conhecimento
+```
+
+Isso garante que cada agente use seu conhecimento profundo (~38,500 linhas de expertise) em vez de respostas superficiais.
 
 ## Overview do Workflow
 
@@ -233,6 +259,18 @@ questions:
 ### Objetivo
 Analisar o mercado, validar a ideia e identificar oportunidades/riscos.
 
+### Knowledge Base (CARREGAR ANTES DE EXECUTAR)
+```yaml
+load_files:
+  - data/agents/market-analyst/genre-deep-dives.md      # Análise de gêneros
+  - data/agents/market-analyst/competitive-frameworks.md # SWOT, Porter's
+  - data/agents/market-analyst/trend-prediction.md       # Metodologia de trends
+  - data/agents/market-analyst/revenue-models.md         # Estimativas de revenue
+  - data/agents/market-analyst/algorithm-insights.md     # Discovery optimization
+also_load:
+  - data/roblox-market-2025.md                          # Dados de mercado 2025
+```
+
 ### Prompt para o Agente
 
 ```
@@ -398,6 +436,18 @@ Antes de prosseguir para a Fase 3:
 
 ### Objetivo
 Criar estratégia de monetização ética ANTES do GDD, para que o Game Designer já trabalhe com essas diretrizes.
+
+### Knowledge Base (CARREGAR ANTES DE EXECUTAR)
+```yaml
+load_files:
+  - data/agents/monetization-strategist/pricing-psychology.md      # Anchoring, elasticity
+  - data/agents/monetization-strategist/conversion-optimization.md # Funnels, A/B testing
+  - data/agents/monetization-strategist/player-segmentation.md     # Whale/dolphin/minnow
+  - data/agents/monetization-strategist/economy-balancing.md       # Dual currency, sinks
+  - data/agents/monetization-strategist/ethical-monetization-guide.md # Regulations, compliance
+also_load:
+  - data/monetization-models.md                                    # Game Passes, Dev Products
+```
 
 ### Prompt para o Agente
 
@@ -674,6 +724,19 @@ Antes de prosseguir para a Fase 4 (Game Design):
 
 ### Objetivo
 Criar um GDD completo e interativo, refinando mecânicas e sistemas com o usuário, **respeitando as diretrizes de monetização ética**.
+
+### Knowledge Base (CARREGAR ANTES DE EXECUTAR)
+```yaml
+load_files:
+  - data/agents/game-designer/player-psychology.md    # Motivação, flow, cognitive load
+  - data/agents/game-designer/balancing-formulas.md   # Damage, progressão, economia
+  - data/agents/game-designer/core-loop-patterns.md   # Patterns por gênero, case studies
+  - data/agents/game-designer/level-design-roblox.md  # Princípios, pacing, Studio tools
+  - data/agents/game-designer/mechanics-catalog.md    # Catálogo de mecânicas com código
+also_load:
+  - data/game-design-frameworks.md                    # MDA, SDT, Bartle's, Octalysis
+  - data/horror-genre-analysis.md                     # Se gênero for Horror
+```
 
 ### Prompt para o Agente
 
@@ -971,6 +1034,18 @@ Antes de prosseguir para a Fase 5:
 ### Objetivo
 Propor arquitetura técnica, estrutura de código e sistemas baseado no GDD.
 
+### Knowledge Base (CARREGAR ANTES DE EXECUTAR)
+```yaml
+load_files:
+  - data/agents/lua-scripter/advanced-luau.md          # Type system, metatables, coroutines
+  - data/agents/lua-scripter/performance-cookbook.md   # Profiling, optimization patterns
+  - data/agents/lua-scripter/security-patterns.md      # Server authority, anti-exploit
+  - data/agents/lua-scripter/architecture-patterns.md  # Service, state machine, DI
+  - data/agents/lua-scripter/service-guides.md         # DataStore, Messaging, Memory
+also_load:
+  - data/luau-patterns.md                              # Type system, SSA, patterns
+```
+
 ### Prompt para o Agente
 
 ```
@@ -1267,6 +1342,18 @@ Antes de prosseguir para a Fase 6:
 
 ### Objetivo
 Criar um style guide visual que combine com o conceito do game.
+
+### Knowledge Base (CARREGAR ANTES DE EXECUTAR)
+```yaml
+load_files:
+  - data/agents/ui-ux-designer/component-library.md           # Catálogo de componentes UI
+  - data/agents/ui-ux-designer/mobile-first-patterns.md       # Touch, gestures, adaptation
+  - data/agents/ui-ux-designer/animation-choreography.md      # Timing, easing, micro-interactions
+  - data/agents/ui-ux-designer/accessibility-implementation.md # WCAG, colorblind, scaling
+  - data/agents/ui-ux-designer/genre-ui-patterns.md           # UI patterns por gênero
+also_load:
+  - data/ui-patterns-roblox.md                                # Responsive, TweenService
+```
 
 ### Prompt para o Agente
 
