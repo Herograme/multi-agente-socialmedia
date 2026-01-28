@@ -1,0 +1,441 @@
+# =============================================================================
+# GAME DESIGN DOCUMENT (GDD) TEMPLATE
+# =============================================================================
+# Squad: roblox-game-studio
+# Agent: @game-designer
+# Purpose: Template estruturado para documentar design completo de jogos Roblox
+# Usage: Preencher campos substituindo {{placeholders}} pelos valores reais
+# =============================================================================
+
+metadata:
+  # Informacoes do documento
+  document_type: "Game Design Document"
+  version: "{{1.0.0}}"                    # Versao do GDD (semver)
+  status: "{{draft|review|approved}}"      # Status atual do documento
+  created_at: "{{YYYY-MM-DD}}"
+  updated_at: "{{YYYY-MM-DD}}"
+  author: "{{Nome do Game Designer}}"
+  reviewers:
+    - "{{Reviewer 1}}"
+    - "{{Reviewer 2}}"
+
+# =============================================================================
+# SECAO 1: VISAO DO JOGO
+# =============================================================================
+vision:
+  # Conceito central do jogo em uma frase
+  high_concept: "{{Uma frase que captura a essencia do jogo - ex: 'Tower defense cooperativo com pets coleccionaveis'}}"
+
+  # Descricao expandida (2-3 paragrafos)
+  description: |
+    {{Paragrafo 1: O que e o jogo e qual problema/desejo ele atende}}
+
+    {{Paragrafo 2: O que torna o jogo unico e por que jogadores vao querer jogar}}
+
+    {{Paragrafo 3: Experiencia emocional que o jogo proporciona}}
+
+  # Genero e sub-generos
+  genre:
+    primary: "{{simulator|tycoon|obby|horror|rpg|shooter|racing|social}}"
+    secondary:
+      - "{{Sub-genero 1}}"
+      - "{{Sub-genero 2}}"
+
+  # Publico-alvo detalhado
+  target_audience:
+    age_range: "{{8-12|13-17|18+|all}}"
+    player_type: "{{casual|core|hardcore}}"
+    play_session: "{{5-15min|15-30min|30-60min|60min+}}"
+    motivations:
+      - "{{Competicao}}"
+      - "{{Colecao}}"
+      - "{{Socializacao}}"
+      - "{{Exploracao}}"
+
+  # Pilares de design (3-5 principios fundamentais)
+  design_pillars:
+    - name: "{{Pilar 1 - ex: Acessibilidade}}"
+      description: "{{Como este pilar se manifesta no jogo}}"
+    - name: "{{Pilar 2 - ex: Recompensa Constante}}"
+      description: "{{Como este pilar se manifesta no jogo}}"
+    - name: "{{Pilar 3 - ex: Expressao Social}}"
+      description: "{{Como este pilar se manifesta no jogo}}"
+
+  # Referencias e inspiracoes
+  references:
+    roblox_games:
+      - name: "{{Jogo Roblox 1}}"
+        inspiration: "{{O que inspirou}}"
+      - name: "{{Jogo Roblox 2}}"
+        inspiration: "{{O que inspirou}}"
+    external_games:
+      - name: "{{Jogo externo}}"
+        inspiration: "{{O que inspirou}}"
+
+# =============================================================================
+# SECAO 2: GAMEPLAY
+# =============================================================================
+gameplay:
+  # Core Loop - O ciclo fundamental de jogo
+  core_loop:
+    description: "{{Descreva o loop em uma frase}}"
+    steps:
+      - action: "{{Acao 1 - ex: Entrar na fase}}"
+        duration: "{{Tempo estimado}}"
+        reward: "{{Recompensa}}"
+      - action: "{{Acao 2 - ex: Derrotar inimigos}}"
+        duration: "{{Tempo estimado}}"
+        reward: "{{Recompensa}}"
+      - action: "{{Acao 3 - ex: Coletar loot}}"
+        duration: "{{Tempo estimado}}"
+        reward: "{{Recompensa}}"
+      - action: "{{Acao 4 - ex: Melhorar equipamento}}"
+        duration: "{{Tempo estimado}}"
+        reward: "{{Recompensa}}"
+    loop_time: "{{Tempo total do loop em minutos}}"
+
+  # Loops secundarios
+  secondary_loops:
+    - name: "{{Loop Social - ex: Trading}}"
+      frequency: "{{diario|semanal|evento}}"
+      description: "{{Descricao do loop}}"
+    - name: "{{Loop de Colecao}}"
+      frequency: "{{diario|semanal|evento}}"
+      description: "{{Descricao do loop}}"
+
+  # Objetivos do jogador
+  objectives:
+    short_term:  # Objetivos de 1-5 minutos
+      - "{{Completar uma fase}}"
+      - "{{Derrotar X inimigos}}"
+    medium_term:  # Objetivos de uma sessao (15-60 min)
+      - "{{Desbloquear nova area}}"
+      - "{{Alcancar nivel X}}"
+    long_term:  # Objetivos de dias/semanas
+      - "{{Completar colecao}}"
+      - "{{Alcancar ranking maximo}}"
+
+  # Controles e inputs
+  controls:
+    movement: "{{WASD/Arrows + Camera}}"
+    primary_action: "{{Click/Tap - Atacar}}"
+    secondary_action: "{{E/Button - Interagir}}"
+    special_actions:
+      - key: "{{Q}}"
+        action: "{{Habilidade especial}}"
+      - key: "{{F}}"
+        action: "{{Acao contextual}}"
+    mobile_adaptations: "{{Descricao de adaptacoes mobile}}"
+
+# =============================================================================
+# SECAO 3: MECANICAS
+# =============================================================================
+mechanics:
+  # Mecanica principal do jogo
+  core_mechanic:
+    name: "{{Nome da mecanica - ex: Sistema de Combate}}"
+    description: "{{Descricao detalhada}}"
+    rules:
+      - "{{Regra 1}}"
+      - "{{Regra 2}}"
+      - "{{Regra 3}}"
+    feel: "{{Como deve se sentir - ex: Rapido e responsivo}}"
+
+  # Mecanicas secundarias
+  secondary_mechanics:
+    - name: "{{Mecanica 2 - ex: Crafting}}"
+      description: "{{Descricao}}"
+      interaction_with_core: "{{Como interage com mecanica principal}}"
+
+    - name: "{{Mecanica 3 - ex: Pet System}}"
+      description: "{{Descricao}}"
+      interaction_with_core: "{{Como interage com mecanica principal}}"
+
+  # Feedback e juice
+  feedback:
+    visual:
+      - "{{Particulas ao coletar}}"
+      - "{{Screen shake em impactos}}"
+      - "{{Indicadores de dano}}"
+    audio:
+      - "{{Sons de coleta satisfatorios}}"
+      - "{{Musica dinamica}}"
+      - "{{Feedback de UI}}"
+    haptic: "{{Vibracoes em mobile}}"
+
+# =============================================================================
+# SECAO 4: SISTEMAS
+# =============================================================================
+systems:
+  # Sistema de combate (se aplicavel)
+  combat:
+    enabled: "{{true|false}}"
+    type: "{{realtime|turnbased|none}}"
+    damage_formula: "{{BaseDamage * Multiplier - Defense}}"
+    stats:
+      - name: "{{Health/HP}}"
+        base_value: "{{100}}"
+        scaling: "{{+10 por nivel}}"
+      - name: "{{Damage}}"
+        base_value: "{{10}}"
+        scaling: "{{+2 por nivel}}"
+
+  # Sistema de inventario
+  inventory:
+    enabled: "{{true|false}}"
+    max_slots: "{{50}}"
+    slot_types:
+      - "{{Equipamentos}}"
+      - "{{Consumiveis}}"
+      - "{{Materiais}}"
+    stacking: "{{true|false}}"
+    max_stack: "{{99}}"
+
+  # Sistema de pets/companions (se aplicavel)
+  pets:
+    enabled: "{{true|false}}"
+    max_active: "{{3}}"
+    rarities:
+      - name: "{{Common}}"
+        color: "{{#FFFFFF}}"
+        drop_rate: "{{70%}}"
+      - name: "{{Rare}}"
+        color: "{{#0066FF}}"
+        drop_rate: "{{20%}}"
+      - name: "{{Epic}}"
+        color: "{{#9900FF}}"
+        drop_rate: "{{8%}}"
+      - name: "{{Legendary}}"
+        color: "{{#FFD700}}"
+        drop_rate: "{{2%}}"
+    evolution: "{{true|false}}"
+
+  # Sistema de guilds/grupos
+  social:
+    guilds:
+      enabled: "{{true|false}}"
+      max_members: "{{50}}"
+      features:
+        - "{{Chat privado}}"
+        - "{{Raids em grupo}}"
+        - "{{Recompensas coletivas}}"
+    trading:
+      enabled: "{{true|false}}"
+      restrictions: "{{Apenas itens tradeaveis}}"
+    leaderboards:
+      - "{{Global - Nivel}}"
+      - "{{Semanal - Pontos}}"
+      - "{{Guild - Contribuicao}}"
+
+# =============================================================================
+# SECAO 5: PROGRESSAO
+# =============================================================================
+progression:
+  # Sistema de niveis
+  leveling:
+    max_level: "{{100}}"
+    xp_curve: "{{exponential|linear|custom}}"
+    xp_formula: "{{BaseXP * (Level ^ 1.5)}}"
+    rewards_per_level:
+      - "{{Stat increases}}"
+      - "{{Skill points}}"
+      - "{{Unlocks}}"
+
+  # Arvore de habilidades/skills
+  skill_tree:
+    enabled: "{{true|false}}"
+    branches:
+      - name: "{{Branch 1 - ex: Ataque}}"
+        skills_count: "{{10}}"
+      - name: "{{Branch 2 - ex: Defesa}}"
+        skills_count: "{{10}}"
+    respec: "{{true|false}}"
+    respec_cost: "{{1000 moedas}}"
+
+  # Desbloqueio de conteudo
+  unlocks:
+    - level: "{{1}}"
+      content: "{{Tutorial + Area inicial}}"
+    - level: "{{5}}"
+      content: "{{Area 2 + Feature X}}"
+    - level: "{{10}}"
+      content: "{{Pets + Trading}}"
+    - level: "{{20}}"
+      content: "{{Guilds + PvP}}"
+
+  # Milestones e conquistas
+  achievements:
+    categories:
+      - name: "{{Progressao}}"
+        examples:
+          - "{{Alcancar nivel 10}}"
+          - "{{Completar 100 fases}}"
+      - name: "{{Colecao}}"
+        examples:
+          - "{{Obter todos os pets comuns}}"
+          - "{{Coletar 1000 itens}}"
+      - name: "{{Social}}"
+        examples:
+          - "{{Fazer 10 trades}}"
+          - "{{Entrar em uma guild}}"
+
+# =============================================================================
+# SECAO 6: ECONOMIA
+# =============================================================================
+economy:
+  # Moedas do jogo
+  currencies:
+    soft_currency:
+      name: "{{Coins/Gold}}"
+      icon: "{{rbxassetid://123456}}"
+      sources:
+        - source: "{{Gameplay}}"
+          amount: "{{10-50 por acao}}"
+        - source: "{{Daily login}}"
+          amount: "{{100-500}}"
+      sinks:
+        - "{{Upgrades}}"
+        - "{{Consumiveis}}"
+        - "{{Cosmeticos basicos}}"
+
+    hard_currency:
+      name: "{{Gems/Crystals}}"
+      icon: "{{rbxassetid://123457}}"
+      sources:
+        - source: "{{Achievements}}"
+          amount: "{{5-20}}"
+        - source: "{{Purchase (Robux)}}"
+          amount: "{{Varies}}"
+      sinks:
+        - "{{Skip timers}}"
+        - "{{Premium items}}"
+        - "{{Gacha pulls}}"
+
+  # Balanceamento economico
+  balance:
+    daily_soft_cap: "{{5000 coins}}"
+    weekly_hard_cap: "{{100 gems free}}"
+    inflation_controls:
+      - "{{Taxas em trades}}"
+      - "{{Itens consumiveis}}"
+      - "{{Decay de recursos}}"
+
+# =============================================================================
+# SECAO 7: CONTEUDO ROADMAP
+# =============================================================================
+content_roadmap:
+  # Lancamento (MVP)
+  launch:
+    date: "{{YYYY-MM-DD}}"
+    features:
+      - "{{Core gameplay loop}}"
+      - "{{3 areas jogaveis}}"
+      - "{{Sistema basico de pets}}"
+      - "{{Monetizacao inicial}}"
+    content:
+      areas: "{{3}}"
+      items: "{{50}}"
+      pets: "{{20}}"
+
+  # Update 1 (1-2 meses pos-lancamento)
+  update_1:
+    name: "{{Nome do Update}}"
+    date: "{{YYYY-MM-DD}}"
+    features:
+      - "{{Nova mecanica}}"
+      - "{{Sistema de guilds}}"
+    content:
+      new_areas: "{{2}}"
+      new_items: "{{30}}"
+      new_pets: "{{10}}"
+
+  # Update 2
+  update_2:
+    name: "{{Nome do Update}}"
+    date: "{{YYYY-MM-DD}}"
+    features:
+      - "{{PvP Arena}}"
+      - "{{Eventos sazonais}}"
+    content:
+      new_areas: "{{1}}"
+      new_items: "{{40}}"
+      new_pets: "{{15}}"
+
+  # Eventos recorrentes
+  recurring_events:
+    - name: "{{Evento Semanal}}"
+      frequency: "{{Toda segunda}}"
+      rewards: "{{Bonus XP + Items exclusivos}}"
+    - name: "{{Evento Mensal}}"
+      frequency: "{{Primeiro fim de semana}}"
+      rewards: "{{Pet exclusivo + Cosmeticos}}"
+
+# =============================================================================
+# SECAO 8: METRICAS DE SUCESSO
+# =============================================================================
+metrics:
+  # KPIs principais
+  kpis:
+    retention:
+      d1: "{{40%}}"       # Meta Day 1
+      d7: "{{20%}}"       # Meta Day 7
+      d30: "{{10%}}"      # Meta Day 30
+
+    engagement:
+      dau_target: "{{10,000}}"
+      session_length: "{{15-30 min}}"
+      sessions_per_day: "{{2-3}}"
+
+    monetization:
+      arpdau: "{{$0.05-0.10}}"
+      conversion_rate: "{{2-5%}}"
+      arppu: "{{$5-10}}"
+
+  # Eventos para tracking
+  analytics_events:
+    - event: "{{game_start}}"
+      parameters: "{{source, device}}"
+    - event: "{{level_complete}}"
+      parameters: "{{level_id, time, score}}"
+    - event: "{{purchase}}"
+      parameters: "{{item_id, currency, amount}}"
+    - event: "{{tutorial_step}}"
+      parameters: "{{step_id, completed}}"
+
+  # Funnels importantes
+  funnels:
+    - name: "{{FTUE (First Time User Experience)}}"
+      steps:
+        - "{{Join game}}"
+        - "{{Complete tutorial}}"
+        - "{{First core action}}"
+        - "{{First reward}}"
+        - "{{Return next day}}"
+    - name: "{{Monetization}}"
+      steps:
+        - "{{View shop}}"
+        - "{{Select item}}"
+        - "{{Confirm purchase}}"
+        - "{{Complete transaction}}"
+
+# =============================================================================
+# NOTAS E APENDICES
+# =============================================================================
+notes:
+  open_questions:
+    - "{{Questao 1 a ser decidida}}"
+    - "{{Questao 2 a ser decidida}}"
+
+  risks:
+    - risk: "{{Risco 1}}"
+      mitigation: "{{Estrategia de mitigacao}}"
+    - risk: "{{Risco 2}}"
+      mitigation: "{{Estrategia de mitigacao}}"
+
+  dependencies:
+    - "{{Dependencia externa 1}}"
+    - "{{Dependencia externa 2}}"
+
+# =============================================================================
+# FIM DO TEMPLATE
+# =============================================================================

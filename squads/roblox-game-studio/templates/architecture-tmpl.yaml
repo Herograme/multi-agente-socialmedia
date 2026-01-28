@@ -1,0 +1,509 @@
+# =============================================================================
+# TECHNICAL ARCHITECTURE TEMPLATE
+# =============================================================================
+# Squad: roblox-game-studio
+# Agent: @lua-scripter
+# Purpose: Template para arquitetura tecnica de jogos Roblox
+# Usage: Preencher campos substituindo {{placeholders}} pelos valores reais
+# =============================================================================
+
+metadata:
+  document_type: "Technical Architecture"
+  version: "{{1.0.0}}"
+  status: "{{draft|review|approved}}"
+  created_at: "{{YYYY-MM-DD}}"
+  updated_at: "{{YYYY-MM-DD}}"
+  architect: "{{Nome do Lua Scripter/Arquiteto}}"
+  game_name: "{{Nome do Jogo}}"
+
+# =============================================================================
+# PROJECT STRUCTURE
+# =============================================================================
+project_structure:
+  # Estrutura de pastas no Roblox Studio
+  hierarchy:
+    ServerScriptService:
+      description: "Scripts que rodam apenas no servidor"
+      contents:
+        - name: "GameManager.lua"
+          purpose: "{{Gerenciador principal do jogo}}"
+        - name: "DataManager.lua"
+          purpose: "{{Gerenciamento de dados do jogador}}"
+        - name: "Services/"
+          purpose: "{{Pasta com servicos modulares}}"
+          subfolders:
+            - "CombatService.lua"
+            - "EconomyService.lua"
+            - "ProgressionService.lua"
+
+    ReplicatedStorage:
+      description: "Modulos e assets compartilhados entre cliente e servidor"
+      contents:
+        - name: "Modules/"
+          purpose: "{{Modulos compartilhados}}"
+          subfolders:
+            - "Config.lua"
+            - "Utils.lua"
+            - "Constants.lua"
+        - name: "Events/"
+          purpose: "{{RemoteEvents e RemoteFunctions}}"
+          subfolders:
+            - "GameEvents.lua"
+            - "UIEvents.lua"
+        - name: "Assets/"
+          purpose: "{{Modelos, sons, efeitos reutilizaveis}}"
+
+    StarterPlayerScripts:
+      description: "Scripts que iniciam com cada jogador"
+      contents:
+        - name: "ClientManager.lua"
+          purpose: "{{Gerenciador principal do cliente}}"
+        - name: "InputHandler.lua"
+          purpose: "{{Processamento de inputs}}"
+        - name: "Controllers/"
+          purpose: "{{Controladores de sistemas no cliente}}"
+
+    StarterGui:
+      description: "Interfaces de usuario"
+      contents:
+        - name: "MainUI/"
+          purpose: "{{UI principal do jogo}}"
+        - name: "HUD/"
+          purpose: "{{Heads-up display}}"
+        - name: "Popups/"
+          purpose: "{{Modais e popups}}"
+
+    Workspace:
+      description: "Objetos fisicos do mundo"
+      contents:
+        - name: "Map/"
+          purpose: "{{Estrutura do mapa}}"
+        - name: "NPCs/"
+          purpose: "{{NPCs e inimigos}}"
+        - name: "Interactables/"
+          purpose: "{{Objetos interativos}}"
+
+# =============================================================================
+# SYSTEMS MAP
+# =============================================================================
+systems_map:
+  # Core Systems - Sistemas fundamentais
+  core_systems:
+    game_manager:
+      name: "GameManager"
+      location: "ServerScriptService"
+      responsibility: "{{Coordenacao geral, estado do jogo, ciclo de vida}}"
+      dependencies:
+        - "DataManager"
+        - "PlayerManager"
+      exposes:
+        - "StartGame()"
+        - "EndGame()"
+        - "GetGameState()"
+
+    data_manager:
+      name: "DataManager"
+      location: "ServerScriptService"
+      responsibility: "{{Persistencia de dados com DataStore}}"
+      dependencies: []
+      exposes:
+        - "LoadPlayerData(player)"
+        - "SavePlayerData(player)"
+        - "GetData(player, key)"
+        - "SetData(player, key, value)"
+      data_stores:
+        - name: "PlayerData"
+          scope: "{{global}}"
+          keys:
+            - "{{Inventory}}"
+            - "{{Currency}}"
+            - "{{Stats}}"
+            - "{{Settings}}"
+
+    player_manager:
+      name: "PlayerManager"
+      location: "ServerScriptService"
+      responsibility: "{{Gerenciamento de jogadores conectados}}"
+      dependencies:
+        - "DataManager"
+      exposes:
+        - "OnPlayerJoin(player)"
+        - "OnPlayerLeave(player)"
+        - "GetPlayerData(player)"
+
+  # Feature Systems - Sistemas de features
+  feature_systems:
+    combat_system:
+      name: "CombatService"
+      location: "ServerScriptService/Services"
+      responsibility: "{{Sistema de combate e dano}}"
+      dependencies:
+        - "PlayerManager"
+        - "ProgressionService"
+      exposes:
+        - "Attack(attacker, target)"
+        - "TakeDamage(entity, amount)"
+        - "CalculateDamage(stats)"
+      client_counterpart: "CombatController"
+      events:
+        - name: "OnAttack"
+          direction: "client_to_server"
+        - name: "OnDamageReceived"
+          direction: "server_to_client"
+
+    economy_system:
+      name: "EconomyService"
+      location: "ServerScriptService/Services"
+      responsibility: "{{Moedas, compras, transacoes}}"
+      dependencies:
+        - "DataManager"
+      exposes:
+        - "AddCurrency(player, type, amount)"
+        - "RemoveCurrency(player, type, amount)"
+        - "Purchase(player, itemId)"
+        - "GetBalance(player, type)"
+      events:
+        - name: "OnPurchase"
+          direction: "client_to_server"
+        - name: "OnBalanceUpdate"
+          direction: "server_to_client"
+
+    progression_system:
+      name: "ProgressionService"
+      location: "ServerScriptService/Services"
+      responsibility: "{{XP, niveis, unlocks}}"
+      dependencies:
+        - "DataManager"
+      exposes:
+        - "AddXP(player, amount)"
+        - "LevelUp(player)"
+        - "GetLevel(player)"
+        - "CheckUnlocks(player)"
+      events:
+        - name: "OnXPGain"
+          direction: "server_to_client"
+        - name: "OnLevelUp"
+          direction: "server_to_client"
+
+    # Adicionar mais sistemas conforme necessario
+    inventory_system:
+      name: "InventoryService"
+      location: "ServerScriptService/Services"
+      responsibility: "{{Gerenciamento de itens e inventario}}"
+      dependencies:
+        - "DataManager"
+      exposes:
+        - "AddItem(player, itemId, quantity)"
+        - "RemoveItem(player, itemId, quantity)"
+        - "GetInventory(player)"
+        - "UseItem(player, itemId)"
+
+# =============================================================================
+# NETWORK ARCHITECTURE
+# =============================================================================
+network:
+  # Filosofia de rede
+  philosophy:
+    authority: "server"  # server-authoritative
+    validation: "{{Toda acao do cliente e validada no servidor}}"
+    anti_cheat: "{{Descricao das medidas anti-cheat}}"
+
+  # Remote Events (fire and forget)
+  remote_events:
+    # Eventos Client -> Server
+    client_to_server:
+      - name: "RequestAttack"
+        payload:
+          - "targetId: string"
+          - "attackType: string"
+        validation: "{{Verificar distancia, cooldown, estado}}"
+        rate_limit: "{{10 requests/second}}"
+
+      - name: "RequestPurchase"
+        payload:
+          - "itemId: string"
+          - "quantity: number"
+        validation: "{{Verificar saldo, disponibilidade}}"
+        rate_limit: "{{2 requests/second}}"
+
+      - name: "RequestInteract"
+        payload:
+          - "objectId: string"
+        validation: "{{Verificar proximidade, estado do objeto}}"
+        rate_limit: "{{5 requests/second}}"
+
+    # Eventos Server -> Client
+    server_to_client:
+      - name: "UpdateStats"
+        payload:
+          - "stats: table"
+        frequency: "{{On change}}"
+
+      - name: "UpdateCurrency"
+        payload:
+          - "currencies: table"
+        frequency: "{{On change}}"
+
+      - name: "NotifyEvent"
+        payload:
+          - "eventType: string"
+          - "data: table"
+        frequency: "{{As needed}}"
+
+    # Eventos Server -> All Clients
+    server_to_all:
+      - name: "WorldEvent"
+        payload:
+          - "eventType: string"
+          - "data: table"
+        example: "{{Boss spawn, evento global}}"
+
+  # Remote Functions (request-response)
+  remote_functions:
+    - name: "GetShopItems"
+      direction: "client_to_server"
+      request: "{{category: string}}"
+      response: "{{items: table}}"
+      cache: "{{30 seconds}}"
+
+    - name: "GetLeaderboard"
+      direction: "client_to_server"
+      request: "{{type: string, limit: number}}"
+      response: "{{entries: table}}"
+      cache: "{{60 seconds}}"
+
+  # Replicacao
+  replication:
+    strategy: "{{Minimal replication - apenas o necessario}}"
+    player_data:
+      public: "{{Level, equipamento visivel, titulo}}"
+      private: "{{Inventario, moedas, stats detalhados}}"
+    world_state:
+      replicated: "{{Posicao de NPCs, estado de objetos}}"
+      server_only: "{{Loot tables, spawners, economia}}"
+
+# =============================================================================
+# DATA SCHEMA
+# =============================================================================
+data_schema:
+  # Estrutura de dados do jogador
+  player_data:
+    version: "{{1}}"  # Para migracao futura
+    schema:
+      profile:
+        display_name: "string"
+        join_date: "number (timestamp)"
+        play_time: "number (seconds)"
+        last_login: "number (timestamp)"
+
+      progression:
+        level: "number"
+        xp: "number"
+        total_xp: "number"
+        skill_points: "number"
+        unlocks: "table<string, boolean>"
+
+      currencies:
+        coins: "number"
+        gems: "number"
+        event_tokens: "number"
+
+      inventory:
+        items: "table<itemId, quantity>"
+        equipped: "table<slot, itemId>"
+        capacity: "number"
+
+      stats:
+        kills: "number"
+        deaths: "number"
+        quests_completed: "number"
+        achievements: "table<achievementId, boolean>"
+
+      settings:
+        music_volume: "number (0-1)"
+        sfx_volume: "number (0-1)"
+        notifications: "boolean"
+        show_damage_numbers: "boolean"
+
+  # Exemplo de item
+  item_schema:
+    id: "string (unique)"
+    name: "string"
+    description: "string"
+    type: "weapon|armor|consumable|material|cosmetic"
+    rarity: "common|rare|epic|legendary"
+    stats:
+      damage: "number?"
+      defense: "number?"
+      effect: "string?"
+    tradeable: "boolean"
+    stackable: "boolean"
+    max_stack: "number"
+
+  # Migracao de dados
+  data_migration:
+    current_version: "{{1}}"
+    migrations:
+      - from_version: "{{0}}"
+        to_version: "{{1}}"
+        changes: "{{Descricao das mudancas}}"
+        migration_script: "{{Referencia ao script}}"
+
+# =============================================================================
+# PERFORMANCE GUIDELINES
+# =============================================================================
+performance:
+  # Targets de performance
+  targets:
+    frame_rate: "{{60 FPS}}"
+    memory_budget: "{{500 MB}}"
+    network_budget: "{{50 KB/s per player}}"
+    load_time: "{{< 10 seconds}}"
+
+  # Otimizacoes de script
+  script_optimizations:
+    - guideline: "Evitar loops em RunService quando possivel"
+      reason: "{{Performance}}"
+      alternative: "{{Usar eventos ou timers}}"
+
+    - guideline: "Cache de referencias frequentes"
+      reason: "{{Evitar FindFirstChild repetido}}"
+      example: |
+        -- Ruim
+        for i = 1, 100 do
+          workspace.Map.Spawns.SpawnPoint1.Position
+        end
+
+        -- Bom
+        local spawn = workspace.Map.Spawns.SpawnPoint1
+        for i = 1, 100 do
+          spawn.Position
+        end
+
+    - guideline: "Usar task.spawn/task.defer ao inves de coroutine"
+      reason: "{{Melhor integracao com scheduler do Roblox}}"
+
+    - guideline: "Pooling de objetos frequentemente criados/destruidos"
+      reason: "{{Reduzir garbage collection}}"
+
+  # Otimizacoes de rede
+  network_optimizations:
+    - guideline: "Batch updates quando possivel"
+      example: "{{Enviar todas as mudancas de stats em um evento}}"
+
+    - guideline: "Usar UnreliableRemoteEvents para dados nao-criticos"
+      example: "{{Particulas, efeitos visuais}}"
+
+    - guideline: "Comprimir dados grandes"
+      example: "{{Inventarios, leaderboards}}"
+
+    - guideline: "Rate limiting no servidor"
+      example: "{{Limitar requests por segundo por jogador}}"
+
+  # Otimizacoes de memoria
+  memory_optimizations:
+    - guideline: "Descarregar areas distantes"
+      technique: "{{StreamingEnabled}}"
+
+    - guideline: "Limpar conexoes de eventos"
+      technique: "{{Disconnect quando nao necessario}}"
+
+    - guideline: "Usar Instance:Destroy() ao remover objetos"
+      reason: "{{Libera memoria imediatamente}}"
+
+  # Monitoring
+  monitoring:
+    tools:
+      - "{{Script Performance em Studio}}"
+      - "{{MicroProfiler}}"
+      - "{{Developer Console (F9)}}"
+    metrics_to_track:
+      - "{{Frame time}}"
+      - "{{Memory usage}}"
+      - "{{Network traffic}}"
+      - "{{DataStore requests}}"
+
+# =============================================================================
+# SECURITY CONSIDERATIONS
+# =============================================================================
+security:
+  # Principios de seguranca
+  principles:
+    - "{{Nunca confiar em dados do cliente}}"
+    - "{{Validar todas as acoes no servidor}}"
+    - "{{Sanitizar inputs}}"
+    - "{{Limitar rate de requests}}"
+
+  # Validacoes obrigatorias
+  validations:
+    movement:
+      - "{{Verificar velocidade maxima}}"
+      - "{{Verificar teleportes invalidos}}"
+      - "{{Verificar noclip}}"
+
+    combat:
+      - "{{Verificar distancia de ataque}}"
+      - "{{Verificar cooldowns}}"
+      - "{{Verificar dano valido}}"
+
+    economy:
+      - "{{Verificar saldo antes de compra}}"
+      - "{{Verificar preco correto}}"
+      - "{{Logar todas as transacoes}}"
+
+  # Medidas anti-exploit
+  anti_exploit:
+    - measure: "{{Server-side hit detection}}"
+      description: "{{Calcular hits no servidor, nao confiar no cliente}}"
+
+    - measure: "{{Sanity checks}}"
+      description: "{{Verificar se valores estao dentro de ranges validos}}"
+
+    - measure: "{{Anomaly detection}}"
+      description: "{{Detectar comportamentos anomalos e flaggar}}"
+
+# =============================================================================
+# DEPENDENCIES & TOOLS
+# =============================================================================
+dependencies:
+  # Modulos externos/plugins
+  external:
+    - name: "{{ProfileService}}"
+      purpose: "{{Gerenciamento robusto de DataStore}}"
+      source: "{{https://github.com/MadStudioRoblox/ProfileService}}"
+      version: "{{Latest}}"
+
+    - name: "{{Knit}}"
+      purpose: "{{Framework de services/controllers}}"
+      source: "{{https://github.com/Sleitnick/Knit}}"
+      version: "{{Latest}}"
+      optional: true
+
+  # Plugins de Studio recomendados
+  studio_plugins:
+    - name: "{{Tag Editor}}"
+      purpose: "{{Gerenciar CollectionService tags}}"
+
+    - name: "{{Reclass}}"
+      purpose: "{{Converter objetos}}"
+
+    - name: "{{Script Performance}}"
+      purpose: "{{Analisar performance}}"
+
+  # Ferramentas de desenvolvimento
+  dev_tools:
+    - name: "{{Rojo}}"
+      purpose: "{{Sync com VS Code}}"
+      config_file: "{{default.project.json}}"
+
+    - name: "{{Selene}}"
+      purpose: "{{Linter para Lua}}"
+      config_file: "{{selene.toml}}"
+
+    - name: "{{StyLua}}"
+      purpose: "{{Formatter para Lua}}"
+      config_file: "{{stylua.toml}}"
+
+# =============================================================================
+# FIM DO TEMPLATE
+# =============================================================================

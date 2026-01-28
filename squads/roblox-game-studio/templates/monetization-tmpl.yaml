@@ -1,0 +1,415 @@
+# =============================================================================
+# MONETIZATION STRATEGY TEMPLATE
+# =============================================================================
+# Squad: roblox-game-studio
+# Agent: @monetization-strategist
+# Purpose: Template para estrategia de monetizacao etica em jogos Roblox
+# Usage: Preencher campos substituindo {{placeholders}} pelos valores reais
+# =============================================================================
+
+metadata:
+  document_type: "Monetization Strategy"
+  version: "{{1.0.0}}"
+  status: "{{draft|review|approved}}"
+  created_at: "{{YYYY-MM-DD}}"
+  updated_at: "{{YYYY-MM-DD}}"
+  strategist: "{{Nome do Monetization Strategist}}"
+  game_name: "{{Nome do Jogo}}"
+
+# =============================================================================
+# MONETIZATION PHILOSOPHY
+# =============================================================================
+philosophy:
+  # Principios fundamentais
+  core_principles:
+    - principle: "{{Fair Play First}}"
+      description: "{{Jogadores pagantes nao devem ter vantagem injusta sobre nao-pagantes}}"
+
+    - principle: "{{Value Exchange}}"
+      description: "{{Cada compra deve oferecer valor real e perceptivel}}"
+
+    - principle: "{{No Predatory Mechanics}}"
+      description: "{{Evitar mecanicas que explorem vulnerabilidades psicologicas}}"
+
+    - principle: "{{Transparency}}"
+      description: "{{Probabilidades e conteudos devem ser claros}}"
+
+  # Modelo de monetizacao escolhido
+  monetization_model:
+    primary: "{{cosmetic-focused|convenience|hybrid}}"
+    rationale: "{{Justificativa da escolha do modelo}}"
+
+  # Compromissos eticos
+  ethical_commitments:
+    - "{{Nao vender power diretamente}}"
+    - "{{Mostrar probabilidades de gacha}}"
+    - "{{Limite de gastos para menores}}"
+    - "{{Conteudo gratis viavel}}"
+
+  # Balance entre F2P e Payers
+  f2p_payer_balance:
+    f2p_experience: "{{Descricao da experiencia completa sem pagar}}"
+    payer_benefits: "{{Beneficios exclusivos de quem paga}}"
+    catch_up_mechanics: "{{Como F2P pode eventualmente alcancar payers}}"
+
+# =============================================================================
+# GAME PASSES STRUCTURE
+# =============================================================================
+game_passes:
+  # Categorias de Game Passes
+  categories:
+    # Categoria 1: Conveniencia
+    convenience:
+      description: "{{Passes que economizam tempo ou facilitam gameplay}}"
+      passes:
+        - name: "{{2x Speed}}"
+          price_robux: "{{199}}"
+          description: "{{Dobra velocidade de movimento}}"
+          value_proposition: "{{Economiza tempo de locomocao}}"
+          permanent: true
+          ethical_check: "{{Nao da vantagem em combate, apenas conveniencia}}"
+
+        - name: "{{Auto-Collect}}"
+          price_robux: "{{149}}"
+          description: "{{Coleta automatica de drops}}"
+          value_proposition: "{{Reduz cliques repetitivos}}"
+          permanent: true
+          ethical_check: "{{Apenas QoL, nao aumenta quantidade coletada}}"
+
+    # Categoria 2: Cosmeticos
+    cosmetics:
+      description: "{{Passes que oferecem customizacao visual}}"
+      passes:
+        - name: "{{VIP Title}}"
+          price_robux: "{{99}}"
+          description: "{{Titulo exclusivo acima do nome}}"
+          value_proposition: "{{Status social e expressao}}"
+          permanent: true
+          ethical_check: "{{Puramente cosmetico}}"
+
+        - name: "{{Exclusive Auras}}"
+          price_robux: "{{299}}"
+          description: "{{Auras visuais exclusivas}}"
+          value_proposition: "{{Customizacao unica}}"
+          permanent: true
+          ethical_check: "{{Puramente cosmetico}}"
+
+    # Categoria 3: Acesso/Conteudo
+    content_access:
+      description: "{{Passes que desbloqueiam areas ou conteudo}}"
+      passes:
+        - name: "{{VIP Zone Access}}"
+          price_robux: "{{399}}"
+          description: "{{Acesso a area VIP exclusiva}}"
+          value_proposition: "{{Conteudo adicional e beneficios}}"
+          permanent: true
+          vip_zone_benefits:
+            - "{{Spawn exclusivo}}"
+            - "{{NPCs especiais}}"
+            - "{{10% bonus XP na zona}}"
+          ethical_check: "{{Conteudo adicional, nao necessario para progressao principal}}"
+
+    # Categoria 4: Premium/Bundle
+    premium:
+      description: "{{Passes premium com multiplos beneficios}}"
+      passes:
+        - name: "{{Premium Pass}}"
+          price_robux: "{{799}}"
+          description: "{{Bundle completo de beneficios}}"
+          includes:
+            - "{{2x XP permanente}}"
+            - "{{VIP Zone Access}}"
+            - "{{Exclusive pet}}"
+            - "{{Daily bonus +50%}}"
+          value_proposition: "{{Melhor custo-beneficio para jogadores dedicados}}"
+          permanent: true
+          ethical_check: "{{XP boost nao e P2W pois nao afeta PvP}}"
+
+# =============================================================================
+# DEV PRODUCTS STRUCTURE
+# =============================================================================
+dev_products:
+  # Categorias de Dev Products (compras consumiveis/repetidas)
+  categories:
+    # Moedas virtuais
+    virtual_currency:
+      description: "{{Compra de moeda premium do jogo}}"
+      products:
+        - name: "{{100 Gems}}"
+          price_robux: "{{49}}"
+          bonus: "{{0%}}"
+          value_per_robux: "{{2.04 gems}}"
+
+        - name: "{{500 Gems}}"
+          price_robux: "{{199}}"
+          bonus: "{{+20%}}"
+          value_per_robux: "{{2.51 gems}}"
+
+        - name: "{{1200 Gems}}"
+          price_robux: "{{399}}"
+          bonus: "{{+50%}}"
+          value_per_robux: "{{3.01 gems}}"
+
+        - name: "{{3000 Gems}}"
+          price_robux: "{{799}}"
+          bonus: "{{+100%}}"
+          value_per_robux: "{{3.75 gems}}"
+
+      usage_sinks:
+        - "{{Gacha/Crates}}"
+        - "{{Skip timers}}"
+        - "{{Cosmeticos premium}}"
+
+    # Consumiveis
+    consumables:
+      description: "{{Itens de uso unico}}"
+      products:
+        - name: "{{XP Boost (1hr)}}"
+          price_robux: "{{25}}"
+          effect: "{{2x XP por 1 hora}}"
+          stackable: false
+          ethical_check: "{{Temporario, nao permanente}}"
+
+        - name: "{{Luck Boost (30min)}}"
+          price_robux: "{{35}}"
+          effect: "{{+25% chance de drops raros}}"
+          stackable: false
+          ethical_check: "{{Transparente sobre o bonus}}"
+
+        - name: "{{Revive Token}}"
+          price_robux: "{{15}}"
+          effect: "{{Revive no local sem perder progresso}}"
+          stackable: true
+          max_per_run: "{{3}}"
+          ethical_check: "{{Limite previne P2W excessivo}}"
+
+    # Crates/Gacha
+    gacha:
+      description: "{{Sistema de caixas com conteudo aleatorio}}"
+      enabled: "{{true|false}}"
+      products:
+        - name: "{{Standard Crate}}"
+          price_gems: "{{100}}"
+          price_robux_equivalent: "{{~50}}"
+          contents:
+            - item: "{{Common Pet}}"
+              probability: "{{70%}}"
+            - item: "{{Rare Pet}}"
+              probability: "{{20%}}"
+            - item: "{{Epic Pet}}"
+              probability: "{{8%}}"
+            - item: "{{Legendary Pet}}"
+              probability: "{{2%}}"
+
+      ethical_safeguards:
+        - "{{Probabilidades visiveis na UI}}"
+        - "{{Pity system: garantido a cada 50 pulls}}"
+        - "{{Cooldown entre compras}}"
+        - "{{Aviso de gastos acumulados}}"
+
+# =============================================================================
+# PRICING TIERS & STRATEGY
+# =============================================================================
+pricing:
+  # Estrategia de pricing
+  strategy:
+    approach: "{{value-based|competitive|penetration}}"
+    rationale: "{{Justificativa da abordagem}}"
+
+  # Tiers de preco
+  price_tiers:
+    micro:
+      range: "{{1-49 Robux}}"
+      target: "{{Compras por impulso, baixa barreira}}"
+      examples:
+        - "{{Consumiveis basicos}}"
+        - "{{Pequenas quantidades de gems}}"
+      conversion_goal: "{{Alto volume, baixo ticket}}"
+
+    low:
+      range: "{{50-199 Robux}}"
+      target: "{{Jogadores casuais dispostos a gastar pouco}}"
+      examples:
+        - "{{Game passes de conveniencia}}"
+        - "{{Pacotes medios de gems}}"
+      conversion_goal: "{{Primeira compra, quebrar barreira}}"
+
+    mid:
+      range: "{{200-499 Robux}}"
+      target: "{{Jogadores engajados, core audience}}"
+      examples:
+        - "{{Game passes de conteudo}}"
+        - "{{Bundles}}"
+      conversion_goal: "{{Retencao e valor medio}}"
+
+    high:
+      range: "{{500-999 Robux}}"
+      target: "{{Jogadores dedicados/whales}}"
+      examples:
+        - "{{Premium pass}}"
+        - "{{Mega bundles}}"
+      conversion_goal: "{{Maximizar LTV}}"
+
+    whale:
+      range: "{{1000+ Robux}}"
+      target: "{{Whales e superfas}}"
+      examples:
+        - "{{Ultimate bundle}}"
+        - "{{Limited editions}}"
+      conversion_goal: "{{Capturar maior disposicao a pagar}}"
+
+  # Comparativo com mercado
+  competitive_pricing:
+    competitor_1:
+      name: "{{Competidor 1}}"
+      similar_pass_price: "{{299}}"
+    competitor_2:
+      name: "{{Competidor 2}}"
+      similar_pass_price: "{{399}}"
+    our_positioning: "{{Igual|Abaixo|Acima}}"
+    justification: "{{Por que este posicionamento}}"
+
+# =============================================================================
+# REVENUE PROJECTIONS
+# =============================================================================
+revenue_projections:
+  # Premissas
+  assumptions:
+    average_dau: "{{10,000}}"
+    conversion_rate: "{{3%}}"           # % de jogadores que pagam
+    arppu: "{{R$25 / ~100 Robux}}"      # Average Revenue Per Paying User
+    arpdau: "{{R$0.75}}"                # Average Revenue Per Daily Active User
+
+  # Projecoes mensais
+  monthly_projections:
+    month_1:
+      estimated_dau: "{{2,000}}"
+      payers: "{{60}}"
+      revenue_robux: "{{6,000}}"
+      revenue_usd: "{{$21}}"            # 0.0035 USD per Robux (DevEx rate)
+
+    month_3:
+      estimated_dau: "{{10,000}}"
+      payers: "{{300}}"
+      revenue_robux: "{{30,000}}"
+      revenue_usd: "{{$105}}"
+
+    month_6:
+      estimated_dau: "{{30,000}}"
+      payers: "{{900}}"
+      revenue_robux: "{{90,000}}"
+      revenue_usd: "{{$315}}"
+
+    month_12:
+      estimated_dau: "{{50,000}}"
+      payers: "{{1,500}}"
+      revenue_robux: "{{150,000}}"
+      revenue_usd: "{{$525}}"
+
+  # Breakdown por categoria
+  revenue_breakdown:
+    game_passes: "{{40%}}"
+    dev_products_currency: "{{30%}}"
+    dev_products_consumables: "{{20%}}"
+    gacha: "{{10%}}"
+
+  # Metas
+  targets:
+    break_even_dau: "{{5,000}}"         # DAU necessario para cobrir custos
+    target_arpdau: "{{$0.05}}"
+    target_conversion: "{{5%}}"
+
+# =============================================================================
+# ETHICAL CHECKLIST
+# =============================================================================
+ethical_checklist:
+  # Checklist de validacao etica
+  fair_play:
+    - check: "Jogadores F2P podem completar todo conteudo principal?"
+      status: "{{YES|NO|PARTIAL}}"
+      notes: "{{Notas}}"
+
+    - check: "Vantagens pagas sao equilibradas em PvP?"
+      status: "{{YES|NO|NA}}"
+      notes: "{{Notas}}"
+
+    - check: "Existe catch-up mechanic para F2P?"
+      status: "{{YES|NO}}"
+      notes: "{{Notas}}"
+
+  transparency:
+    - check: "Probabilidades de gacha estao visiveis?"
+      status: "{{YES|NO|NA}}"
+      notes: "{{Notas}}"
+
+    - check: "Conteudo de caixas esta listado?"
+      status: "{{YES|NO|NA}}"
+      notes: "{{Notas}}"
+
+    - check: "Precos estao claros antes da compra?"
+      status: "{{YES|NO}}"
+      notes: "{{Notas}}"
+
+  child_safety:
+    - check: "Existe limite de gastos para menores?"
+      status: "{{YES|NO|PLATFORM}}"
+      notes: "{{Notas}}"
+
+    - check: "Mecanicas nao exploram FOMO excessivo?"
+      status: "{{YES|NO}}"
+      notes: "{{Notas}}"
+
+    - check: "Cooldowns previnem gastos impulsivos?"
+      status: "{{YES|NO}}"
+      notes: "{{Notas}}"
+
+  value_perception:
+    - check: "Precos sao justos para o valor oferecido?"
+      status: "{{YES|NO}}"
+      notes: "{{Notas}}"
+
+    - check: "Nao ha bait-and-switch ou misleading?"
+      status: "{{YES|NO}}"
+      notes: "{{Notas}}"
+
+    - check: "Refunds sao respeitados (via Roblox)?"
+      status: "{{YES|NO}}"
+      notes: "{{Notas}}"
+
+  # Score etico final
+  ethical_score:
+    total: "{{85/100}}"
+    assessment: "{{APPROVED|NEEDS_REVIEW|REJECTED}}"
+    recommendations:
+      - "{{Recomendacao 1 para melhorar}}"
+      - "{{Recomendacao 2 para melhorar}}"
+
+# =============================================================================
+# IMPLEMENTATION NOTES
+# =============================================================================
+implementation:
+  # Servicos Roblox utilizados
+  roblox_services:
+    marketplace_service: true
+    game_pass_service: true
+    developer_products: true
+    data_store: true
+    policy_service: true   # Para verificar restricoes regionais
+
+  # Consideracoes tecnicas
+  technical_notes:
+    - "{{Validar compras no servidor, nunca no cliente}}"
+    - "{{Usar ReceiptProcessor para dev products}}"
+    - "{{Implementar sistema de backup para dados de compra}}"
+    - "{{Logs detalhados de todas as transacoes}}"
+
+  # Testes necessarios
+  required_tests:
+    - "{{Teste de fluxo de compra completo}}"
+    - "{{Teste de falha de conexao durante compra}}"
+    - "{{Teste de limite de gastos}}"
+    - "{{Teste de restauracao de purchases}}"
+
+# =============================================================================
+# FIM DO TEMPLATE
+# =============================================================================
