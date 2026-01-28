@@ -15,8 +15,8 @@ build/
 # Output directory (generated content)
 output/
 
-# Database
-data/
+# Database (only root data directory)
+/data/
 *.db
 *.db-journal
 
