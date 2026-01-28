@@ -1,15 +1,17 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, FileText, History, Settings, Play, TrendingUp } from 'lucide-react';
+import { LayoutDashboard, FileText, History, Settings, Play, TrendingUp, BookMarked, Workflow } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { useAppStore } from '../../stores/app.store';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/trends', icon: TrendingUp, label: 'Tendências' },
-  { to: '/execution', icon: Play, label: 'Execução' },
+  { to: '/trends', icon: TrendingUp, label: 'Tendencias' },
+  { to: '/curated', icon: BookMarked, label: 'Curado' },
+  { to: '/pipeline', icon: Workflow, label: 'Pipeline' },
+  { to: '/execution', icon: Play, label: 'Execucao' },
   { to: '/posts', icon: FileText, label: 'Posts' },
-  { to: '/history', icon: History, label: 'Histórico' },
-  { to: '/settings', icon: Settings, label: 'Configurações' },
+  { to: '/history', icon: History, label: 'Historico' },
+  { to: '/settings', icon: Settings, label: 'Configuracoes' },
 ];
 
 export function Sidebar() {

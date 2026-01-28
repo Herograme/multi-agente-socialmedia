@@ -40,3 +40,23 @@ export interface Topic {
   engagementPotential: number;
   basedOnTrends: string[];
 }
+
+// Curated Content Types
+export type CuratedContentType = 'article' | 'video' | 'tutorial' | 'documentation' | 'other';
+
+export interface Snippet {
+  id: string;
+  code: string;
+  language: string;
+  description?: string;
+}
+
+export interface CuratedContent {
+  id: string;
+  title: string;
+  source: string;
+  type: CuratedContentType;
+  url: string;
+  snippets: Snippet[];
+  curatedAt: string;
+}
