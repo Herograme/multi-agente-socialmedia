@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1080">
+  <link rel="stylesheet" href="./styles/base.css">
+  <link rel="stylesheet" href="./code.css">
+  <!-- Shiki inline styles will be injected here -->
+  <style>{{shikiStyles}}</style>
+  <title>{{title}}</title>
+</head>
+<body>
+  <div class="slide slide-code">
+    <div
+      class="slide-background"
+      style="background-image: url('{{backgroundImage}}')"
+    ></div>
+    <div
+      class="slide-overlay"
+      style="opacity: {{overlayOpacity}}; background: {{overlayColor}}"
+    ></div>
+    <div class="slide-content">
+      <header class="code-header">
+        <h2 class="code-title">{{title}}</h2>
+        <span class="code-language">{{language}}</span>
+      </header>
+
+      <main class="code-body">
+        <div class="code-block">
+          {{highlightedCode}}
+        </div>
+      </main>
+
+      <footer class="code-footer">
+        <span class="code-handle">{{handle}}</span>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

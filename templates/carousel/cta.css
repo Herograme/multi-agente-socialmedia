@@ -1,0 +1,67 @@
+/**
+ * CTA (Call-to-Action) Slide Styles
+ * Story 3.3 - Templates HTML/CSS para Slides
+ *
+ * The CTA slide is typically the last slide of a carousel,
+ * featuring a call-to-action message and the creator's handle.
+ */
+
+.slide-cta .slide-content {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.cta-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+}
+
+.cta-text {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  max-width: 90%;
+}
+
+.cta-handle-wrapper {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(88, 166, 255, 0.3);
+}
+
+.cta-handle {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  color: var(--bg-primary);
+}
+
+.cta-social {
+  margin-top: var(--spacing-md);
+}
+
+.cta-social-text {
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* Animation for attention (optional - browser must support) */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.cta-handle-wrapper {
+  animation: pulse 2s ease-in-out infinite;
+}

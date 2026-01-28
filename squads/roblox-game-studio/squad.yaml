@@ -1,0 +1,59 @@
+name: roblox-game-studio
+version: 1.0.0
+description: Squad especializado em desenvolvimento de jogos Roblox com foco em scripting Lua, game design e UI/UX
+author: ubuntu
+license: MIT
+slashPrefix: roblox
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+components:
+  agents:
+    - lua-scripter.md
+    - game-designer.md
+    - ui-ux-designer.md
+    - market-analyst.md
+    - monetization-strategist.md
+  tasks:
+    - create-game-system.md
+    - analyze-market.md
+    - create-gdd.md
+    - create-monetization-strategy.md
+    - create-architecture.md
+    - create-style-guide.md
+    - design-mechanic.md
+  workflows:
+    - idea-to-concept.md
+  checklists:
+    - gdd-review-checklist.md
+    - monetization-ethics-checklist.md
+    - architecture-review-checklist.md
+    - launch-readiness-checklist.md
+    - market-validation-checklist.md
+    - ui-accessibility-checklist.md
+  templates:
+    - gdd-tmpl.yaml
+    - market-analysis-tmpl.yaml
+    - monetization-tmpl.yaml
+    - architecture-tmpl.yaml
+    - style-guide-tmpl.yaml
+    - briefing-tmpl.yaml
+  tools: []
+  scripts: []
+
+config:
+  extends: extend
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - roblox
+  - gamedev
+  - lua
+  - game-design
+  - ui-ux

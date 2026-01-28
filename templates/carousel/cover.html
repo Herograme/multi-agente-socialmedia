@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1080">
+  <link rel="stylesheet" href="./styles/base.css">
+  <link rel="stylesheet" href="./cover.css">
+  <title>{{title}}</title>
+</head>
+<body>
+  <div class="slide slide-cover">
+    <div
+      class="slide-background"
+      style="background-image: url('{{backgroundImage}}')"
+    ></div>
+    <div
+      class="slide-overlay"
+      style="opacity: {{overlayOpacity}}; background: {{overlayColor}}"
+    ></div>
+    <div class="slide-content">
+      <div class="cover-title-wrapper">
+        <h1 class="cover-title">{{title}}</h1>
+        {{#subtitle}}
+        <p class="cover-subtitle">{{subtitle}}</p>
+        {{/subtitle}}
+      </div>
+      <div class="cover-footer">
+        <span class="cover-handle">{{handle}}</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

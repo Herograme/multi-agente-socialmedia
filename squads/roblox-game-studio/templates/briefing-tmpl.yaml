@@ -1,0 +1,426 @@
+# =============================================================================
+# GAME BRIEFING TEMPLATE
+# =============================================================================
+# Squad: roblox-game-studio
+# Agent: @studio (orchestrator) / Input inicial
+# Purpose: Template para documentar ideias iniciais de jogos Roblox
+# Usage: Preencher campos substituindo {{placeholders}} pelos valores reais
+# =============================================================================
+
+metadata:
+  document_type: "Game Briefing"
+  version: "{{1.0.0}}"
+  status: "{{draft|in_review|approved|in_development}}"
+  created_at: "{{YYYY-MM-DD}}"
+  updated_at: "{{YYYY-MM-DD}}"
+  creator: "{{Nome de quem criou o briefing}}"
+  project_codename: "{{Codinome do projeto - ex: Project Phoenix}}"
+
+# =============================================================================
+# CONCEITO
+# =============================================================================
+concept:
+  # Ideia em uma frase (elevator pitch)
+  one_liner: "{{Uma frase que vende o jogo - ex: 'Sobreviva em uma ilha com pets que evoluem baseado no clima'}}"
+
+  # Descricao expandida (1-2 paragrafos)
+  description: |
+    {{Paragrafo 1: Descreva o que o jogador faz no jogo.
+    Seja especifico sobre a experiencia central.}}
+
+    {{Paragrafo 2: O que torna isso divertido?
+    Por que alguem escolheria jogar isso?}}
+
+  # Hook - O que prende o jogador
+  hook:
+    primary: "{{O principal motivo para continuar jogando - ex: Evoluir pets unicos}}"
+    secondary: "{{Motivo secundario - ex: Competir no leaderboard}}"
+
+  # Sentimento desejado
+  desired_feeling: "{{Como o jogador deve se sentir - ex: Curioso, recompensado, poderoso}}"
+
+  # Keywords/Tags
+  keywords:
+    - "{{keyword1 - ex: survival}}"
+    - "{{keyword2 - ex: pets}}"
+    - "{{keyword3 - ex: evolution}}"
+    - "{{keyword4 - ex: multiplayer}}"
+
+# =============================================================================
+# GENRE & TARGET
+# =============================================================================
+genre_target:
+  # Genero principal
+  primary_genre: "{{simulator|tycoon|obby|horror|rpg|shooter|racing|social|adventure}}"
+
+  # Sub-generos/elementos
+  sub_genres:
+    - "{{Sub-genero 1 - ex: pet collector}}"
+    - "{{Sub-genero 2 - ex: survival}}"
+
+  # Publico-alvo
+  target_audience:
+    # Faixa etaria principal
+    age_range:
+      primary: "{{9-12|13-17|18+}}"
+      secondary: "{{Outra faixa que tambem jogaria}}"
+
+    # Tipo de jogador
+    player_type:
+      primary: "{{casual|core|hardcore}}"
+      description: "{{Descreva o jogador tipico}}"
+
+    # Plataforma prioritaria
+    platform_priority:
+      - "{{mobile|desktop|console}}"
+      - "{{segunda prioridade}}"
+
+    # Sessao tipica
+    session_length:
+      target: "{{15-30 minutos}}"
+      minimum_viable: "{{5 minutos}}"
+
+  # Restricoes de conteudo
+  content_rating:
+    violence: "{{none|mild|moderate}}"
+    scary_content: "{{none|mild|moderate}}"
+    social_interaction: "{{minimal|moderate|heavy}}"
+    in_game_purchases: "{{yes|no}}"
+
+# =============================================================================
+# INSPIRATIONS
+# =============================================================================
+inspirations:
+  # Jogos Roblox que inspiram
+  roblox_references:
+    - name: "{{Nome do jogo Roblox 1}}"
+      what_to_take: "{{O que pegar deste jogo - ex: Sistema de pets}}"
+      what_to_avoid: "{{O que evitar - ex: Monetizacao agressiva}}"
+
+    - name: "{{Nome do jogo Roblox 2}}"
+      what_to_take: "{{O que pegar}}"
+      what_to_avoid: "{{O que evitar}}"
+
+    - name: "{{Nome do jogo Roblox 3}}"
+      what_to_take: "{{O que pegar}}"
+      what_to_avoid: "{{O que evitar}}"
+
+  # Jogos fora do Roblox que inspiram
+  external_references:
+    - name: "{{Nome do jogo externo 1 - ex: Pokemon}}"
+      platform: "{{mobile|pc|console}}"
+      what_to_take: "{{Sistema de evolucao}}"
+
+    - name: "{{Nome do jogo externo 2}}"
+      platform: "{{mobile|pc|console}}"
+      what_to_take: "{{O que pegar}}"
+
+  # Outras midias (filmes, series, etc)
+  other_media:
+    - name: "{{Midia 1 - ex: Avatar}}"
+      type: "{{movie|series|anime|book}}"
+      inspiration: "{{O que inspira - ex: Conexao com criaturas}}"
+
+# =============================================================================
+# DIFFERENTIALS
+# =============================================================================
+differentials:
+  # O que torna este jogo unico
+  unique_selling_points:
+    - usp: "{{USP 1 - ex: Pets evoluem baseado no clima do mundo real}}"
+      importance: "{{HIGH|MEDIUM|LOW}}"
+      feasibility: "{{HIGH|MEDIUM|LOW}}"
+      notes: "{{Notas adicionais}}"
+
+    - usp: "{{USP 2 - ex: Mapa procedural que muda semanalmente}}"
+      importance: "{{HIGH|MEDIUM|LOW}}"
+      feasibility: "{{HIGH|MEDIUM|LOW}}"
+      notes: "{{Notas adicionais}}"
+
+    - usp: "{{USP 3}}"
+      importance: "{{HIGH|MEDIUM|LOW}}"
+      feasibility: "{{HIGH|MEDIUM|LOW}}"
+      notes: "{{Notas adicionais}}"
+
+  # Inovacoes propostas
+  innovations:
+    gameplay:
+      - "{{Inovacao de gameplay 1}}"
+      - "{{Inovacao de gameplay 2}}"
+
+    technical:
+      - "{{Inovacao tecnica 1 - se houver}}"
+
+    monetization:
+      - "{{Inovacao de monetizacao 1 - se houver}}"
+
+  # Por que agora?
+  market_timing:
+    opportunity: "{{Por que este e um bom momento para este jogo}}"
+    trends_leveraged:
+      - "{{Tendencia 1 que o jogo aproveita}}"
+      - "{{Tendencia 2}}"
+
+# =============================================================================
+# CORE LOOP
+# =============================================================================
+core_loop:
+  # Descricao do core loop em texto
+  description: |
+    {{Descreva o ciclo principal de gameplay.
+    O que o jogador faz repetidamente?
+    Qual a recompensa de cada ciclo?}}
+
+  # Core loop em etapas
+  steps:
+    - step: 1
+      action: "{{Acao 1 - ex: Explorar o mapa}}"
+      duration: "{{Tempo - ex: 2-5 min}}"
+      motivation: "{{Por que o jogador faz isso}}"
+      reward: "{{O que ganha}}"
+
+    - step: 2
+      action: "{{Acao 2 - ex: Capturar criatura}}"
+      duration: "{{Tempo}}"
+      motivation: "{{Por que o jogador faz isso}}"
+      reward: "{{O que ganha}}"
+
+    - step: 3
+      action: "{{Acao 3 - ex: Treinar/Evoluir}}"
+      duration: "{{Tempo}}"
+      motivation: "{{Por que o jogador faz isso}}"
+      reward: "{{O que ganha}}"
+
+    - step: 4
+      action: "{{Acao 4 - ex: Batalhar/Usar}}"
+      duration: "{{Tempo}}"
+      motivation: "{{Por que o jogador faz isso}}"
+      reward: "{{O que ganha}}"
+
+  # Tempo total do loop
+  total_loop_time: "{{10-15 minutos}}"
+
+  # Loops secundarios
+  secondary_loops:
+    daily:
+      - "{{Loop diario 1 - ex: Daily rewards}}"
+      - "{{Loop diario 2 - ex: Daily quest}}"
+
+    weekly:
+      - "{{Loop semanal 1 - ex: Evento semanal}}"
+
+    social:
+      - "{{Loop social 1 - ex: Trading}}"
+      - "{{Loop social 2 - ex: Guilds}}"
+
+# =============================================================================
+# FEATURES (MVP vs Future)
+# =============================================================================
+features:
+  # Features para o MVP (lancamento)
+  mvp:
+    must_have:
+      - feature: "{{Feature obrigatoria 1}}"
+        description: "{{Descricao breve}}"
+        priority: 1
+
+      - feature: "{{Feature obrigatoria 2}}"
+        description: "{{Descricao breve}}"
+        priority: 2
+
+      - feature: "{{Feature obrigatoria 3}}"
+        description: "{{Descricao breve}}"
+        priority: 3
+
+    should_have:
+      - feature: "{{Feature importante 1}}"
+        description: "{{Descricao breve}}"
+
+      - feature: "{{Feature importante 2}}"
+        description: "{{Descricao breve}}"
+
+  # Features para updates futuros
+  future:
+    update_1:
+      timing: "{{1-2 meses pos-lancamento}}"
+      features:
+        - "{{Feature futura 1}}"
+        - "{{Feature futura 2}}"
+
+    update_2:
+      timing: "{{3-4 meses pos-lancamento}}"
+      features:
+        - "{{Feature futura 3}}"
+        - "{{Feature futura 4}}"
+
+  # Features explicitamente fora de escopo
+  out_of_scope:
+    - feature: "{{Feature que NAO faremos}}"
+      reason: "{{Por que nao}}"
+
+    - feature: "{{Outra feature fora de escopo}}"
+      reason: "{{Por que nao}}"
+
+# =============================================================================
+# TEAM & TIMELINE
+# =============================================================================
+team_timeline:
+  # Equipe necessaria
+  team:
+    roles_needed:
+      - role: "{{Game Designer}}"
+        responsibilities: "{{GDD, balanceamento, mecanicas}}"
+        allocation: "{{full-time|part-time|as-needed}}"
+
+      - role: "{{Lua Developer}}"
+        responsibilities: "{{Programacao, sistemas}}"
+        allocation: "{{full-time|part-time|as-needed}}"
+
+      - role: "{{UI/UX Designer}}"
+        responsibilities: "{{Interface, experiencia}}"
+        allocation: "{{full-time|part-time|as-needed}}"
+
+      - role: "{{3D Artist}}"
+        responsibilities: "{{Modelos, ambiente}}"
+        allocation: "{{full-time|part-time|as-needed}}"
+
+      - role: "{{Animator}}"
+        responsibilities: "{{Animacoes de personagem}}"
+        allocation: "{{full-time|part-time|as-needed}}"
+
+  # Timeline estimada
+  timeline:
+    phases:
+      - phase: "{{Concept & Design}}"
+        duration: "{{2 semanas}}"
+        deliverables:
+          - "{{GDD completo}}"
+          - "{{Style guide}}"
+          - "{{Arquitetura tecnica}}"
+
+      - phase: "{{Prototype}}"
+        duration: "{{3-4 semanas}}"
+        deliverables:
+          - "{{Core loop jogavel}}"
+          - "{{Arte placeholder}}"
+
+      - phase: "{{Production}}"
+        duration: "{{6-8 semanas}}"
+        deliverables:
+          - "{{MVP feature-complete}}"
+          - "{{Arte final}}"
+          - "{{Sons e musica}}"
+
+      - phase: "{{Polish & QA}}"
+        duration: "{{2 semanas}}"
+        deliverables:
+          - "{{Bug fixes}}"
+          - "{{Balanceamento}}"
+          - "{{Otimizacao}}"
+
+      - phase: "{{Soft Launch}}"
+        duration: "{{1-2 semanas}}"
+        deliverables:
+          - "{{Teste com usuarios reais}}"
+          - "{{Metricas iniciais}}"
+
+      - phase: "{{Launch}}"
+        duration: "{{N/A}}"
+        deliverables:
+          - "{{Release publico}}"
+          - "{{Marketing push}}"
+
+    total_estimated: "{{14-18 semanas}}"
+    target_launch: "{{YYYY-MM-DD}}"
+
+  # Orcamento/Recursos
+  resources:
+    budget_robux: "{{Budget em Robux para assets, etc}}"
+    external_assets: "{{Se vai comprar assets externos}}"
+    marketing_budget: "{{Budget para marketing}}"
+
+# =============================================================================
+# RISKS & ASSUMPTIONS
+# =============================================================================
+risks_assumptions:
+  # Premissas (coisas que assumimos ser verdade)
+  assumptions:
+    - assumption: "{{Premissa 1 - ex: Jogadores gostam de colecionar pets}}"
+      validation: "{{Como validar - ex: Pesquisa de mercado}}"
+
+    - assumption: "{{Premissa 2 - ex: Clima API e confiavel}}"
+      validation: "{{Como validar}}"
+
+    - assumption: "{{Premissa 3}}"
+      validation: "{{Como validar}}"
+
+  # Riscos identificados
+  risks:
+    - risk: "{{Risco 1 - ex: Competidor lanca jogo similar}}"
+      probability: "{{HIGH|MEDIUM|LOW}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      mitigation: "{{Como mitigar}}"
+
+    - risk: "{{Risco 2 - ex: Feature principal muito complexa}}"
+      probability: "{{HIGH|MEDIUM|LOW}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      mitigation: "{{Como mitigar}}"
+
+    - risk: "{{Risco 3}}"
+      probability: "{{HIGH|MEDIUM|LOW}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      mitigation: "{{Como mitigar}}"
+
+  # Questoes em aberto
+  open_questions:
+    - question: "{{Questao 1 que precisa ser respondida}}"
+      owner: "{{Quem vai responder}}"
+      deadline: "{{Quando precisa de resposta}}"
+
+    - question: "{{Questao 2}}"
+      owner: "{{Quem vai responder}}"
+      deadline: "{{Quando precisa de resposta}}"
+
+# =============================================================================
+# NEXT STEPS
+# =============================================================================
+next_steps:
+  immediate:
+    - action: "{{Acao imediata 1 - ex: Validar mercado com @market-analyst}}"
+      owner: "{{Responsavel}}"
+      deadline: "{{Data}}"
+
+    - action: "{{Acao imediata 2 - ex: Definir monetizacao com @monetization-strategist}}"
+      owner: "{{Responsavel}}"
+      deadline: "{{Data}}"
+
+  after_approval:
+    - "{{Proxima etapa 1 - ex: Criar GDD detalhado}}"
+    - "{{Proxima etapa 2 - ex: Definir arquitetura tecnica}}"
+    - "{{Proxima etapa 3 - ex: Criar style guide visual}}"
+
+# =============================================================================
+# APPROVAL
+# =============================================================================
+approval:
+  status: "{{pending|approved|rejected|needs_revision}}"
+
+  reviewers:
+    - name: "{{Reviewer 1}}"
+      role: "{{Role}}"
+      status: "{{pending|approved|rejected}}"
+      feedback: "{{Feedback se houver}}"
+
+    - name: "{{Reviewer 2}}"
+      role: "{{Role}}"
+      status: "{{pending|approved|rejected}}"
+      feedback: "{{Feedback se houver}}"
+
+  final_decision:
+    decision: "{{APPROVED|REJECTED|PIVOT}}"
+    date: "{{YYYY-MM-DD}}"
+    notes: "{{Notas finais}}"
+
+# =============================================================================
+# FIM DO TEMPLATE
+# =============================================================================

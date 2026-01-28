@@ -26,10 +26,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@social-content/shared": "workspace:*"
+    "@social-content/shared": "workspace:*",
+    "puppeteer": "^24.36.1",
+    "shiki": "^3.21.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.0",
+    "@types/node": "^20.19.30",
+    "image-size": "^2.0.2",
     "vitest": "^1.2.0"
   }
 }

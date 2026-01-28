@@ -3,6 +3,8 @@ import cors from '@fastify/cors';
 import { healthRoutes } from './routes/health';
 import { researcherRoutes, curadorRoutes } from './routes/agents';
 import { pipelineRoutes } from './routes/pipeline';
+import { postsRoutes } from './routes/posts';
+import { devTemplatesRoutes } from './routes/dev';
 import { errorHandler } from './middleware/error-handler';
 
 export interface ServerOptions {
@@ -42,6 +44,12 @@ export async function createServer(options: ServerOptions = {}): Promise<Fastify
   await fastify.register(researcherRoutes);
   await fastify.register(curadorRoutes);
   await fastify.register(pipelineRoutes);
+  await fastify.register(postsRoutes);
+
+  // Development-only routes
+  if (isDev) {
+    await fastify.register(devTemplatesRoutes);
+  }
 
   return fastify;
 }

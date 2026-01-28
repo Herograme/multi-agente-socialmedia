@@ -4,6 +4,7 @@ import { Layout } from './components/layout/Layout';
 import { Dashboard } from './routes/Dashboard';
 import { Execution } from './routes/Execution';
 import { Posts } from './routes/Posts';
+import { PostDetail } from './routes/PostDetail';
 import { History } from './routes/History';
 import { Settings } from './routes/Settings';
 import { Trends } from './routes/Trends';
@@ -36,6 +37,7 @@ export function App() {
             <Route path="pipeline" element={<Pipeline />} />
             <Route path="execution" element={<Execution />} />
             <Route path="posts" element={<Posts />} />
+            <Route path="posts/:id" element={<PostDetail />} />
             <Route path="history" element={<History />} />
             <Route path="settings" element={<Settings />} />
             <Route path="*" element={<Navigate to="/" replace />} />

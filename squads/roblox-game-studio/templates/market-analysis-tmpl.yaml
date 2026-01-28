@@ -1,0 +1,404 @@
+# =============================================================================
+# MARKET ANALYSIS TEMPLATE
+# =============================================================================
+# Squad: roblox-game-studio
+# Agent: @market-analyst
+# Purpose: Template para analise de mercado e validacao de conceitos Roblox
+# Usage: Preencher campos substituindo {{placeholders}} pelos valores reais
+# =============================================================================
+
+metadata:
+  document_type: "Market Analysis Report"
+  version: "{{1.0.0}}"
+  status: "{{draft|review|approved}}"
+  created_at: "{{YYYY-MM-DD}}"
+  updated_at: "{{YYYY-MM-DD}}"
+  analyst: "{{Nome do Market Analyst}}"
+  game_concept: "{{Nome/Titulo do conceito analisado}}"
+
+# =============================================================================
+# EXECUTIVE SUMMARY
+# =============================================================================
+executive_summary:
+  # Resumo executivo em 3-5 bullets
+  key_findings:
+    - "{{Finding 1: Tamanho do mercado e oportunidade}}"
+    - "{{Finding 2: Nivel de competicao}}"
+    - "{{Finding 3: Diferenciais do conceito}}"
+    - "{{Finding 4: Riscos principais}}"
+    - "{{Finding 5: Recomendacao final}}"
+
+  # Veredito final
+  recommendation: "{{PROCEED|PIVOT|ABANDON}}"
+  confidence_level: "{{HIGH|MEDIUM|LOW}}"
+
+  # Score de validacao (0-100)
+  validation_score:
+    overall: "{{75}}"
+    breakdown:
+      market_opportunity: "{{80}}"      # Tamanho e crescimento do mercado
+      competitive_advantage: "{{70}}"    # Diferenciais competitivos
+      execution_feasibility: "{{75}}"    # Viabilidade de execucao
+      monetization_potential: "{{72}}"   # Potencial de receita
+
+# =============================================================================
+# GENRE ANALYSIS
+# =============================================================================
+genre_analysis:
+  # Genero primario analisado
+  primary_genre: "{{simulator|tycoon|obby|horror|rpg|shooter|racing|social}}"
+
+  # Metricas do genero no Roblox
+  genre_metrics:
+    # CCU (Concurrent Users) do genero
+    ccu:
+      peak_ccu: "{{500,000}}"           # Pico historico
+      average_ccu: "{{150,000}}"        # Media mensal
+      trend: "{{growing|stable|declining}}"
+      trend_percentage: "{{+15% YoY}}"
+
+    # Jogos no genero
+    game_count:
+      total_games: "{{5,000+}}"
+      top_100_games: "{{25}}"           # Quantos do top 100 sao deste genero
+      new_entries_monthly: "{{50-100}}"
+
+    # Revenue estimado do genero
+    revenue:
+      estimated_monthly: "{{$5-10M}}"
+      top_game_revenue: "{{$2M/month}}"
+      average_game_revenue: "{{$1,000/month}}"
+
+  # Tendencias do genero
+  trends:
+    hot_trends:
+      - trend: "{{Trend 1 - ex: Anime aesthetics}}"
+        impact: "{{HIGH|MEDIUM|LOW}}"
+        longevity: "{{short-term|medium-term|long-term}}"
+      - trend: "{{Trend 2 - ex: Multiplayer co-op}}"
+        impact: "{{HIGH|MEDIUM|LOW}}"
+        longevity: "{{short-term|medium-term|long-term}}"
+
+    declining_trends:
+      - trend: "{{Trend em queda 1}}"
+        reason: "{{Motivo da queda}}"
+      - trend: "{{Trend em queda 2}}"
+        reason: "{{Motivo da queda}}"
+
+    emerging_opportunities:
+      - opportunity: "{{Oportunidade 1}}"
+        timing: "{{Quando explorar}}"
+      - opportunity: "{{Oportunidade 2}}"
+        timing: "{{Quando explorar}}"
+
+# =============================================================================
+# COMPETITOR MATRIX
+# =============================================================================
+competitor_matrix:
+  # Top 5 competidores diretos
+  direct_competitors:
+    - name: "{{Competitor 1 - Lider do mercado}}"
+      game_id: "{{roblox_game_id}}"
+      metrics:
+        visits: "{{10B+}}"
+        favorites: "{{5M}}"
+        ccu_average: "{{50,000}}"
+        rating: "{{85%}}"
+      monetization:
+        model: "{{gamepasses|devproducts|premium|mixed}}"
+        estimated_revenue: "{{$500K/month}}"
+        top_gamepass_price: "{{999 Robux}}"
+      strengths:
+        - "{{Forca 1}}"
+        - "{{Forca 2}}"
+      weaknesses:
+        - "{{Fraqueza 1}}"
+        - "{{Fraqueza 2}}"
+      differentiation_opportunity: "{{Como se diferenciar}}"
+
+    - name: "{{Competitor 2}}"
+      game_id: "{{roblox_game_id}}"
+      metrics:
+        visits: "{{5B}}"
+        favorites: "{{2M}}"
+        ccu_average: "{{25,000}}"
+        rating: "{{80%}}"
+      monetization:
+        model: "{{gamepasses|devproducts|premium|mixed}}"
+        estimated_revenue: "{{$200K/month}}"
+        top_gamepass_price: "{{799 Robux}}"
+      strengths:
+        - "{{Forca 1}}"
+        - "{{Forca 2}}"
+      weaknesses:
+        - "{{Fraqueza 1}}"
+        - "{{Fraqueza 2}}"
+      differentiation_opportunity: "{{Como se diferenciar}}"
+
+    - name: "{{Competitor 3}}"
+      game_id: "{{roblox_game_id}}"
+      metrics:
+        visits: "{{1B}}"
+        favorites: "{{500K}}"
+        ccu_average: "{{10,000}}"
+        rating: "{{78%}}"
+      monetization:
+        model: "{{gamepasses|devproducts|premium|mixed}}"
+        estimated_revenue: "{{$50K/month}}"
+        top_gamepass_price: "{{499 Robux}}"
+      strengths:
+        - "{{Forca 1}}"
+      weaknesses:
+        - "{{Fraqueza 1}}"
+      differentiation_opportunity: "{{Como se diferenciar}}"
+
+  # Competidores indiretos (jogos que competem pela mesma audiencia)
+  indirect_competitors:
+    - name: "{{Jogo de genero relacionado}}"
+      relevance: "{{Por que e relevante}}"
+      learnings: "{{O que aprender}}"
+    - name: "{{Outro jogo}}"
+      relevance: "{{Por que e relevante}}"
+      learnings: "{{O que aprender}}"
+
+  # Matriz comparativa
+  comparison_matrix:
+    features:
+      - feature: "{{Feature 1 - ex: Multiplayer}}"
+        our_concept: "{{yes|no|planned}}"
+        competitor_1: "{{yes|no}}"
+        competitor_2: "{{yes|no}}"
+        competitor_3: "{{yes|no}}"
+      - feature: "{{Feature 2 - ex: Trading}}"
+        our_concept: "{{yes|no|planned}}"
+        competitor_1: "{{yes|no}}"
+        competitor_2: "{{yes|no}}"
+        competitor_3: "{{yes|no}}"
+      - feature: "{{Feature 3 - ex: Pet System}}"
+        our_concept: "{{yes|no|planned}}"
+        competitor_1: "{{yes|no}}"
+        competitor_2: "{{yes|no}}"
+        competitor_3: "{{yes|no}}"
+
+# =============================================================================
+# SWOT ANALYSIS
+# =============================================================================
+swot:
+  strengths:
+    - strength: "{{Forca 1 - ex: Mecanica inovadora}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      evidence: "{{Evidencia/justificativa}}"
+    - strength: "{{Forca 2 - ex: Nicho pouco explorado}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      evidence: "{{Evidencia/justificativa}}"
+    - strength: "{{Forca 3}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      evidence: "{{Evidencia/justificativa}}"
+
+  weaknesses:
+    - weakness: "{{Fraqueza 1 - ex: Curva de aprendizado alta}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      mitigation: "{{Como mitigar}}"
+    - weakness: "{{Fraqueza 2 - ex: Necessita muito conteudo}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      mitigation: "{{Como mitigar}}"
+    - weakness: "{{Fraqueza 3}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      mitigation: "{{Como mitigar}}"
+
+  opportunities:
+    - opportunity: "{{Oportunidade 1 - ex: Trend em alta}}"
+      timing: "{{immediate|short-term|long-term}}"
+      action_required: "{{Acao para capturar}}"
+    - opportunity: "{{Oportunidade 2 - ex: Gap no mercado}}"
+      timing: "{{immediate|short-term|long-term}}"
+      action_required: "{{Acao para capturar}}"
+    - opportunity: "{{Oportunidade 3}}"
+      timing: "{{immediate|short-term|long-term}}"
+      action_required: "{{Acao para capturar}}"
+
+  threats:
+    - threat: "{{Ameaca 1 - ex: Competidor estabelecido}}"
+      probability: "{{HIGH|MEDIUM|LOW}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      contingency: "{{Plano de contingencia}}"
+    - threat: "{{Ameaca 2 - ex: Mudanca de algoritmo Roblox}}"
+      probability: "{{HIGH|MEDIUM|LOW}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      contingency: "{{Plano de contingencia}}"
+    - threat: "{{Ameaca 3}}"
+      probability: "{{HIGH|MEDIUM|LOW}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+      contingency: "{{Plano de contingencia}}"
+
+# =============================================================================
+# AUDIENCE ANALYSIS
+# =============================================================================
+audience:
+  # Demografico primario
+  primary_demographic:
+    age_range: "{{9-14}}"
+    percentage_of_roblox: "{{45%}}"
+    characteristics:
+      - "{{Preferem sessoes curtas}}"
+      - "{{Influenciados por YouTubers}}"
+      - "{{Gostam de colecionar}}"
+    spending_behavior:
+      average_monthly_robux: "{{200-500}}"
+      purchase_drivers:
+        - "{{Exclusividade}}"
+        - "{{Vantagem competitiva}}"
+        - "{{Social status}}"
+
+  # Demografico secundario
+  secondary_demographic:
+    age_range: "{{15-18}}"
+    percentage_of_roblox: "{{25%}}"
+    characteristics:
+      - "{{Buscam profundidade}}"
+      - "{{Valorizam competicao}}"
+    spending_behavior:
+      average_monthly_robux: "{{500-1000}}"
+      purchase_drivers:
+        - "{{Eficiencia}}"
+        - "{{Customizacao}}"
+
+  # Canais de aquisicao
+  acquisition_channels:
+    - channel: "{{Roblox Discovery}}"
+      importance: "{{PRIMARY|SECONDARY}}"
+      strategy: "{{Otimizar titulo, icone e descricao}}"
+    - channel: "{{YouTube}}"
+      importance: "{{PRIMARY|SECONDARY}}"
+      strategy: "{{Parceria com criadores}}"
+    - channel: "{{TikTok}}"
+      importance: "{{PRIMARY|SECONDARY}}"
+      strategy: "{{Conteudo viral/momentos}}"
+    - channel: "{{Discord}}"
+      importance: "{{PRIMARY|SECONDARY}}"
+      strategy: "{{Comunidade engajada}}"
+
+# =============================================================================
+# MARKET SIZE & PROJECTIONS
+# =============================================================================
+market_projections:
+  # TAM/SAM/SOM
+  market_size:
+    tam:  # Total Addressable Market
+      description: "{{Todos os jogadores Roblox do genero}}"
+      value: "{{10M players}}"
+    sam:  # Serviceable Addressable Market
+      description: "{{Jogadores que buscam este tipo especifico}}"
+      value: "{{2M players}}"
+    som:  # Serviceable Obtainable Market
+      description: "{{Meta realista de captura}}"
+      value: "{{100K-500K players}}"
+
+  # Projecoes de performance
+  projections:
+    month_1:
+      visits: "{{100K-500K}}"
+      dau: "{{1K-5K}}"
+      revenue: "{{$500-2,000}}"
+    month_3:
+      visits: "{{1M-5M}}"
+      dau: "{{5K-20K}}"
+      revenue: "{{$2,000-10,000}}"
+    month_6:
+      visits: "{{5M-20M}}"
+      dau: "{{10K-50K}}"
+      revenue: "{{$10,000-50,000}}"
+    month_12:
+      visits: "{{20M-100M}}"
+      dau: "{{20K-100K}}"
+      revenue: "{{$30,000-150,000}}"
+
+  # Cenarios
+  scenarios:
+    optimistic:
+      probability: "{{20%}}"
+      outcome: "{{Top 100 em 6 meses}}"
+      revenue_year_1: "{{$500K+}}"
+    realistic:
+      probability: "{{60%}}"
+      outcome: "{{Top 500 em 6 meses}}"
+      revenue_year_1: "{{$100K-200K}}"
+    pessimistic:
+      probability: "{{20%}}"
+      outcome: "{{Abaixo de 1K DAU}}"
+      revenue_year_1: "{{<$20K}}"
+
+# =============================================================================
+# RECOMMENDATIONS
+# =============================================================================
+recommendations:
+  # Recomendacoes estrategicas
+  strategic:
+    - priority: "{{1}}"
+      recommendation: "{{Recomendacao 1 - ex: Focar em diferencial X}}"
+      rationale: "{{Justificativa}}"
+      effort: "{{HIGH|MEDIUM|LOW}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+
+    - priority: "{{2}}"
+      recommendation: "{{Recomendacao 2}}"
+      rationale: "{{Justificativa}}"
+      effort: "{{HIGH|MEDIUM|LOW}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+
+    - priority: "{{3}}"
+      recommendation: "{{Recomendacao 3}}"
+      rationale: "{{Justificativa}}"
+      effort: "{{HIGH|MEDIUM|LOW}}"
+      impact: "{{HIGH|MEDIUM|LOW}}"
+
+  # Ajustes no conceito
+  concept_adjustments:
+    must_have:
+      - "{{Ajuste obrigatorio 1}}"
+      - "{{Ajuste obrigatorio 2}}"
+    should_have:
+      - "{{Ajuste recomendado 1}}"
+      - "{{Ajuste recomendado 2}}"
+    nice_to_have:
+      - "{{Ajuste opcional 1}}"
+
+  # Go-to-market
+  go_to_market:
+    launch_timing: "{{Melhor momento para lancar}}"
+    soft_launch_recommendation: "{{Sim/Nao e por que}}"
+    marketing_budget_suggestion: "{{$X para Y acoes}}"
+    key_partnerships:
+      - "{{YouTuber/Streamer 1}}"
+      - "{{Comunidade/Discord 1}}"
+
+# =============================================================================
+# DATA SOURCES & METHODOLOGY
+# =============================================================================
+methodology:
+  data_sources:
+    - source: "{{Rolimons}}"
+      data_type: "{{Game metrics, player counts}}"
+      date_accessed: "{{YYYY-MM-DD}}"
+    - source: "{{Roblox Charts}}"
+      data_type: "{{Revenue estimates, trends}}"
+      date_accessed: "{{YYYY-MM-DD}}"
+    - source: "{{Social Blade}}"
+      data_type: "{{Creator metrics}}"
+      date_accessed: "{{YYYY-MM-DD}}"
+    - source: "{{Manual research}}"
+      data_type: "{{Competitor analysis}}"
+      date_accessed: "{{YYYY-MM-DD}}"
+
+  limitations:
+    - "{{Revenue estimates sao aproximados}}"
+    - "{{Dados podem estar 1-2 semanas defasados}}"
+    - "{{Metricas privadas dos competidores sao estimativas}}"
+
+  confidence_notes: |
+    {{Notas sobre o nivel de confianca dos dados e analises.
+    Incluir qualquer ressalva importante sobre as conclusoes.}}
+
+# =============================================================================
+# FIM DO TEMPLATE
+# =============================================================================

@@ -1,0 +1,569 @@
+# =============================================================================
+# UI/UX STYLE GUIDE TEMPLATE
+# =============================================================================
+# Squad: roblox-game-studio
+# Agent: @ui-ux-designer
+# Purpose: Template para guia de estilo visual de jogos Roblox
+# Usage: Preencher campos substituindo {{placeholders}} pelos valores reais
+# =============================================================================
+
+metadata:
+  document_type: "UI/UX Style Guide"
+  version: "{{1.0.0}}"
+  status: "{{draft|review|approved}}"
+  created_at: "{{YYYY-MM-DD}}"
+  updated_at: "{{YYYY-MM-DD}}"
+  designer: "{{Nome do UI/UX Designer}}"
+  game_name: "{{Nome do Jogo}}"
+
+# =============================================================================
+# DESIGN PRINCIPLES
+# =============================================================================
+design_principles:
+  # Principios fundamentais do design
+  core_principles:
+    - name: "{{Clarity First}}"
+      description: "{{Todo elemento deve ser imediatamente compreensivel}}"
+      application: "{{Icones claros, texto legivel, hierarquia visual}}"
+
+    - name: "{{Mobile-First}}"
+      description: "{{Projetar para telas pequenas primeiro}}"
+      application: "{{Botoes grandes, touch-friendly, layout adaptativo}}"
+
+    - name: "{{Consistent Experience}}"
+      description: "{{Padroes visuais consistentes em toda UI}}"
+      application: "{{Mesmas cores, espacamentos, tipografia}}"
+
+    - name: "{{Feedback Always}}"
+      description: "{{Toda acao deve ter feedback visual/sonoro}}"
+      application: "{{Hover states, click animations, confirmacoes}}"
+
+  # Mood/Feeling do jogo
+  visual_mood:
+    primary_mood: "{{Energetic|Calm|Dark|Whimsical|Epic}}"
+    secondary_mood: "{{Playful|Mysterious|Competitive}}"
+    references:
+      - "{{Referencia visual 1}}"
+      - "{{Referencia visual 2}}"
+      - "{{Referencia visual 3}}"
+
+# =============================================================================
+# COLOR SYSTEM
+# =============================================================================
+color_system:
+  # Cores primarias
+  primary_colors:
+    primary:
+      name: "{{Brand Blue}}"
+      hex: "{{#3B82F6}}"
+      rgb: "{{59, 130, 246}}"
+      # Codigo Lua para uso em scripts
+      lua_color3: "Color3.fromRGB(59, 130, 246)"
+      usage: "{{Botoes principais, CTAs, elementos de destaque}}"
+
+    primary_dark:
+      name: "{{Brand Blue Dark}}"
+      hex: "{{#1D4ED8}}"
+      rgb: "{{29, 78, 216}}"
+      lua_color3: "Color3.fromRGB(29, 78, 216)"
+      usage: "{{Hover state de primario, bordas}}"
+
+    primary_light:
+      name: "{{Brand Blue Light}}"
+      hex: "{{#93C5FD}}"
+      rgb: "{{147, 197, 253}}"
+      lua_color3: "Color3.fromRGB(147, 197, 253)"
+      usage: "{{Backgrounds sutis, disabled states}}"
+
+  # Cores secundarias
+  secondary_colors:
+    secondary:
+      name: "{{Accent Purple}}"
+      hex: "{{#8B5CF6}}"
+      rgb: "{{139, 92, 246}}"
+      lua_color3: "Color3.fromRGB(139, 92, 246)"
+      usage: "{{Elementos secundarios, badges, destaques}}"
+
+    tertiary:
+      name: "{{Accent Gold}}"
+      hex: "{{#F59E0B}}"
+      rgb: "{{245, 158, 11}}"
+      lua_color3: "Color3.fromRGB(245, 158, 11)"
+      usage: "{{Premium content, moedas, recompensas}}"
+
+  # Cores semanticas (feedback)
+  semantic_colors:
+    success:
+      name: "{{Success Green}}"
+      hex: "{{#22C55E}}"
+      rgb: "{{34, 197, 94}}"
+      lua_color3: "Color3.fromRGB(34, 197, 94)"
+      usage: "{{Confirmacoes, ganhos, positivo}}"
+
+    warning:
+      name: "{{Warning Yellow}}"
+      hex: "{{#EAB308}}"
+      rgb: "{{234, 179, 8}}"
+      lua_color3: "Color3.fromRGB(234, 179, 8)"
+      usage: "{{Alertas, atencao necessaria}}"
+
+    error:
+      name: "{{Error Red}}"
+      hex: "{{#EF4444}}"
+      rgb: "{{239, 68, 68}}"
+      lua_color3: "Color3.fromRGB(239, 68, 68)"
+      usage: "{{Erros, dano, negativo}}"
+
+    info:
+      name: "{{Info Blue}}"
+      hex: "{{#06B6D4}}"
+      rgb: "{{6, 182, 212}}"
+      lua_color3: "Color3.fromRGB(6, 182, 212)"
+      usage: "{{Informacoes, dicas, tutoriais}}"
+
+  # Cores de raridade (para itens, pets, etc)
+  rarity_colors:
+    common:
+      name: "{{Common White}}"
+      hex: "{{#E5E5E5}}"
+      lua_color3: "Color3.fromRGB(229, 229, 229)"
+
+    uncommon:
+      name: "{{Uncommon Green}}"
+      hex: "{{#22C55E}}"
+      lua_color3: "Color3.fromRGB(34, 197, 94)"
+
+    rare:
+      name: "{{Rare Blue}}"
+      hex: "{{#3B82F6}}"
+      lua_color3: "Color3.fromRGB(59, 130, 246)"
+
+    epic:
+      name: "{{Epic Purple}}"
+      hex: "{{#A855F7}}"
+      lua_color3: "Color3.fromRGB(168, 85, 247)"
+
+    legendary:
+      name: "{{Legendary Gold}}"
+      hex: "{{#F59E0B}}"
+      lua_color3: "Color3.fromRGB(245, 158, 11)"
+
+    mythic:
+      name: "{{Mythic Red}}"
+      hex: "{{#DC2626}}"
+      lua_color3: "Color3.fromRGB(220, 38, 38)"
+
+  # Cores neutras (backgrounds, texto)
+  neutral_colors:
+    background_dark:
+      name: "{{BG Dark}}"
+      hex: "{{#1F2937}}"
+      lua_color3: "Color3.fromRGB(31, 41, 55)"
+      usage: "{{Background principal escuro}}"
+
+    background_medium:
+      name: "{{BG Medium}}"
+      hex: "{{#374151}}"
+      lua_color3: "Color3.fromRGB(55, 65, 81)"
+      usage: "{{Cards, panels}}"
+
+    background_light:
+      name: "{{BG Light}}"
+      hex: "{{#4B5563}}"
+      lua_color3: "Color3.fromRGB(75, 85, 99)"
+      usage: "{{Hover backgrounds}}"
+
+    text_primary:
+      name: "{{Text Primary}}"
+      hex: "{{#F9FAFB}}"
+      lua_color3: "Color3.fromRGB(249, 250, 251)"
+      usage: "{{Texto principal}}"
+
+    text_secondary:
+      name: "{{Text Secondary}}"
+      hex: "{{#9CA3AF}}"
+      lua_color3: "Color3.fromRGB(156, 163, 175)"
+      usage: "{{Texto secundario, labels}}"
+
+    text_muted:
+      name: "{{Text Muted}}"
+      hex: "{{#6B7280}}"
+      lua_color3: "Color3.fromRGB(107, 114, 128)"
+      usage: "{{Texto desabilitado, hints}}"
+
+# =============================================================================
+# TYPOGRAPHY SCALE
+# =============================================================================
+typography:
+  # Fontes utilizadas
+  fonts:
+    primary:
+      name: "{{GothamSSm}}"  # Fonte padrao do Roblox
+      roblox_enum: "Enum.Font.GothamSemibold"
+      usage: "{{Titulos, botoes, elementos importantes}}"
+
+    secondary:
+      name: "{{Gotham}}"
+      roblox_enum: "Enum.Font.Gotham"
+      usage: "{{Corpo de texto, descricoes}}"
+
+    accent:
+      name: "{{SourceSansPro}}"
+      roblox_enum: "Enum.Font.SourceSansBold"
+      usage: "{{Numeros, stats, valores}}"
+
+    monospace:
+      name: "{{Code}}"
+      roblox_enum: "Enum.Font.Code"
+      usage: "{{Codigos, IDs, dados tecnicos}}"
+
+  # Escala de tamanhos
+  size_scale:
+    display:
+      size: "{{48}}"
+      line_height: "{{1.1}}"
+      usage: "{{Titulos de tela, splash}}"
+      lua_example: "TextLabel.TextSize = 48"
+
+    h1:
+      size: "{{32}}"
+      line_height: "{{1.2}}"
+      usage: "{{Titulos principais}}"
+      lua_example: "TextLabel.TextSize = 32"
+
+    h2:
+      size: "{{24}}"
+      line_height: "{{1.25}}"
+      usage: "{{Subtitulos, headers de secao}}"
+      lua_example: "TextLabel.TextSize = 24"
+
+    h3:
+      size: "{{20}}"
+      line_height: "{{1.3}}"
+      usage: "{{Titulos de cards, modais}}"
+      lua_example: "TextLabel.TextSize = 20"
+
+    body_large:
+      size: "{{18}}"
+      line_height: "{{1.4}}"
+      usage: "{{Corpo de texto importante}}"
+      lua_example: "TextLabel.TextSize = 18"
+
+    body:
+      size: "{{16}}"
+      line_height: "{{1.5}}"
+      usage: "{{Corpo de texto padrao}}"
+      lua_example: "TextLabel.TextSize = 16"
+
+    body_small:
+      size: "{{14}}"
+      line_height: "{{1.5}}"
+      usage: "{{Texto secundario, labels}}"
+      lua_example: "TextLabel.TextSize = 14"
+
+    caption:
+      size: "{{12}}"
+      line_height: "{{1.4}}"
+      usage: "{{Captions, footnotes}}"
+      lua_example: "TextLabel.TextSize = 12"
+
+    micro:
+      size: "{{10}}"
+      line_height: "{{1.3}}"
+      usage: "{{Tags, badges, tooltips}}"
+      lua_example: "TextLabel.TextSize = 10"
+
+# =============================================================================
+# SPACING SYSTEM
+# =============================================================================
+spacing:
+  # Sistema de espacamento baseado em multiplos de 4
+  base_unit: 4  # pixels
+
+  scale:
+    xxs:
+      value: "{{4}}"
+      usage: "{{Espacamento minimo, entre icone e texto}}"
+      lua: "UIPadding.PaddingAll = UDim.new(0, 4)"
+
+    xs:
+      value: "{{8}}"
+      usage: "{{Espacamento pequeno, entre elementos relacionados}}"
+      lua: "UIPadding.PaddingAll = UDim.new(0, 8)"
+
+    sm:
+      value: "{{12}}"
+      usage: "{{Espacamento medio-pequeno}}"
+      lua: "UIPadding.PaddingAll = UDim.new(0, 12)"
+
+    md:
+      value: "{{16}}"
+      usage: "{{Espacamento padrao, padding de cards}}"
+      lua: "UIPadding.PaddingAll = UDim.new(0, 16)"
+
+    lg:
+      value: "{{24}}"
+      usage: "{{Espacamento grande, entre secoes}}"
+      lua: "UIPadding.PaddingAll = UDim.new(0, 24)"
+
+    xl:
+      value: "{{32}}"
+      usage: "{{Espacamento extra grande, margens de tela}}"
+      lua: "UIPadding.PaddingAll = UDim.new(0, 32)"
+
+    xxl:
+      value: "{{48}}"
+      usage: "{{Espacamento maximo, separacao de blocos}}"
+      lua: "UIPadding.PaddingAll = UDim.new(0, 48)"
+
+  # Margens de tela
+  screen_margins:
+    desktop:
+      horizontal: "{{32}}"
+      vertical: "{{24}}"
+    mobile:
+      horizontal: "{{16}}"
+      vertical: "{{16}}"
+
+# =============================================================================
+# COMPONENTS
+# =============================================================================
+components:
+  # Botoes
+  buttons:
+    primary:
+      background: "{{primary}}"
+      text_color: "{{text_primary}}"
+      border_radius: "{{8}}"
+      padding: "{{12, 24}}"
+      font: "{{GothamSSm}}"
+      size: "{{16}}"
+      states:
+        hover:
+          background: "{{primary_dark}}"
+        pressed:
+          background: "{{primary_dark}}"
+          scale: "{{0.98}}"
+        disabled:
+          background: "{{neutral_400}}"
+          opacity: "{{0.5}}"
+
+    secondary:
+      background: "{{transparent}}"
+      text_color: "{{primary}}"
+      border: "{{2px solid primary}}"
+      border_radius: "{{8}}"
+      padding: "{{12, 24}}"
+      states:
+        hover:
+          background: "{{primary_light}}"
+
+    danger:
+      background: "{{error}}"
+      text_color: "{{text_primary}}"
+      border_radius: "{{8}}"
+
+  # Cards
+  cards:
+    default:
+      background: "{{background_medium}}"
+      border_radius: "{{12}}"
+      padding: "{{16}}"
+      shadow: "{{0, 4, 8, rgba(0,0,0,0.3)}}"
+
+    elevated:
+      background: "{{background_light}}"
+      border_radius: "{{12}}"
+      padding: "{{20}}"
+      shadow: "{{0, 8, 16, rgba(0,0,0,0.4)}}"
+
+  # Inputs
+  inputs:
+    text_input:
+      background: "{{background_dark}}"
+      border: "{{1px solid neutral_500}}"
+      border_radius: "{{8}}"
+      padding: "{{12, 16}}"
+      text_color: "{{text_primary}}"
+      placeholder_color: "{{text_muted}}"
+      states:
+        focus:
+          border: "{{2px solid primary}}"
+
+  # Modais
+  modals:
+    default:
+      background: "{{background_medium}}"
+      border_radius: "{{16}}"
+      padding: "{{24}}"
+      overlay: "{{rgba(0, 0, 0, 0.7)}}"
+      max_width: "{{400}}"
+
+  # Tooltips
+  tooltips:
+    default:
+      background: "{{background_dark}}"
+      text_color: "{{text_primary}}"
+      border_radius: "{{4}}"
+      padding: "{{8, 12}}"
+      font_size: "{{12}}"
+      max_width: "{{200}}"
+
+  # Progress bars
+  progress_bars:
+    default:
+      background: "{{background_dark}}"
+      fill: "{{primary}}"
+      height: "{{8}}"
+      border_radius: "{{4}}"
+
+    xp_bar:
+      background: "{{background_dark}}"
+      fill: "{{secondary}}"
+      height: "{{12}}"
+      border_radius: "{{6}}"
+
+    health_bar:
+      background: "{{background_dark}}"
+      fill: "{{success}}"
+      fill_low: "{{error}}"
+      threshold_low: "{{25%}}"
+
+# =============================================================================
+# ANIMATION PATTERNS
+# =============================================================================
+animations:
+  # Principios de animacao
+  principles:
+    - "{{Animacoes devem ser rapidas (< 300ms)}}"
+    - "{{Usar easing para naturalidade}}"
+    - "{{Evitar animacoes que bloqueiem interacao}}"
+    - "{{Feedback imediato, mesmo que animacao continue}}"
+
+  # Easings padrao
+  easings:
+    default:
+      name: "{{Quad}}"
+      roblox_enum: "Enum.EasingStyle.Quad"
+      direction: "Enum.EasingDirection.Out"
+      usage: "{{Maioria das animacoes}}"
+
+    bounce:
+      name: "{{Back}}"
+      roblox_enum: "Enum.EasingStyle.Back"
+      direction: "Enum.EasingDirection.Out"
+      usage: "{{Popups, modais, elementos que aparecem}}"
+
+    smooth:
+      name: "{{Sine}}"
+      roblox_enum: "Enum.EasingStyle.Sine"
+      direction: "Enum.EasingDirection.InOut"
+      usage: "{{Transicoes suaves, loops}}"
+
+  # Duracoes padrao
+  durations:
+    instant: "{{0.1}}"
+    fast: "{{0.2}}"
+    normal: "{{0.3}}"
+    slow: "{{0.5}}"
+    very_slow: "{{0.8}}"
+
+  # Animacoes comuns
+  common_animations:
+    fade_in:
+      property: "{{Transparency}}"
+      from: "{{1}}"
+      to: "{{0}}"
+      duration: "{{0.2}}"
+      easing: "{{Quad Out}}"
+      lua_example: |
+        local tween = TweenService:Create(
+          frame,
+          TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+          {BackgroundTransparency = 0}
+        )
+
+    scale_pop:
+      property: "{{Size}}"
+      from: "{{0.8}}"
+      to: "{{1}}"
+      duration: "{{0.3}}"
+      easing: "{{Back Out}}"
+
+    slide_up:
+      property: "{{Position}}"
+      offset: "{{0, 50}}"
+      duration: "{{0.3}}"
+      easing: "{{Quad Out}}"
+
+    shake:
+      description: "{{Tremor para feedback de erro}}"
+      duration: "{{0.5}}"
+      intensity: "{{10 pixels}}"
+
+    pulse:
+      description: "{{Pulsacao para chamar atencao}}"
+      duration: "{{1.0}}"
+      scale_range: "{{1.0 - 1.05}}"
+      loop: true
+
+# =============================================================================
+# RESPONSIVE GUIDELINES
+# =============================================================================
+responsive:
+  # Breakpoints
+  breakpoints:
+    mobile:
+      max_width: "{{600}}"
+      notes: "{{Phones em portrait}}"
+    tablet:
+      min_width: "{{601}}"
+      max_width: "{{1024}}"
+      notes: "{{Tablets, phones em landscape}}"
+    desktop:
+      min_width: "{{1025}}"
+      notes: "{{Desktop, TVs}}"
+
+  # Adaptacoes por dispositivo
+  adaptations:
+    mobile:
+      - "{{Botoes maiores (min 44x44)}}"
+      - "{{Menu em bottom sheet}}"
+      - "{{Reduzir densidade de informacao}}"
+      - "{{Gestos de swipe}}"
+
+    tablet:
+      - "{{Layout em duas colunas onde apropriado}}"
+      - "{{Botoes de tamanho medio}}"
+
+    desktop:
+      - "{{Layouts mais densos}}"
+      - "{{Hover states}}"
+      - "{{Atalhos de teclado}}"
+
+# =============================================================================
+# ACCESSIBILITY
+# =============================================================================
+accessibility:
+  # Contraste minimo
+  contrast_requirements:
+    text_normal: "{{4.5:1}}"
+    text_large: "{{3:1}}"
+    interactive: "{{3:1}}"
+
+  # Tamanhos minimos
+  minimum_sizes:
+    touch_target: "{{44x44 pixels}}"
+    text: "{{12px}}"
+    icon: "{{24x24 pixels}}"
+
+  # Consideracoes
+  considerations:
+    - "{{Nao depender apenas de cor para informar}}"
+    - "{{Fornecer alternativas visuais para audio}}"
+    - "{{Animacoes podem ser desabilitadas}}"
+    - "{{Texto legivel sobre qualquer background}}"
+
+# =============================================================================
+# FIM DO TEMPLATE
+# =============================================================================
