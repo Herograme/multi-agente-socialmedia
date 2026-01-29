@@ -157,7 +157,7 @@ export const api = {
       params.set('type', options.type);
     }
     const queryString = params.toString();
-    const endpoint = `/api/agents/curator/results${queryString ? `?${queryString}` : ''}`;
+    const endpoint = `/api/agents/curador/results${queryString ? `?${queryString}` : ''}`;
     return request<CuratorResultsResponse>(endpoint);
   },
 
