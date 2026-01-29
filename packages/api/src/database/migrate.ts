@@ -224,7 +224,9 @@ export function runTestMigrations(db: Database.Database): void {
       text_ig TEXT,
       text_linkedin TEXT,
       status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected', 'needs_review')),
+      rejection_reason TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT,
       FOREIGN KEY (execution_id) REFERENCES executions(id) ON DELETE CASCADE
     )
   `);
@@ -232,6 +234,7 @@ export function runTestMigrations(db: Database.Database): void {
   db.exec('CREATE INDEX IF NOT EXISTS idx_posts_execution_id ON posts(execution_id)');
   db.exec('CREATE INDEX IF NOT EXISTS idx_posts_status ON posts(status)');
   db.exec('CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts(created_at)');
+  db.exec('CREATE INDEX IF NOT EXISTS idx_posts_rejection_reason ON posts(rejection_reason)');
 
   // Create assets table
   db.exec(`
@@ -268,6 +271,59 @@ export function runTestMigrations(db: Database.Database): void {
   db.exec('CREATE INDEX IF NOT EXISTS idx_scores_overall_score ON scores(overall_score)');
   db.exec('CREATE INDEX IF NOT EXISTS idx_scores_approved ON scores(approved)');
 
-  // Record the migration
+  // Create templates table (Story 5.7)
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS templates (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL UNIQUE,
+      description TEXT,
+      theme TEXT NOT NULL DEFAULT '{}',
+      is_default INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
+
+  db.exec('CREATE INDEX IF NOT EXISTS idx_templates_name ON templates(name)');
+  db.exec('CREATE INDEX IF NOT EXISTS idx_templates_is_default ON templates(is_default)');
+  db.exec('CREATE INDEX IF NOT EXISTS idx_templates_created_at ON templates(created_at)');
+
+  // Insert default template
+  db.exec(`
+    INSERT OR IGNORE INTO templates (id, name, description, theme, is_default) VALUES (
+      'default',
+      'Default Dark',
+      'Tema escuro padrao inspirado no GitHub',
+      '{
+        "colors": {
+          "bgPrimary": "#0d1117",
+          "bgSecondary": "#161b22",
+          "bgTertiary": "#21262d",
+          "textPrimary": "#f0f6fc",
+          "textSecondary": "#8b949e",
+          "textMuted": "#6e7681",
+          "accentPrimary": "#58a6ff",
+          "accentSecondary": "#7ee787"
+        },
+        "fonts": {
+          "fontSans": "Inter",
+          "fontMono": "JetBrains Mono",
+          "fontSizeBase": 1
+        },
+        "overlay": {
+          "color": "rgba(0, 0, 0, 0.6)",
+          "opacity": 0.6
+        },
+        "branding": {
+          "handle": "@dev",
+          "position": "footer-right"
+        }
+      }',
+      1
+    )
+  `);
+
+  // Record the migrations
   db.prepare("INSERT OR IGNORE INTO _migrations (name) VALUES ('001_initial_schema.sql')").run();
+  db.prepare("INSERT OR IGNORE INTO _migrations (name) VALUES ('002_templates.sql')").run();
 }

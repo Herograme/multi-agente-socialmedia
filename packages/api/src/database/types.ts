@@ -122,8 +122,12 @@ export interface Post {
   text_linkedin: string | null;
   /** Post review status */
   status: PostStatus;
+  /** Reason for rejection (Story 5.5) */
+  rejection_reason: string | null;
   /** Record creation timestamp */
   created_at: string;
+  /** Record update timestamp */
+  updated_at: string | null;
 }
 
 /**
@@ -156,6 +160,8 @@ export interface UpdatePost {
   text_linkedin?: string;
   /** Update status */
   status?: PostStatus;
+  /** Update rejection reason (Story 5.5) */
+  rejection_reason?: string | null;
 }
 
 /**
@@ -348,7 +354,9 @@ export interface PostRow {
   text_ig: string | null;
   text_linkedin: string | null;
   status: string;
+  rejection_reason: string | null;
   created_at: string;
+  updated_at: string | null;
 }
 
 /**
@@ -375,4 +383,69 @@ export interface ScoreRow {
   feedback: string | null;
   approved: number;
   created_at: string;
+}
+
+// ============================================================
+// Template Types (Story 5.7)
+// ============================================================
+
+/**
+ * Raw template row from database
+ */
+export interface TemplateRow {
+  id: string;
+  name: string;
+  description: string | null;
+  theme: string;
+  is_default: number;
+  created_at: string;
+  updated_at: string;
+}
+
+/**
+ * Template entity (from database)
+ */
+export interface DbTemplate {
+  /** Unique template identifier */
+  id: string;
+  /** Template name */
+  name: string;
+  /** Optional description */
+  description: string | null;
+  /** Theme configuration as JSON string */
+  theme: string;
+  /** Whether this is the default template */
+  is_default: boolean;
+  /** Record creation timestamp */
+  created_at: string;
+  /** Record update timestamp */
+  updated_at: string;
+}
+
+/**
+ * Data required to create a new template
+ */
+export interface CreateDbTemplate {
+  /** Optional custom ID (UUID generated if not provided) */
+  id?: string;
+  /** Template name */
+  name: string;
+  /** Optional description */
+  description?: string;
+  /** Theme configuration as JSON string */
+  theme: string;
+  /** Whether this is the default template */
+  is_default?: boolean;
+}
+
+/**
+ * Data for updating an existing template
+ */
+export interface UpdateDbTemplate {
+  /** Update name */
+  name?: string;
+  /** Update description */
+  description?: string | null;
+  /** Update theme as JSON string */
+  theme?: string;
 }

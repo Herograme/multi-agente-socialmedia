@@ -2,14 +2,22 @@ import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, FileText, History, Settings, Play, TrendingUp, BookMarked, Workflow } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { useAppStore } from '../../stores/app.store';
+import { PendingBadge } from './PendingBadge';
 
-const navItems = [
+interface NavItem {
+  to: string;
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  hasBadge?: boolean;
+}
+
+const navItems: NavItem[] = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/trends', icon: TrendingUp, label: 'Tendencias' },
   { to: '/curated', icon: BookMarked, label: 'Curado' },
   { to: '/pipeline', icon: Workflow, label: 'Pipeline' },
   { to: '/execution', icon: Play, label: 'Execucao' },
-  { to: '/posts', icon: FileText, label: 'Posts' },
+  { to: '/posts', icon: FileText, label: 'Posts', hasBadge: true },
   { to: '/history', icon: History, label: 'Historico' },
   { to: '/settings', icon: Settings, label: 'Configuracoes' },
 ];
@@ -38,7 +46,12 @@ export function Sidebar() {
             }
           >
             <item.icon className="h-5 w-5 shrink-0" />
-            {sidebarOpen && <span>{item.label}</span>}
+            {sidebarOpen && (
+              <>
+                <span>{item.label}</span>
+                {item.hasBadge && <PendingBadge />}
+              </>
+            )}
           </NavLink>
         ))}
       </nav>

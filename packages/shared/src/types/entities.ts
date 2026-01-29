@@ -54,7 +54,10 @@ export interface Post {
   textInstagram?: string;
   textLinkedin?: string;
   status: PostStatus;
+  /** Reason for rejection (Story 5.5) */
+  rejectionReason?: string;
   createdAt: Date;
+  updatedAt?: Date;
   assets: Asset[];
   score?: Score;
   /** QA score for quality gate evaluation (Story 4.6) */
@@ -149,4 +152,71 @@ export interface ExecutionFilters {
   status: string;
   startDate: string | null;
   endDate: string | null;
+}
+
+// ============================================================
+// Post Approval Types (Story 5.5)
+// ============================================================
+
+/**
+ * Request to approve a single post
+ */
+export interface ApprovePostRequest {
+  postId: string;
+}
+
+/**
+ * Request to reject a single post
+ */
+export interface RejectPostRequest {
+  postId: string;
+  reason?: string;
+}
+
+/**
+ * Request to approve multiple posts
+ */
+export interface BulkApproveRequest {
+  postIds: string[];
+}
+
+/**
+ * Request to reject multiple posts
+ */
+export interface BulkRejectRequest {
+  postIds: string[];
+  reason?: string;
+}
+
+/**
+ * Request to regenerate a post
+ */
+export interface RegeneratePostRequest {
+  postId: string;
+}
+
+/**
+ * Response for pending count
+ */
+export interface PendingCountResponse {
+  count: number;
+}
+
+/**
+ * Response for bulk operations
+ */
+export interface BulkOperationResponse {
+  success: boolean;
+  updated: number;
+  failed: number;
+}
+
+/**
+ * Status counts for posts
+ */
+export interface PostStatusCounts {
+  all: number;
+  pending: number;
+  approved: number;
+  rejected: number;
 }

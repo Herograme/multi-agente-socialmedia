@@ -167,9 +167,18 @@ export class PostRepository {
       values.push(data.status);
     }
 
+    if (data.rejection_reason !== undefined) {
+      sets.push('rejection_reason = ?');
+      values.push(data.rejection_reason);
+    }
+
     if (sets.length === 0) {
       return this.findById(id);
     }
+
+    // Always update the updated_at timestamp
+    sets.push('updated_at = ?');
+    values.push(new Date().toISOString());
 
     values.push(id);
 
@@ -393,7 +402,147 @@ export class PostRepository {
       text_ig: row.text_ig,
       text_linkedin: row.text_linkedin,
       status: row.status as PostStatus,
+      rejection_reason: row.rejection_reason,
       created_at: row.created_at,
+      updated_at: row.updated_at,
     };
+  }
+
+  // ============================================================
+  // Approval Workflow Methods (Story 5.5)
+  // ============================================================
+
+  /**
+   * Approves a post.
+   *
+   * @param id - Post ID
+   * @returns The updated post or null if not found
+   */
+  approve(id: string): Post | null {
+    return this.update(id, {
+      status: PostStatus.APPROVED,
+      rejection_reason: null,
+    });
+  }
+
+  /**
+   * Rejects a post with an optional reason.
+   *
+   * @param id - Post ID
+   * @param reason - Optional rejection reason
+   * @returns The updated post or null if not found
+   */
+  reject(id: string, reason?: string): Post | null {
+    return this.update(id, {
+      status: PostStatus.REJECTED,
+      rejection_reason: reason ?? null,
+    });
+  }
+
+  /**
+   * Approves multiple posts at once.
+   *
+   * @param ids - Array of post IDs to approve
+   * @returns Object with counts of updated and failed posts
+   */
+  bulkApprove(ids: string[]): { updated: number; failed: number } {
+    let updated = 0;
+    let failed = 0;
+
+    const updateStmt = this.db.prepare(`
+      UPDATE posts
+      SET status = ?, rejection_reason = NULL, updated_at = ?
+      WHERE id = ? AND status = ?
+    `);
+
+    const now = new Date().toISOString();
+
+    for (const id of ids) {
+      const result = updateStmt.run(
+        PostStatus.APPROVED,
+        now,
+        id,
+        PostStatus.PENDING
+      );
+      if (result.changes > 0) {
+        updated++;
+      } else {
+        failed++;
+      }
+    }
+
+    return { updated, failed };
+  }
+
+  /**
+   * Rejects multiple posts at once.
+   *
+   * @param ids - Array of post IDs to reject
+   * @param reason - Optional rejection reason for all posts
+   * @returns Object with counts of updated and failed posts
+   */
+  bulkReject(ids: string[], reason?: string): { updated: number; failed: number } {
+    let updated = 0;
+    let failed = 0;
+
+    const updateStmt = this.db.prepare(`
+      UPDATE posts
+      SET status = ?, rejection_reason = ?, updated_at = ?
+      WHERE id = ? AND status = ?
+    `);
+
+    const now = new Date().toISOString();
+
+    for (const id of ids) {
+      const result = updateStmt.run(
+        PostStatus.REJECTED,
+        reason ?? null,
+        now,
+        id,
+        PostStatus.PENDING
+      );
+      if (result.changes > 0) {
+        updated++;
+      } else {
+        failed++;
+      }
+    }
+
+    return { updated, failed };
+  }
+
+  /**
+   * Counts posts with a specific status.
+   *
+   * @param status - Status to count
+   * @returns Number of posts with that status
+   */
+  countByStatusValue(status: PostStatus): number {
+    const row = this.db
+      .prepare('SELECT COUNT(*) as count FROM posts WHERE status = ?')
+      .get(status) as { count: number };
+    return row.count;
+  }
+
+  /**
+   * Resets a rejected post to pending for regeneration.
+   *
+   * @param id - Post ID
+   * @returns The updated post or null if not found/not rejected
+   */
+  resetForRegeneration(id: string): Post | null {
+    const result = this.db
+      .prepare(`
+        UPDATE posts
+        SET status = ?, rejection_reason = NULL, updated_at = ?
+        WHERE id = ? AND status = ?
+      `)
+      .run(PostStatus.PENDING, new Date().toISOString(), id, PostStatus.REJECTED);
+
+    if (result.changes === 0) {
+      return null;
+    }
+
+    return this.findById(id);
   }
 }
