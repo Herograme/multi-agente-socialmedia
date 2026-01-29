@@ -6,7 +6,6 @@ import { ToastProvider } from './components/ui/toast-provider';
 import { ErrorBoundary } from './components/error/ErrorBoundary';
 import { WebSocketProvider } from './providers/WebSocketProvider';
 import {
-  DashboardSkeleton,
   PostsPageSkeleton,
   PostDetailSkeleton,
   HistoryPageSkeleton,

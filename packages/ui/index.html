@@ -2,12 +2,97 @@
 <html lang="pt-BR" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
     <title>Social Content Agent</title>
+    <meta name="title" content="Social Content Agent" />
+    <meta name="description" content="Sistema multi-agente para automacao de conteudo em redes sociais" />
+
+    <!-- Favicon and PWA -->
+    <link rel="icon" type="image/svg+xml" href="/pwa-192x192.svg" />
+    <link rel="apple-touch-icon" href="/pwa-192x192.svg" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- DNS prefetch for API -->
+    <link rel="dns-prefetch" href="//localhost:3001" />
+
+    <!-- Preload critical fonts (if using Google Fonts) -->
+    <!-- <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" /> -->
+
+    <!-- Performance hints -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Social Content Agent" />
+    <meta property="og:description" content="Sistema multi-agente para automacao de conteudo em redes sociais" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Social Content Agent" />
+    <meta property="twitter:description" content="Sistema multi-agente para automacao de conteudo em redes sociais" />
+
+    <!-- Critical CSS inlined for above-the-fold content -->
+    <style>
+      /* Critical styles for initial render */
+      :root {
+        color-scheme: dark;
+      }
+      html {
+        background-color: #0a0a0a;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      #root {
+        min-height: 100vh;
+        background-color: #0a0a0a;
+      }
+      /* Loading spinner for initial load */
+      .initial-loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: #a78bfa;
+      }
+      .initial-loader svg {
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Initial loader shown before React hydrates -->
+      <div class="initial-loader">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+        </svg>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Register service worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' });
+        });
+      }
+    </script>
   </body>
 </html>

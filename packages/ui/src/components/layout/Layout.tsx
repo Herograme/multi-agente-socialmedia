@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
+import { PageTransition } from './PageTransition';
 import { useAppStore } from '../../stores/app.store';
 import { cn } from '../../lib/utils';
 
@@ -18,7 +19,9 @@ export function Layout() {
         )}
       >
         <div className="container mx-auto p-6">
-          <Outlet />
+          <PageTransition>
+            <Outlet />
+          </PageTransition>
         </div>
       </main>
     </div>
