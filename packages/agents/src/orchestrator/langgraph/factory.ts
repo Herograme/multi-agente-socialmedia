@@ -5,7 +5,7 @@
 
 import { createLogger } from '@social-content/shared';
 import { createPipelineGraph, runPipeline } from './pipeline-graph';
-import { createMemoryCheckpointer, createMemorySaver } from './checkpointer';
+import { createMemoryCheckpointer } from './checkpointer';
 import { createTransitionLogger } from './logger';
 import { DEFAULT_PIPELINE_CONFIG } from './config';
 import type {

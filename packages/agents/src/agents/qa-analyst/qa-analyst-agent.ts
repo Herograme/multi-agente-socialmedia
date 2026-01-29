@@ -8,7 +8,6 @@
 
 import type { Agent, AgentResult } from '../types';
 import { AgentStatus } from '../types';
-import type { Asset } from '@social-content/shared';
 import type {
   QAInput,
   QAResultWithVisuals,
@@ -19,9 +18,6 @@ import type {
   SlideAnalysisResult,
   SlideConsistencyResult,
   QAAnalystVisualConfig,
-  HeuristicAnalysisConfig,
-  MultimodalAnalysisConfig,
-  VisualFeedback,
 } from './visual-types';
 import {
   VisualIssueType,

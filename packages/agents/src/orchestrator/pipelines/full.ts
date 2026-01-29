@@ -6,17 +6,14 @@
  * Pesquisador -> TopicGenerator -> Curador -> Writer -> Visual -> QAAnalyst
  */
 
-import { EventEmitter } from 'events';
 import { createLogger, generateId } from '@social-content/shared';
 import { PipelineOrchestrator } from '../pipeline';
-import type { PipelineConfig, PipelineStep, PipelineResult, PipelineRunOptions } from '../types';
-import { PipelineStatus } from '../types';
+import type { PipelineConfig, PipelineStep, PipelineResult } from '../types';
 import {
   createResearcherAgent,
   createCuradorAgent,
   type ResearcherInput,
   type ResearcherOutput,
-  type CuradorOutput,
 } from '../../agents';
 import type {
   FullPipelineInput,
@@ -102,7 +99,7 @@ class TopicGeneratorAgent implements Agent<ResearcherOutput, TopicGeneratorOutpu
     }
   }
 
-  private generateSuggestedAngle(title: string): string {
+  private generateSuggestedAngle(_title: string): string {
     const angles = [
       'Practical guide with examples',
       'Key takeaways for developers',
@@ -202,7 +199,7 @@ class WriterAgent implements Agent<WriterInput, WriterOutput> {
     }
   }
 
-  private generateInstagramText(topic: SelectedTopic, references: CuratedReference[]): string {
+  private generateInstagramText(topic: SelectedTopic, _references: CuratedReference[]): string {
     const emoji = this.getTopicEmoji(topic.title);
     const hashtags = topic.keywords.map(k => `#${k.replace(/\s+/g, '')}`).join(' ');
 
@@ -726,10 +723,9 @@ export async function runFullPipeline(
  */
 function extractResultsFromPipeline(
   result: PipelineResult,
-  options: FullPipelineOptions
+  _options: FullPipelineOptions
 ): { posts: GeneratedPost[]; summary: ExecutionSummary } {
   const posts: GeneratedPost[] = [];
-  const threshold = options.qualityThreshold ?? DEFAULT_FULL_PIPELINE_OPTIONS.qualityThreshold;
 
   // Find the QA step result
   const qaStepResult = result.stepResults.find(s => s.stepName === 'QAAnalyst');
@@ -799,7 +795,7 @@ function extractResultsFromPipeline(
  */
 function determineStatus(
   posts: GeneratedPost[],
-  options: FullPipelineOptions
+  _options: FullPipelineOptions
 ): 'completed' | 'partial' | 'failed' {
   if (posts.length === 0) return 'failed';
   const approved = posts.filter(p => p.status === 'approved').length;

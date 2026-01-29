@@ -6,13 +6,11 @@
  */
 
 import { EventEmitter } from 'events';
-import { createLogger, generateId } from '@social-content/shared';
+import { createLogger } from '@social-content/shared';
 import {
   runFullPipeline,
   type FullPipelineInput,
   type FullPipelineOptions,
-  type FullPipelineOutput,
-  type ExecutionRecord,
   type ExecutionStatus,
   type ExecutionFilters,
   type ExecutionStats,
@@ -297,7 +295,7 @@ export class FullPipelineService extends EventEmitter {
           );
         },
 
-        onStepComplete: (step: string, output: unknown) => {
+        onStepComplete: (step: string, _output: unknown) => {
           this.eventBus.emitExecutionEvent(
             executionId,
             PipelineWSEvent.EXECUTION_STEP_PROGRESS,

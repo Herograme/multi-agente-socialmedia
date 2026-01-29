@@ -76,7 +76,7 @@ export const carouselBuilderNode: NodeFunction = async (
     // TODO: Integrate with actual CarouselBuilderAgent when available
     // For now, generate placeholder carousel paths
 
-    const carouselPaths: string[][] = state.posts.map((post, postIndex) => {
+    const carouselPaths: string[][] = state.posts.map((post, _postIndex) => {
       // Generate 3-5 slides per carousel
       const slideCount = 3 + Math.floor(Math.random() * 3);
       return Array.from({ length: slideCount }, (_, slideIndex) =>

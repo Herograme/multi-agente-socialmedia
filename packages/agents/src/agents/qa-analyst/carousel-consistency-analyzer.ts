@@ -9,10 +9,8 @@
 import sharp from 'sharp';
 import type {
   SlideConsistencyResult,
-  VisualFeedback,
   ColorInfo,
 } from './visual-types';
-import { VisualIssueType, IssueSeverity } from './visual-types';
 
 /**
  * Configuration for consistency analysis

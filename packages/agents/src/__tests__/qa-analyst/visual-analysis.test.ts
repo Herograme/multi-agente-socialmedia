@@ -7,22 +7,16 @@
  * carousel consistency analyzer, and multimodal analyzer.
  */
 
-import { describe, it, expect, beforeAll, afterAll, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import sharp from 'sharp';
 import {
-  HeuristicAnalyzer,
   createHeuristicAnalyzer,
-  ContrastAnalyzer,
   createContrastAnalyzer,
-  CodeSlideAnalyzer,
   createCodeSlideAnalyzer,
-  CarouselConsistencyAnalyzer,
   createCarouselConsistencyAnalyzer,
-  MultimodalAnalyzer,
   createMultimodalAnalyzer,
-  QAAnalystAgent,
   createQAAnalystAgent,
   VisualIssueType,
   IssueSeverity,

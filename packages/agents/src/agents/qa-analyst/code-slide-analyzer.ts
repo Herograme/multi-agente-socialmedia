@@ -36,11 +36,6 @@ const SYNTAX_HIGHLIGHT_COLORS = {
 };
 
 /**
- * Minimum percentage of varied colors to indicate syntax highlighting
- */
-const MIN_HIGHLIGHT_COLOR_VARIETY = 3;
-
-/**
  * Configuration for code slide analysis
  */
 export interface CodeSlideAnalyzerConfig {

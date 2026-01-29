@@ -18,3 +18,6 @@ export * from './renderer';
 
 // Cleanup service (Story 3.7)
 export * from './cleanup';
+
+// Quality Gate service (Story 4.6)
+export * from './quality-gate';

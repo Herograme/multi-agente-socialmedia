@@ -10,3 +10,14 @@ export {
   logConfig,
   getProviderSummary,
 } from './loader';
+
+// Quality Gate configuration (Story 4.6)
+export {
+  loadQualityGateConfig,
+  getQualityThreshold,
+  setQualityThreshold,
+  getQualityGateConfig,
+  updateQualityGateConfig,
+  resetQualityGateConfig,
+  getDefaultQualityGateConfig,
+} from './quality-gate';

@@ -3,7 +3,7 @@
  * Tests for individual pipeline node implementations
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import {
   researcherNode,
   topicGeneratorNode,

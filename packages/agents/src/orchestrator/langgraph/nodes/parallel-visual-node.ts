@@ -5,7 +5,6 @@
 
 import { createLogger } from '@social-content/shared';
 import type { LangGraphPipelineState, NodeFunction } from '../types';
-import { NODE_NAMES } from '../config';
 import { carouselBuilderNode } from './visual-node';
 import { pdfMakerNode } from './visual-node';
 

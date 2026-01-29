@@ -18,7 +18,6 @@ import {
 import { LangGraphPipelineStatus } from '../../../orchestrator/langgraph/types';
 import type {
   LangGraphPipelineConfig,
-  LangGraphPipelineState,
 } from '../../../orchestrator/langgraph/types';
 
 // Mock all node functions
@@ -185,9 +184,8 @@ describe('LangGraph Pipeline Graph', () => {
     });
 
     it('should skip visual nodes when includeVisual is false', async () => {
-      const { imageDesignerNode, carouselBuilderNode, pdfMakerNode } = await import(
-        '../../../orchestrator/langgraph/nodes'
-      );
+      // Import nodes to verify they weren't called (mocked)
+      await import('../../../orchestrator/langgraph/nodes');
 
       const result = await runPipeline('test-execution-3', {
         includeVisual: false,

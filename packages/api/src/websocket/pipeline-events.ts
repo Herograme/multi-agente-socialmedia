@@ -519,7 +519,7 @@ export class ExecutionEventBus extends EventEmitter {
    * Cleanup all heartbeats
    */
   cleanup(): void {
-    for (const [executionId, interval] of this.heartbeatIntervals) {
+    for (const interval of this.heartbeatIntervals.values()) {
       clearInterval(interval);
     }
     this.heartbeatIntervals.clear();

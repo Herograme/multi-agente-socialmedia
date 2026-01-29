@@ -89,7 +89,7 @@ vi.mock('../services/full-pipeline.service', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../services/full-pipeline.service')>();
 
   const mockService = {
-    startFullPipeline: vi.fn().mockImplementation(async (input, options) => ({
+    startFullPipeline: vi.fn().mockImplementation(async (_input, _options) => ({
       executionId: 'test-exec-id',
       status: 'running',
       message: 'Full pipeline started successfully',
