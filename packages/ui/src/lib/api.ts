@@ -6,6 +6,16 @@ import type {
   ExecutionWithPosts,
   ExecutionStats,
   ExecutionFilters,
+  Template,
+  CreateTemplateInput,
+  UpdateTemplateInput,
+  ExportedTemplate,
+  TemplateListResponse,
+  Settings,
+  SettingsResponse,
+  DashboardMetrics,
+  ChartData,
+  RecentPost,
 } from '@social-content/shared';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -225,4 +235,69 @@ export const api = {
     // For CSV export, we return the URL so it can be opened in a new tab or downloaded
     return `${API_BASE}/api/executions/export?${params.toString()}`;
   },
+
+  // Templates (Story 5.7)
+  getTemplates: () =>
+    request<TemplateListResponse>('/api/templates').then((res) => res.templates),
+
+  getTemplate: (id: string) =>
+    request<Template>(`/api/templates/${id}`),
+
+  createTemplate: (input: CreateTemplateInput) =>
+    request<Template>('/api/templates', {
+      method: 'POST',
+      body: JSON.stringify(input),
+    }),
+
+  updateTemplate: (id: string, input: UpdateTemplateInput) =>
+    request<Template>(`/api/templates/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(input),
+    }),
+
+  deleteTemplate: (id: string) =>
+    request<{ success: boolean }>(`/api/templates/${id}`, {
+      method: 'DELETE',
+    }),
+
+  duplicateTemplate: (id: string, name?: string) =>
+    request<Template>(`/api/templates/${id}/duplicate`, {
+      method: 'POST',
+      body: JSON.stringify({ name }),
+    }),
+
+  exportTemplate: (id: string) =>
+    request<ExportedTemplate>(`/api/templates/${id}/export`),
+
+  importTemplate: (json: ExportedTemplate) =>
+    request<Template>('/api/templates/import', {
+      method: 'POST',
+      body: JSON.stringify(json),
+    }),
+
+  // Settings (Story 5.6)
+  getSettings: () => request<SettingsResponse>('/api/settings'),
+
+  updateSettings: (settings: Partial<Settings>) =>
+    request<SettingsResponse>('/api/settings', {
+      method: 'PUT',
+      body: JSON.stringify({ settings }),
+    }),
+
+  resetSettings: () =>
+    request<SettingsResponse>('/api/settings/reset', {
+      method: 'POST',
+    }),
+
+  // Dashboard Metrics (Story 5.3)
+  getDashboardMetrics: () =>
+    request<{ metrics: DashboardMetrics; timestamp: string }>('/api/dashboard/metrics'),
+
+  getDashboardCharts: () =>
+    request<{ chartData: ChartData; timestamp: string }>('/api/dashboard/charts'),
+
+  getRecentPosts: (limit: number = 5) =>
+    request<{ posts: RecentPost[]; timestamp: string }>(
+      `/api/dashboard/recent-posts?limit=${limit}`
+    ),
 };

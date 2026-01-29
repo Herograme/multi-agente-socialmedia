@@ -1,139 +1,121 @@
-import { useEffect, useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Button } from '../components/ui/button';
+/**
+ * Dashboard Route
+ * Story 5.3: Dashboard Principal com Metricas
+ *
+ * Main dashboard page with metrics, charts, and recent posts.
+ */
+
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
-import { Play, FileText, Star, Clock } from 'lucide-react';
-import { api, HealthResponse } from '../lib/api';
+import {
+  MetricsGrid,
+  PostsChart,
+  ScoreDistributionChart,
+  RecentPosts,
+  ExecutionControls,
+  DashboardSkeleton,
+} from '../components/dashboard';
+import { useDashboardMetrics } from '../hooks/useDashboardMetrics';
 import { useAppStore } from '../stores/app.store';
+import { LayoutDashboard, AlertCircle, WifiOff } from 'lucide-react';
+import type { PipelineStatus } from '@social-content/shared';
 
+/**
+ * Main dashboard component showing system overview.
+ *
+ * Features:
+ * - Metric cards (posts today, avg score, approval rate, avg time)
+ * - Posts by day chart
+ * - Score distribution chart
+ * - Recent posts grid
+ * - Execution controls with status indicator
+ */
 export function Dashboard() {
-  const [health, setHealth] = useState<HealthResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const setConnected = useAppStore((state) => state.setConnected);
+  const { data, isLoading, error } = useDashboardMetrics();
+  const isConnected = useAppStore((state) => state.isConnected);
+  const pipelineStatus: PipelineStatus = 'idle'; // TODO: Get from WebSocket/store
 
-  useEffect(() => {
-    const checkHealth = async () => {
-      try {
-        const data = await api.getHealth();
-        setHealth(data);
-        setConnected(true);
-      } catch {
-        setConnected(false);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Show loading skeleton
+  if (isLoading) {
+    return <DashboardSkeleton />;
+  }
 
-    checkHealth();
-    const interval = setInterval(checkHealth, 30000);
-    return () => clearInterval(interval);
-  }, [setConnected]);
+  // Show error state
+  if (error) {
+    return (
+      <div className="container py-6">
+        <Card className="border-destructive">
+          <CardContent className="flex items-center gap-4 pt-6">
+            <AlertCircle className="h-8 w-8 text-destructive" />
+            <div>
+              <h3 className="font-semibold">Erro ao carregar dashboard</h3>
+              <p className="text-sm text-muted-foreground">
+                {error instanceof Error ? error.message : 'Erro desconhecido'}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground">Visão geral do seu content pipeline</p>
+    <div className="container py-6 space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <LayoutDashboard className="h-6 w-6" />
+          <h1 className="text-2xl font-bold">Dashboard</h1>
         </div>
-        <Button className="gap-2">
-          <Play className="h-4 w-4" />
-          Nova Execução
-        </Button>
+        <ExecutionControls status={pipelineStatus} />
       </div>
+
+      {/* Connection Warning */}
+      {!isConnected && (
+        <Card className="border-yellow-500/50 bg-yellow-500/5">
+          <CardContent className="flex items-center gap-3 py-3">
+            <WifiOff className="h-4 w-4 text-yellow-500" />
+            <p className="text-sm text-yellow-700 dark:text-yellow-400">
+              Conexao em tempo real indisponivel. Metricas podem estar desatualizadas.
+            </p>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Metrics Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <MetricsGrid metrics={data?.metrics} />
+
+      {/* Charts Row */}
+      <div className="grid gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Posts Hoje</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
+          <CardHeader>
+            <CardTitle className="text-lg">Posts Gerados (Ultimos 7 dias)</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">Nenhum post gerado ainda</p>
+            <PostsChart data={data?.chartData?.postsByDay || []} />
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Score Médio</CardTitle>
-            <Star className="h-4 w-4 text-muted-foreground" />
+          <CardHeader>
+            <CardTitle className="text-lg">Distribuicao de Scores</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">-</div>
-            <p className="text-xs text-muted-foreground">Sem dados suficientes</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tempo Médio</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">-</div>
-            <p className="text-xs text-muted-foreground">Por execução</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Taxa Aprovação</CardTitle>
-            <Badge variant="outline">-</Badge>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">-</div>
-            <p className="text-xs text-muted-foreground">Posts aprovados</p>
+            <ScoreDistributionChart data={data?.chartData?.scoreDistribution || []} />
           </CardContent>
         </Card>
       </div>
 
-      {/* System Status */}
+      {/* Recent Posts */}
       <Card>
-        <CardHeader>
-          <CardTitle>Status do Sistema</CardTitle>
-          <CardDescription>Conectividade com o backend</CardDescription>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle className="text-lg">Posts Recentes</CardTitle>
+          <a href="/posts" className="text-sm text-primary hover:underline">
+            Ver todos
+          </a>
         </CardHeader>
         <CardContent>
-          {loading ? (
-            <p className="text-muted-foreground">Verificando conexão...</p>
-          ) : health ? (
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Badge variant="success">Online</Badge>
-                <span className="text-sm text-muted-foreground">
-                  Ambiente: {health.environment}
-                </span>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Uptime: {Math.floor(health.uptime / 60)} minutos
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Última verificação: {new Date(health.timestamp).toLocaleTimeString()}
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-2">
-              <Badge variant="destructive">Offline</Badge>
-              <p className="text-sm text-muted-foreground">
-                Não foi possível conectar ao backend. Verifique se o servidor está rodando.
-              </p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Pipeline Placeholder */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Pipeline de Agentes</CardTitle>
-          <CardDescription>Status da última execução</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-center py-8 text-muted-foreground">
-            <p>Nenhuma execução realizada ainda. Clique em &quot;Nova Execução&quot; para começar.</p>
-          </div>
+          <RecentPosts posts={data?.recentPosts || []} />
         </CardContent>
       </Card>
     </div>
