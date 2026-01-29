@@ -6,7 +6,7 @@
  */
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useToast } from '../components/ui/toast';
+import { useToast } from './useToast';
 import type {
   ApprovePostRequest,
   RejectPostRequest,
@@ -91,7 +91,7 @@ const approvalApi = {
  */
 export function usePostApproval() {
   const queryClient = useQueryClient();
-  const { addToast } = useToast();
+  const toast = useToast();
 
   const invalidatePosts = () => {
     queryClient.invalidateQueries({ queryKey: ['posts'] });
@@ -103,95 +103,61 @@ export function usePostApproval() {
   const approvePost = useMutation({
     mutationFn: approvalApi.approvePost,
     onSuccess: () => {
-      addToast({
-        type: 'success',
-        title: 'Post aprovado',
-        description: 'O post foi movido para "Prontos para Publicar"',
-      });
+      toast.success('Post aprovado', 'O post foi movido para "Prontos para Publicar"');
       invalidatePosts();
     },
     onError: (error: Error) => {
-      addToast({
-        type: 'error',
-        title: 'Erro ao aprovar',
-        description: error.message,
-      });
+      toast.error('Erro ao aprovar', error.message);
     },
   });
 
   const rejectPost = useMutation({
     mutationFn: approvalApi.rejectPost,
     onSuccess: () => {
-      addToast({
-        type: 'success',
-        title: 'Post rejeitado',
-        description: 'O post foi marcado como rejeitado',
-      });
+      toast.success('Post rejeitado', 'O post foi marcado como rejeitado');
       invalidatePosts();
     },
     onError: (error: Error) => {
-      addToast({
-        type: 'error',
-        title: 'Erro ao rejeitar',
-        description: error.message,
-      });
+      toast.error('Erro ao rejeitar', error.message);
     },
   });
 
   const regeneratePost = useMutation({
     mutationFn: approvalApi.regeneratePost,
     onSuccess: () => {
-      addToast({
-        type: 'success',
-        title: 'Regeneracao iniciada',
-        description: 'O post sera regenerado em breve',
-      });
+      toast.success('Regeneracao iniciada', 'O post sera regenerado em breve');
       invalidatePosts();
     },
     onError: (error: Error) => {
-      addToast({
-        type: 'error',
-        title: 'Erro ao regenerar',
-        description: error.message,
-      });
+      toast.error('Erro ao regenerar', error.message);
     },
   });
 
   const bulkApprove = useMutation({
     mutationFn: approvalApi.bulkApprove,
     onSuccess: (data, variables) => {
-      addToast({
-        type: 'success',
-        title: 'Posts aprovados',
-        description: `${data.updated} de ${variables.postIds.length} post(s) aprovado(s)`,
-      });
+      toast.success(
+        'Posts aprovados',
+        `${data.updated} de ${variables.postIds.length} post(s) aprovado(s)`
+      );
       invalidatePosts();
     },
     onError: (error: Error) => {
-      addToast({
-        type: 'error',
-        title: 'Erro ao aprovar posts',
-        description: error.message,
-      });
+      toast.error('Erro ao aprovar posts', error.message);
     },
   });
 
   const bulkReject = useMutation({
     mutationFn: approvalApi.bulkReject,
     onSuccess: (data, variables) => {
-      addToast({
-        type: 'success',
-        title: 'Posts rejeitados',
-        description: `${data.updated} de ${variables.postIds.length} post(s) rejeitado(s)`,
-      });
+      toast.success(
+        'Posts rejeitados',
+        `${data.updated} de ${variables.postIds.length} post(s) rejeitado(s)`
+      );
       invalidatePosts();
     },
     onError: (error: Error) => {
-      addToast({
-        type: 'error',
-        title: 'Erro ao rejeitar posts',
-        description: error.message,
-      });
+      toast.error('Erro ao rejeitar posts', error.message);
     },
   });
 
