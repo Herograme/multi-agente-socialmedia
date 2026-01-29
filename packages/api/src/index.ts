@@ -1,3 +1,9 @@
+import { config } from 'dotenv';
+import { resolve } from 'path';
+
+// Load environment variables from root .env file
+config({ path: resolve(__dirname, '../../../.env') });
+
 import { createServer } from './server';
 
 const PORT = process.env['PORT'] ? parseInt(process.env['PORT'], 10) : 3001;
