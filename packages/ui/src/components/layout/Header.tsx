@@ -1,10 +1,10 @@
-import { Menu, Wifi, WifiOff } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
 import { useAppStore } from '../../stores/app.store';
+import { ConnectionStatus } from '../websocket/ConnectionStatus';
 
 export function Header() {
-  const { isConnected, toggleSidebar } = useAppStore();
+  const { toggleSidebar } = useAppStore();
 
   return (
     <header className="fixed top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
@@ -21,19 +21,7 @@ export function Header() {
         </div>
 
         <div className="ml-auto flex items-center gap-4">
-          <Badge variant={isConnected ? 'success' : 'destructive'} className="gap-1">
-            {isConnected ? (
-              <>
-                <Wifi className="h-3 w-3" />
-                Conectado
-              </>
-            ) : (
-              <>
-                <WifiOff className="h-3 w-3" />
-                Offline
-              </>
-            )}
-          </Badge>
+          <ConnectionStatus showLabel />
         </div>
       </div>
     </header>
