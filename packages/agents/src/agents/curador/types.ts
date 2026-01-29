@@ -28,6 +28,34 @@ export interface ContentSource {
 }
 
 /**
+ * Code snippet extracted from content
+ */
+export interface CodeSnippet {
+  code: string;
+  language?: string;
+  context?: string;
+}
+
+/**
+ * Platform-specific generated content
+ */
+export interface PlatformContent {
+  instagram?: {
+    caption: string;
+    hashtags: string[];
+    imagePrompt?: string;
+  };
+  linkedin?: {
+    post: string;
+    hashtags: string[];
+  };
+  twitter?: {
+    thread: string[];
+    hashtags: string[];
+  };
+}
+
+/**
  * Curated and processed content
  */
 export interface CuratedContent {
@@ -45,6 +73,14 @@ export interface CuratedContent {
     readingTime: number; // minutes
     language: string;
   };
+  /** Platform-specific generated content */
+  platformContent?: PlatformContent;
+  /** Code snippets extracted from references */
+  codeSnippets?: CodeSnippet[];
+  /** Content generation source */
+  generatedBy?: 'llm' | 'fallback';
+  /** LLM provider used */
+  llmProvider?: string;
 }
 
 /**

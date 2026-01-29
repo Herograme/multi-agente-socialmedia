@@ -204,7 +204,7 @@ describe('CuradorAgent', () => {
 
       expect(result.data?.result.stats).toEqual({
         totalProcessed: 1,
-        totalCurated: 0,
+        totalCurated: 1, // Now curates content using fallback templates when no LLM
         totalFiltered: 0,
         processingTimeMs: expect.any(Number),
       });

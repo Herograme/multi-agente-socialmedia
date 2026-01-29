@@ -2,8 +2,12 @@
  * Factory function for CuradorAgent
  */
 
-import { CuradorAgent } from './curador-agent';
+import { CuradorAgent, type CuradorDependencies } from './curador-agent';
 import type { CuradorConfig, ContentSource } from './types';
+import { createLLMServiceFromEnv } from '../../services/llm';
+import { createContentSearchService } from '../../services/search';
+import { CodeExtractor } from '../../services/extractors';
+import { ContentRanker } from '../../services/ranking';
 
 /**
  * Default configuration for CuradorAgent
@@ -79,10 +83,12 @@ function validateConfig(config: CuradorConfig): void {
  * Create a new CuradorAgent instance
  *
  * @param config - Partial configuration (will be merged with defaults)
+ * @param dependencies - Optional dependencies to inject
  * @returns Configured CuradorAgent instance
  */
 export function createCuradorAgent(
-  config?: Partial<CuradorConfig>
+  config?: Partial<CuradorConfig>,
+  dependencies?: Partial<CuradorDependencies>
 ): CuradorAgent {
   const mergedConfig: CuradorConfig = {
     ...DEFAULT_CONFIG,
@@ -94,7 +100,46 @@ export function createCuradorAgent(
 
   validateConfig(mergedConfig);
 
-  return new CuradorAgent(mergedConfig);
+  // Build dependencies - use provided or create defaults
+  const resolvedDependencies: CuradorDependencies = {
+    llmService: dependencies?.llmService ?? createLLMServiceFromEnv(),
+    searchService: dependencies?.searchService,
+    ranker: dependencies?.ranker,
+    codeExtractor: dependencies?.codeExtractor,
+  };
+
+  return new CuradorAgent(mergedConfig, resolvedDependencies);
+}
+
+/**
+ * Create a fully-configured CuradorAgent with all dependencies
+ * This includes search service, code extractor, and content ranker
+ *
+ * @param config - Partial configuration (will be merged with defaults)
+ * @param keywords - Keywords for content ranking
+ * @returns Fully configured CuradorAgent instance
+ */
+export function createFullCuradorAgent(
+  config?: Partial<CuradorConfig>,
+  keywords: string[] = ['tech', 'programming', 'ai', 'development']
+): CuradorAgent {
+  const mergedConfig: CuradorConfig = {
+    ...DEFAULT_CONFIG,
+    ...config,
+    sources: config?.sources ?? DEFAULT_CONFIG.sources,
+    categories: config?.categories ?? DEFAULT_CONFIG.categories,
+  };
+
+  validateConfig(mergedConfig);
+
+  const dependencies: CuradorDependencies = {
+    llmService: createLLMServiceFromEnv(),
+    searchService: createContentSearchService(),
+    ranker: new ContentRanker(keywords),
+    codeExtractor: new CodeExtractor(),
+  };
+
+  return new CuradorAgent(mergedConfig, dependencies);
 }
 
 /**

@@ -21,3 +21,6 @@ export * from './cleanup';
 
 // Quality Gate service (Story 4.6)
 export * from './quality-gate';
+
+// LLM service (Story 6.x)
+export * from './llm';
