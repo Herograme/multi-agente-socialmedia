@@ -15,12 +15,14 @@ import { LogViewer } from '../components/execution/LogViewer';
 import { OutputPreview } from '../components/execution/OutputPreview';
 import { ExecutionHeader } from '../components/execution/ExecutionHeader';
 import { ExecutionSummary } from '../components/execution/ExecutionSummary';
-import type {
-  AgentNodeState,
-  ExecutionLogEntry,
-  PipelineOutputs,
-  ExecutionViewConfig,
-  AgentId,
+import {
+  Platform,
+  PostStatus,
+  type AgentNodeState,
+  type ExecutionLogEntry,
+  type PipelineOutputs,
+  type ExecutionViewConfig,
+  type AgentId,
 } from '@social-content/shared';
 
 // Test utilities
@@ -53,7 +55,7 @@ const mockDefaultAgentState: AgentNodeState = {
 
 const mockDefaultConfig: ExecutionViewConfig = {
   numPosts: 3,
-  platforms: ['instagram', 'linkedin'],
+  platforms: [Platform.INSTAGRAM, Platform.LINKEDIN],
   includeVisual: true,
   qualityThreshold: 6.0,
 };
@@ -454,7 +456,7 @@ describe('ExecutionSummary', () => {
         executionId: 'exec-1',
         topicId: 'topic-1',
         textInstagram: 'Test post',
-        status: 'pending',
+        status: PostStatus.PENDING,
         createdAt: new Date(),
         assets: [],
         score: { id: 's1', postId: '1', overallScore: 8.5, criteriaBreakdown: [], feedback: '', approved: true, createdAt: new Date() },
@@ -464,7 +466,7 @@ describe('ExecutionSummary', () => {
         executionId: 'exec-1',
         topicId: 'topic-2',
         textLinkedin: 'Test post 2',
-        status: 'pending',
+        status: PostStatus.PENDING,
         createdAt: new Date(),
         assets: [],
         score: { id: 's2', postId: '2', overallScore: 7.5, criteriaBreakdown: [], feedback: '', approved: true, createdAt: new Date() },

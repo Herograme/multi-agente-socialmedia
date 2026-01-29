@@ -26,10 +26,10 @@ export function PipelineFlow({ agents }: PipelineFlowProps) {
         {AGENTS.map((agentConfig, index) => (
           <div key={agentConfig.id} className="flex items-center">
             <AgentNode config={agentConfig} state={getAgentState(agentConfig.id)} />
-            {index < AGENTS.length - 1 && (
+            {index < AGENTS.length - 1 && AGENTS[index + 1] && (
               <AgentConnector
                 fromStatus={getAgentState(agentConfig.id).status}
-                toStatus={getAgentState(AGENTS[index + 1].id).status}
+                toStatus={getAgentState(AGENTS[index + 1]!.id).status}
               />
             )}
           </div>
@@ -41,10 +41,10 @@ export function PipelineFlow({ agents }: PipelineFlowProps) {
         {AGENTS.map((agentConfig, index) => (
           <div key={agentConfig.id} className="flex flex-col items-center w-full max-w-sm">
             <AgentNode config={agentConfig} state={getAgentState(agentConfig.id)} compact />
-            {index < AGENTS.length - 1 && (
+            {index < AGENTS.length - 1 && AGENTS[index + 1] && (
               <AgentConnector
                 fromStatus={getAgentState(agentConfig.id).status}
-                toStatus={getAgentState(AGENTS[index + 1].id).status}
+                toStatus={getAgentState(AGENTS[index + 1]!.id).status}
                 vertical
               />
             )}

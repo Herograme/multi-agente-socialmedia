@@ -307,7 +307,7 @@ describe.skipIf(SKIP_BROWSER_TESTS)('HTMLRendererService rendering', () => {
 
     // Higher scale factor should produce larger image
     expect(result2.buffer.length).toBeGreaterThan(result1.buffer.length);
-  });
+  }, 15000); // Extended timeout for ARM64/Chromium snap
 
   it('should return complete HTMLRenderResult with metadata', async () => {
     const result: HTMLRenderResult = await renderer.render(SIMPLE_HTML, {
@@ -462,7 +462,7 @@ describe.skipIf(SKIP_BROWSER_TESTS)('HTMLRendererService lifecycle', () => {
     expect(metrics.avgRenderTimeMs).toBeGreaterThan(0);
 
     await renderer.dispose();
-  });
+  }, 15000); // Extended timeout for ARM64/Chromium snap
 
   it('should cleanup browser on dispose', async () => {
     const renderer = createHTMLRendererService();

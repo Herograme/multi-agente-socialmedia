@@ -10,6 +10,7 @@ import { ExecutionRepository } from './execution-repository';
 import { PostRepository } from './post-repository';
 import { AssetRepository } from './asset-repository';
 import { ScoreRepository } from './score-repository';
+import { TemplateRepository } from './template-repository';
 
 /**
  * Container for all repository instances.
@@ -19,6 +20,7 @@ export interface Repositories {
   posts: PostRepository;
   assets: AssetRepository;
   scores: ScoreRepository;
+  templates: TemplateRepository;
 }
 
 /**
@@ -33,6 +35,7 @@ export function createRepositories(db?: Database.Database): Repositories {
     posts: new PostRepository(db),
     assets: new AssetRepository(db),
     scores: new ScoreRepository(db),
+    templates: new TemplateRepository(db),
   };
 }
 
@@ -41,3 +44,4 @@ export { ExecutionRepository } from './execution-repository';
 export { PostRepository } from './post-repository';
 export { AssetRepository } from './asset-repository';
 export { ScoreRepository } from './score-repository';
+export { TemplateRepository } from './template-repository';

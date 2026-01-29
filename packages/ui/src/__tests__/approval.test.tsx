@@ -36,7 +36,7 @@ function createWrapper() {
     },
   });
 
-  return ({ children }: { children: React.ReactNode }) => (
+  const Wrapper = ({ children }: { children: React.ReactNode }) => (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <ToastProvider>
@@ -45,6 +45,8 @@ function createWrapper() {
       </BrowserRouter>
     </QueryClientProvider>
   );
+  Wrapper.displayName = 'TestWrapper';
+  return Wrapper;
 }
 
 describe('ApprovalButtons', () => {

@@ -265,6 +265,10 @@ export class PDFService {
    */
   private async getBrowser(): Promise<Browser> {
     if (!this.browser || !this.browser.isConnected()) {
+      // Use system chromium if PUPPETEER_EXECUTABLE_PATH is set
+      // This is useful for ARM64 environments where bundled Chrome doesn't work
+      const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+
       this.browser = await puppeteer.launch({
         headless: true,
         args: [
@@ -272,6 +276,7 @@ export class PDFService {
           '--disable-setuid-sandbox',
           '--disable-dev-shm-usage',
         ],
+        ...(executablePath && { executablePath }),
       });
     }
     return this.browser;

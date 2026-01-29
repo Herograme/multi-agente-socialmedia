@@ -70,7 +70,7 @@ describe('Skeleton Patterns', () => {
   });
 
   it('should render PostsPageSkeleton', () => {
-    const { container } = render(<PostsPageSkeleton />);
+    render(<PostsPageSkeleton />);
     expect(screen.getByTestId('posts-grid-skeleton')).toBeInTheDocument();
   });
 

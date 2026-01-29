@@ -11,7 +11,7 @@ import {
   runTestMigrations,
   createRepositories,
 } from '../database';
-import { resetMetricsService, getMetricsService } from '../services/metrics.service';
+import { getMetricsService } from '../services/metrics.service';
 import { dashboardMetricsRoutes } from '../routes/metrics/dashboard';
 
 describe('Dashboard Metrics API', () => {

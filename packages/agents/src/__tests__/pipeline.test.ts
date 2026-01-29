@@ -372,7 +372,7 @@ describe('PipelineOrchestrator', () => {
 
       expect(result.status).toBe(PipelineStatus.FAILED);
       expect(result.errors[0]?.message).toContain('timed out');
-    });
+    }, 15000); // Extended timeout for timeout test
 
     it('should use step-specific timeout over default', async () => {
       config.defaultTimeout = 10000;
@@ -388,7 +388,7 @@ describe('PipelineOrchestrator', () => {
       const result = await orchestrator.run({});
 
       expect(result.status).toBe(PipelineStatus.FAILED);
-    });
+    }, 10000); // Extended timeout for slow test agent
   });
 
   describe('Cancellation', () => {
