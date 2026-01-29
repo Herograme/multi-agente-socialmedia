@@ -26,12 +26,16 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@langchain/core": "^0.3.0",
+    "@langchain/langgraph": "^0.2.0",
     "@social-content/shared": "workspace:*",
     "puppeteer": "^24.36.1",
+    "sharp": "^0.33.0",
     "shiki": "^3.21.0"
   },
   "devDependencies": {
     "@types/node": "^20.19.30",
+    "@types/sharp": "^0.32.0",
     "image-size": "^2.0.2",
     "vitest": "^1.2.0"
   }

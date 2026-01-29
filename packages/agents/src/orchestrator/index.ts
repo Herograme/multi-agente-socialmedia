@@ -8,6 +8,9 @@ export {
   PipelineStatus,
   StepStatus,
 } from './types';
+
+// Retry and Error Handling (Story 4.5)
+export * from './retry';
 export type {
   PipelineConfig,
   PipelineContext,
@@ -63,6 +66,15 @@ export {
   carouselToPDFAdapter,
   extractAssetsFromResult,
   DEFAULT_VISUAL_PIPELINE_CONFIG,
+  // Full Pipeline (Story 4.7)
+  createFullPipeline,
+  runFullPipeline,
+  createFullPipelineConfig,
+  getFullPipelineConfig,
+  FULL_PIPELINE_CONFIG,
+  DEFAULT_FULL_PIPELINE_OPTIONS,
+  DEFAULT_FULL_PIPELINE_CONFIG,
+  FULL_PIPELINE_STEPS,
 } from './pipelines';
 export type {
   ResearchCurateInput,
@@ -81,4 +93,21 @@ export type {
   CleanupResult,
   CleanupFailure,
   CodeBlock,
+  // Full Pipeline types (Story 4.7)
+  FullPipelineInput,
+  FullPipelineOptions,
+  FullPipelineOutput,
+  FullPipelineCallbacks,
+  ExecutionSummary,
+  GeneratedPost,
+  ExecutionRecord,
+  ExecutionStatus,
+  ExecutionFilters,
+  ExecutionStats,
+  PipelineStepProgress,
+  FullPipelineConfig,
+  FullPipelineStepName,
 } from './pipelines';
+
+// LangGraph Orchestrator (Story 4.4)
+export * from './langgraph';
