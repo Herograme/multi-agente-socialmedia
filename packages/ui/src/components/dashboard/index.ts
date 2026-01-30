@@ -11,3 +11,4 @@ export { PostPreviewCard, type PostPreviewCardProps } from './PostPreviewCard';
 export { RecentPosts, type RecentPostsProps } from './RecentPosts';
 export { ExecutionControls, type ExecutionControlsProps } from './ExecutionControls';
 export { DashboardSkeleton } from './DashboardSkeleton';
+export { OnboardingChecklist } from './OnboardingChecklist';

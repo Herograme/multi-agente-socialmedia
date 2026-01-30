@@ -6,6 +6,11 @@
 import { useState } from 'react';
 import { Play, Square, RotateCcw, Settings } from 'lucide-react';
 import { Button } from '../ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '../ui/tooltip';
 import { cn } from '../../lib/utils';
 import type { PipelineStatus, PipelineRunRequest } from '../../lib/api';
 
@@ -104,15 +109,23 @@ export function PipelineControls({
           </Button>
         )}
 
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setShowSettings(!showSettings)}
-          className={cn(showSettings && 'bg-gray-100 dark:bg-gray-800')}
-          disabled={isRunning}
-        >
-          <Settings className="h-4 w-4" />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowSettings(!showSettings)}
+              className={cn(showSettings && 'bg-gray-100 dark:bg-gray-800')}
+              disabled={isRunning}
+            >
+              <Settings className="h-4 w-4" />
+              <span className="sr-only">Configuracoes do Pipeline</span>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Configuracoes do Pipeline</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
 
       {/* Settings panel */}

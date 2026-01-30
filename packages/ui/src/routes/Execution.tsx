@@ -300,8 +300,15 @@ export function Execution() {
             <CardTitle>Pipeline de Agentes</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center justify-center py-12 text-muted-foreground">
-              <p>Nenhuma execucao em andamento. Inicie um pipeline pelo Dashboard.</p>
+            <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+              <p className="mb-4">Nenhuma execucao em andamento.</p>
+              <button
+                onClick={() => navigate('/pipeline')}
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                Ir para Pipeline
+              </button>
             </div>
           </CardContent>
         </Card>

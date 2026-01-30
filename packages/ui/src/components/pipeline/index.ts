@@ -10,3 +10,6 @@ export type { PipelineControlsProps } from './PipelineControls';
 
 export { PipelineResults } from './PipelineResults';
 export type { PipelineResultsProps } from './PipelineResults';
+
+export { PipelineStepper } from './PipelineStepper';
+export type { PipelineStepperProps, StepperStep } from './PipelineStepper';

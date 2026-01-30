@@ -8,8 +8,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import { PipelineProgress } from '../components/pipeline/PipelineProgress';
 import { PipelineControls } from '../components/pipeline/PipelineControls';
 import { PipelineResults } from '../components/pipeline/PipelineResults';
+import { PipelineStepper } from '../components/pipeline/PipelineStepper';
 import { usePipeline } from '../hooks/usePipeline';
-import type { PipelineStatus } from '../lib/api';
+import type { PipelineStatus, StepStatus } from '../lib/api';
 
 export function Pipeline() {
   const {
@@ -116,22 +117,40 @@ export function Pipeline() {
         </div>
       ) : null}
 
+      {/* Visual Stepper - shows during execution */}
+      {hasProgress && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Fluxo do Pipeline</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <PipelineStepper
+              steps={state.steps.map((step) => ({
+                id: step.name,
+                name: step.name,
+                status: step.status as StepStatus,
+                duration: step.duration,
+                error: step.error,
+              }))}
+            />
+          </CardContent>
+        </Card>
+      )}
+
       {/* Info panel when idle */}
       {!state.status ? (
         <Card>
           <CardContent className="py-6">
-            <div className="text-center space-y-3">
+            <div className="text-center space-y-4">
               <Workflow className="h-12 w-12 mx-auto text-gray-400" />
               <h3 className="font-medium">Pipeline de Pesquisa e Curadoria</h3>
-              <p className="text-sm text-gray-500 max-w-md mx-auto">
+              <p className="text-sm text-gray-500 max-w-md mx-auto mb-4">
                 O pipeline executa automaticamente os seguintes passos:
               </p>
-              <ol className="text-sm text-gray-600 dark:text-gray-400 list-decimal list-inside text-left max-w-xs mx-auto space-y-1">
-                <li>Pesquisa tendencias em Dev.to, Hacker News e Reddit</li>
-                <li>Deduplica e ordena os resultados</li>
-                <li>Cura o conteudo para diferentes plataformas</li>
-                <li>Gera posts prontos para Instagram, LinkedIn e Twitter</li>
-              </ol>
+              <PipelineStepper steps={[]} className="mb-4" />
+              <p className="text-xs text-gray-400 max-w-sm mx-auto">
+                Clique em "Pesquisar e Curar" para iniciar a execucao automatizada.
+              </p>
             </div>
           </CardContent>
         </Card>

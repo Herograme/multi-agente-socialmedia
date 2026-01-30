@@ -59,7 +59,7 @@ export function ApprovalButtons({
   return (
     <div className="flex items-center gap-2">
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Button
             size={size}
             variant="outline"
@@ -72,16 +72,16 @@ export function ApprovalButtons({
             ) : (
               <Check className="h-4 w-4" />
             )}
-            <span className="sr-only">Aprovar</span>
+            <span className="hidden sm:inline ml-1">Aprovar</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Aprovar (A)</p>
+          <p>Aprovar post (A)</p>
         </TooltipContent>
       </Tooltip>
 
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Button
             size={size}
             variant="outline"
@@ -90,11 +90,11 @@ export function ApprovalButtons({
             disabled={disabled}
           >
             <X className="h-4 w-4" />
-            <span className="sr-only">Rejeitar</span>
+            <span className="hidden sm:inline ml-1">Rejeitar</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Rejeitar (R)</p>
+          <p>Rejeitar post (R)</p>
         </TooltipContent>
       </Tooltip>
     </div>

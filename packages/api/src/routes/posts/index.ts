@@ -4,109 +4,9 @@ import {
   type AssetRecord,
   type AssetDbType,
 } from '../../repositories/assets.repository';
-
-// Types for mock data
-type PostStatus = 'pending' | 'approved' | 'rejected';
-
-interface MockPost {
-  id: string;
-  executionId: string;
-  topicId: string;
-  textInstagram: string;
-  textLinkedin: string;
-  status: PostStatus;
-  createdAt: Date;
-  assets: unknown[];
-  score: {
-    id: string;
-    postId: string;
-    overallScore: number;
-    criteriaBreakdown: Array<{
-      name: string;
-      score: number;
-      weight: number;
-    }>;
-    feedback: string;
-    approved: boolean;
-    createdAt: Date;
-  };
-}
-
-// Mock data for development - in production this would come from a database
-const mockPosts = new Map<string, MockPost>([
-  [
-    'post-001',
-    {
-      id: 'post-001',
-      executionId: 'exec-001',
-      topicId: 'topic-001',
-      textInstagram:
-        'Voce sabia que TypeScript 5.4 traz novos recursos incriveis? Confira o carrossel para aprender mais sobre NoInfer e outras novidades! #TypeScript #JavaScript #Dev',
-      textLinkedin:
-        'TypeScript 5.4 acabou de ser lancado com recursos que vao transformar sua experiencia de desenvolvimento.\n\nDestaque para o NoInfer utility type que resolve problemas comuns de inferencia de tipos.\n\nDeslize para ver os principais recursos.',
-      status: 'pending',
-      createdAt: new Date('2026-01-28T10:00:00Z'),
-      assets: [],
-      score: {
-        id: 'score-001',
-        postId: 'post-001',
-        overallScore: 85,
-        criteriaBreakdown: [
-          { name: 'Relevancia', score: 90, weight: 0.3 },
-          { name: 'Clareza', score: 85, weight: 0.25 },
-          { name: 'Engajamento', score: 80, weight: 0.25 },
-          { name: 'Formatacao', score: 85, weight: 0.2 },
-        ],
-        feedback: 'Conteudo relevante e bem estruturado. Considere adicionar mais emojis para aumentar engajamento.',
-        approved: true,
-        createdAt: new Date('2026-01-28T10:05:00Z'),
-      },
-    },
-  ],
-]);
-
-// Mock assets for development
-const mockAssets = new Map([
-  [
-    'post-001',
-    {
-      carousel: [
-        {
-          id: 'asset-001',
-          postId: 'post-001',
-          type: 'carousel_slide' as const,
-          path: '/assets/post-001/slide-1.png',
-          sizeBytes: 102400,
-          createdAt: new Date('2026-01-28T10:02:00Z'),
-        },
-        {
-          id: 'asset-002',
-          postId: 'post-001',
-          type: 'carousel_slide' as const,
-          path: '/assets/post-001/slide-2.png',
-          sizeBytes: 98304,
-          createdAt: new Date('2026-01-28T10:02:00Z'),
-        },
-        {
-          id: 'asset-003',
-          postId: 'post-001',
-          type: 'carousel_slide' as const,
-          path: '/assets/post-001/slide-3.png',
-          sizeBytes: 110592,
-          createdAt: new Date('2026-01-28T10:02:00Z'),
-        },
-      ],
-      pdf: {
-        id: 'asset-pdf-001',
-        postId: 'post-001',
-        type: 'pdf' as const,
-        path: '/assets/post-001/document.pdf',
-        sizeBytes: 524288,
-        createdAt: new Date('2026-01-28T10:03:00Z'),
-      },
-    },
-  ],
-]);
+import { PostRepository } from '../../database/repositories/post-repository';
+import { getDatabase } from '../../database/connection';
+import { PostStatus } from '../../database/types';
 
 /**
  * Asset response format (Story 3.7)
@@ -138,10 +38,12 @@ export async function postsRoutes(
   fastify: FastifyInstance,
   _opts: FastifyPluginOptions
 ) {
-  // Get the assets repository (Story 3.7)
+  // Get repositories
   const assetsRepo = getAssetsRepository();
+  const db = getDatabase();
+  const postRepo = new PostRepository(db);
 
-  // Get all posts
+  // Get all posts (using database)
   fastify.get('/api/posts', async (request, _reply) => {
     const { page = 1, limit = 10, status } = request.query as {
       page?: number;
@@ -149,23 +51,40 @@ export async function postsRoutes(
       status?: string;
     };
 
-    let posts = Array.from(mockPosts.values());
+    const pageNum = Number(page);
+    const limitNum = Number(limit);
+    const offset = (pageNum - 1) * limitNum;
 
-    // Filter by status if provided
-    if (status) {
-      posts = posts.filter((p) => p.status === status);
+    let posts;
+    let total;
+
+    if (status && Object.values(PostStatus).includes(status as PostStatus)) {
+      posts = postRepo.findByStatus(status as PostStatus);
+      total = posts.length;
+      posts = posts.slice(offset, offset + limitNum);
+    } else {
+      posts = postRepo.findAll({ limit: limitNum, offset });
+      total = postRepo.count();
     }
 
-    // Pagination
-    const startIndex = (Number(page) - 1) * Number(limit);
-    const endIndex = startIndex + Number(limit);
-    const paginatedPosts = posts.slice(startIndex, endIndex);
+    // Map to frontend expected format
+    const mappedPosts = posts.map(post => ({
+      id: post.id,
+      executionId: post.execution_id,
+      topicId: post.topic,
+      textInstagram: post.text_ig,
+      textLinkedin: post.text_linkedin,
+      status: post.status,
+      rejectionReason: post.rejection_reason,
+      createdAt: post.created_at,
+      updatedAt: post.updated_at,
+    }));
 
     return {
-      posts: paginatedPosts,
-      total: posts.length,
-      page: Number(page),
-      limit: Number(limit),
+      posts: mappedPosts,
+      total,
+      page: pageNum,
+      limit: limitNum,
     };
   });
 
@@ -173,15 +92,31 @@ export async function postsRoutes(
   fastify.get<{ Params: { id: string } }>('/api/posts/:id', async (request, reply) => {
     const { id } = request.params;
 
-    const post = mockPosts.get(id);
+    const post = postRepo.findWithAssets(id);
     if (!post) {
       return reply.status(404).send({ error: 'Post not found' });
     }
 
-    const assets = mockAssets.get(id) || { carousel: [], pdf: null };
+    // Map to frontend expected format
+    const mappedPost = {
+      id: post.id,
+      executionId: post.execution_id,
+      topicId: post.topic,
+      textInstagram: post.text_ig,
+      textLinkedin: post.text_linkedin,
+      status: post.status,
+      rejectionReason: post.rejection_reason,
+      createdAt: post.created_at,
+      updatedAt: post.updated_at,
+    };
+
+    const assets = {
+      carousel: post.assets?.filter(a => a.type === 'carousel') || [],
+      pdf: post.assets?.find(a => a.type === 'pdf') || null,
+    };
 
     return {
-      post,
+      post: mappedPost,
       assets,
     };
   });
@@ -193,16 +128,28 @@ export async function postsRoutes(
       const { id } = request.params;
       const { status } = request.body;
 
-      const post = mockPosts.get(id);
+      const post = postRepo.findById(id);
       if (!post) {
         return reply.status(404).send({ error: 'Post not found' });
       }
 
-      // Update mock data
-      post.status = status;
-      mockPosts.set(id, post);
+      const dbStatus = status === 'approved' ? PostStatus.APPROVED : PostStatus.REJECTED;
+      const updated = postRepo.update(id, { status: dbStatus });
 
-      return post;
+      if (!updated) {
+        return reply.status(500).send({ error: 'Failed to update post' });
+      }
+
+      return {
+        id: updated.id,
+        executionId: updated.execution_id,
+        topicId: updated.topic,
+        textInstagram: updated.text_ig,
+        textLinkedin: updated.text_linkedin,
+        status: updated.status,
+        createdAt: updated.created_at,
+        updatedAt: updated.updated_at,
+      };
     }
   );
 
@@ -210,34 +157,29 @@ export async function postsRoutes(
   fastify.get<{ Params: { id: string } }>('/api/assets/:id', async (request, reply) => {
     const { id } = request.params;
 
-    // Find asset across all posts (postId not used for mock data)
-    for (const assets of mockAssets.values()) {
-      // Check carousel assets
-      const carouselAsset = assets.carousel.find((a) => a.id === id);
-      if (carouselAsset) {
-        // In production, serve actual file
-        // For now, return a placeholder response
-        reply.header('Content-Type', 'image/png');
-        reply.header('Content-Length', carouselAsset.sizeBytes);
-        return reply.send(Buffer.alloc(0)); // Placeholder
+    try {
+      const asset = await assetsRepo.findById(id);
+      if (!asset) {
+        return reply.status(404).send({ error: 'Asset not found' });
       }
 
-      // Check PDF asset
-      if (assets.pdf?.id === id) {
-        reply.header('Content-Type', 'application/pdf');
-        reply.header('Content-Length', assets.pdf.sizeBytes);
-        return reply.send(Buffer.alloc(0)); // Placeholder
-      }
+      // Set appropriate content type based on asset type
+      const contentType = asset.mimeType || 'application/octet-stream';
+      reply.header('Content-Type', contentType);
+      reply.header('Content-Length', asset.size);
+
+      // In production, serve actual file from asset.path
+      return reply.send(Buffer.alloc(0)); // Placeholder
+    } catch {
+      return reply.status(404).send({ error: 'Asset not found' });
     }
-
-    return reply.status(404).send({ error: 'Asset not found' });
   });
 
   // Get asset thumbnail
   fastify.get<{ Params: { id: string } }>(
     '/api/assets/:id/thumbnail',
     async (_request, reply) => {
-      // In production, generate/serve actual thumbnail based on _request.params.id
+      // In production, generate/serve actual thumbnail
       reply.header('Content-Type', 'image/png');
       return reply.send(Buffer.alloc(0)); // Placeholder
     }
@@ -249,13 +191,13 @@ export async function postsRoutes(
     async (request, reply) => {
       const { id } = request.params;
 
-      const post = mockPosts.get(id);
+      const post = postRepo.findById(id);
       if (!post) {
         return reply.status(404).send({ error: 'Post not found' });
       }
 
-      const assets = mockAssets.get(id);
-      if (!assets?.carousel || assets.carousel.length === 0) {
+      const assets = await assetsRepo.findByPostIdAndType(id, 'carousel');
+      if (!assets || assets.length === 0) {
         return reply.status(404).send({ error: 'No carousel assets found' });
       }
 
@@ -265,21 +207,6 @@ export async function postsRoutes(
         'Content-Disposition',
         `attachment; filename="carousel-${id}.zip"`
       );
-
-      // In production, create actual ZIP file using archiver
-      // For now, return a placeholder that indicates the endpoint works
-      // The actual ZIP generation would look like:
-      //
-      // const archive = archiver('zip', { zlib: { level: 9 } });
-      // archive.pipe(reply.raw);
-      //
-      // for (let i = 0; i < carouselAssets.length; i++) {
-      //   const asset = carouselAssets[i];
-      //   const filePath = path.join(process.cwd(), asset.path);
-      //   archive.append(createReadStream(filePath), { name: `slide-${i + 1}.png` });
-      // }
-      //
-      // await archive.finalize();
 
       // Placeholder response - minimal valid ZIP file
       const minimalZip = Buffer.from([

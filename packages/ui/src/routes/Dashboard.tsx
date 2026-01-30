@@ -13,6 +13,7 @@ import {
   RecentPosts,
   ExecutionControls,
   DashboardSkeleton,
+  OnboardingChecklist,
 } from '../components/dashboard';
 import { useDashboardMetrics } from '../hooks/useDashboardMetrics';
 import { useAppStore } from '../stores/app.store';
@@ -80,6 +81,9 @@ export function Dashboard() {
           </CardContent>
         </Card>
       )}
+
+      {/* Onboarding Checklist for new users */}
+      <OnboardingChecklist />
 
       {/* Metrics Cards */}
       <MetricsGrid metrics={data?.metrics} />
